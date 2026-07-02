@@ -1339,7 +1339,7 @@
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
-.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#1a140d 0%,#0e0a07 55%,#070504 100%);padding:120px 0 130px;}
+.cc-sec{position:relative;width:1672px;overflow:hidden;background:#efe6d6;padding:120px 0 130px;}
 .cc-sec::before{content:"";position:absolute;inset:0;background:
   radial-gradient(circle at 8% 6%,rgba(214,168,90,0.14) 0%,transparent 28%),
   radial-gradient(circle at 92% 8%,rgba(200,150,70,0.10) 0%,transparent 30%),
@@ -1363,14 +1363,14 @@
 .cc-orn-line{width:72px;height:1px;background:linear-gradient(90deg,transparent,rgba(208,163,90,0.65),transparent);}
 
 /* --- PANELS --- */
-.cc-panel{position:relative;margin-top:34px;border-radius:22px;overflow:hidden;background:#151210;box-shadow:0 26px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(210,170,90,0.18),inset 0 1px 0 rgba(255,255,255,0.05);}
+.cc-panel{position:relative;margin-top:34px;border-radius:22px;overflow:hidden;background:#241c14;box-shadow:0 26px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(210,170,90,0.18),inset 0 1px 0 rgba(255,255,255,0.05);}
 .cc-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(210,170,90,0.05) 0%,transparent 60%);pointer-events:none;}
 .cc-panel-grid{position:relative;display:grid;grid-template-columns:340px 1fr;gap:0;min-height:360px;z-index:1;}
 .cc-panel-grid.rev{grid-template-columns:1fr 340px;}
 .cc-panel-grid.wide{grid-template-columns:1.05fr 0.95fr;}
 
 /* Dark stat card */
-.cc-stat{position:relative;padding:52px 40px;background:linear-gradient(160deg,#1e1a15 0%,#120e0a 100%);display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:1px solid rgba(210,170,90,0.14);}
+.cc-stat{position:relative;padding:56px 44px;background:linear-gradient(160deg,#2c2318 0%,#1d160e 100%);display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:1px solid rgba(210,170,90,0.14);}
 .cc-panel-grid.rev .cc-stat{border-right:none;border-left:1px solid rgba(210,170,90,0.14);}
 .cc-stat::before{content:"";position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:1px solid rgba(210,170,90,0.14);border-radius:8px;pointer-events:none;}
 .cc-stat::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(230,180,100,0.10) 0%,transparent 60%);pointer-events:none;}
@@ -1381,7 +1381,7 @@
 .cc-badge svg{width:12px;height:12px;flex:none;}
 
 /* Parchment content area */
-.cc-board{position:relative;padding:44px 40px;background:linear-gradient(180deg,#f2ede0 0%,#eae2cf 100%);background-image:
+.cc-board{position:relative;padding:48px 44px;background:linear-gradient(180deg,#f2ede0 0%,#eae2cf 100%);background-image:
   radial-gradient(circle at 20% 15%,rgba(160,110,50,0.06) 0%,transparent 40%),
   radial-gradient(circle at 85% 80%,rgba(160,110,50,0.05) 0%,transparent 40%);
   box-shadow:inset 0 0 0 1px rgba(90,60,20,0.08),inset 0 2px 6px rgba(90,60,20,0.06);}
@@ -1389,12 +1389,12 @@
 .cc-board-title{position:relative;font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:3.5px;color:#7a5a2e;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
 .cc-board-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(122,90,46,0.35),transparent);}
 
-.cc-tiles{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-.cc-tile{position:relative;background:linear-gradient(180deg,#fbf6ea 0%,#f2ecdc 100%);border:1px solid rgba(90,60,20,0.14);border-radius:9px;padding:20px 12px;min-height:74px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:600;font-size:15px;line-height:1.25;color:#2b241b;box-shadow:0 2px 4px rgba(90,60,20,0.06),inset 0 1px 0 rgba(255,255,255,0.7);transition:transform .25s ease,box-shadow .25s ease;}
+.cc-tiles{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+.cc-tile{position:relative;background:linear-gradient(180deg,#fbf6ea 0%,#f2ecdc 100%);border:1px solid rgba(90,60,20,0.14);border-radius:9px;padding:26px 20px;min-height:88px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:600;font-size:15px;line-height:1.25;color:#2b241b;box-shadow:0 2px 4px rgba(90,60,20,0.06),inset 0 1px 0 rgba(255,255,255,0.7);transition:transform .25s ease,box-shadow .25s ease;}
 .cc-tile:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(90,60,20,0.15),inset 0 1px 0 rgba(255,255,255,0.7);}
 
 /* Person tile */
-.cc-tile-person{flex-direction:column;gap:8px;padding:16px 8px 14px;min-height:98px;}
+.cc-tile-person{flex-direction:column;gap:8px;padding:22px 16px 20px;min-height:112px;}
 .cc-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;}
 .cc-avatar svg{width:22px;height:22px;color:#fbf0d5;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
@@ -1407,7 +1407,7 @@
 .cc-cat-name{font-size:14px;font-weight:600;color:#2b241b;line-height:1.2;}
 
 /* Panel 4 right column */
-.cc-summary{position:relative;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;gap:20px;background:linear-gradient(160deg,#1e1a15 0%,#0f0c09 100%);}
+.cc-summary{position:relative;padding:56px 46px;display:flex;flex-direction:column;justify-content:center;gap:20px;background:linear-gradient(160deg,#2c2318 0%,#1a130c 100%);}
 .cc-summary::before{content:"";position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:1px solid rgba(210,170,90,0.14);border-radius:8px;pointer-events:none;}
 .cc-summary-eyebrow{font-family:'Manrope',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:#d0a35a;text-transform:uppercase;}
 .cc-summary-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:52px;line-height:1.05;color:#f3ead8;margin:0;letter-spacing:-0.5px;}
@@ -1457,7 +1457,7 @@
   .cc-stat-label{font-size:18px;}
   .cc-board{padding:28px 20px;}
   .cc-tiles{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .cc-tile{font-size:14px;padding:16px 8px;min-height:66px;}
+  .cc-tile{font-size:14px;padding:20px 14px;min-height:66px;}
   .cc-tile-person{min-height:88px;}
   .cc-tile-cat{min-height:100px;}
   .cc-summary{padding:34px 24px;}
@@ -1471,39 +1471,11 @@
 </style>
 
 <div class="cc-sec">
-  <!-- Decor: lamp + case-file photo, top-left -->
-  <img class="cc-decor cc-lamp" src="assets/images/yopilgan-ishlar-lamp.png" alt="" aria-hidden="true" loading="lazy">
-
-  <!-- Decor: books + magnifier photo, top-right -->
-  <img class="cc-decor cc-books-tr" src="assets/images/yopilgan-ishlar-books-magnifier-1.png" alt="" aria-hidden="true" loading="lazy">
-
-  <!-- Decor: books + magnifier photo, bottom-left -->
-  <img class="cc-decor cc-books-bl" src="assets/images/yopilgan-ishlar-books-magnifier-2.png" alt="" aria-hidden="true" loading="lazy">
-
-  <!-- Decor: compass + ink photo, bottom-right -->
-  <img class="cc-decor cc-compass" src="assets/images/yopilgan-ishlar-compass-ink.png" alt="" aria-hidden="true" loading="lazy">
-
-  <!-- Decor: red thread photo, beside panel 1 (right) -->
-  <img class="cc-cord-shot cc-cord-r1" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
-  <!-- Decor: red thread photo, beside panel 2 (left, mirrored) -->
-  <img class="cc-cord-shot cc-cord-l2" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
-  <!-- Decor: red thread photo, beside panel 3 (right) -->
-  <img class="cc-cord-shot cc-cord-r3" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
-
   <div class="cc-inner">
     <!-- ============ HEADER ============ -->
     <header class="cc-header">
-      <div class="cc-eyebrow">Natijalar isbotlangan</div>
-      <h2 class="cc-title">Yopilgan <em>ishlar</em></h2>
-      <p class="cc-subtitle">Nazariya emas. Real bizneslar. Real odamlar. Real natijalar.</p>
-      <div class="cc-orn">
-        <span class="cc-orn-line"></span>
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" stroke="#d0a35a" stroke-width="1.6"/>
-          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="#d0a35a" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="cc-orn-line"></span>
-      </div>
+      <h2 class="cc-title" style="color:#1a1510;">Yopilgan ishlar</h2>
+      <p class="cc-subtitle" style="color:#4a3f30;">Nazariya emas. Real bizneslar. Real odamlar. Real natijalar.</p>
     </header>
 
     <!-- ============ PANEL 1: BIZNESLAR ============ -->
@@ -1620,13 +1592,6 @@
       </div>
     </div>
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="cc-footer">
-      <div class="cc-footer-line">
-        <span class="cc-footer-text">Natijalar gapiradi. Biz esa dalillar bilan ishlaymiz.</span>
-      </div>
-      <div class="cc-signature">Yopilgan.</div>
-    </footer>
   </div>
 </div>
   <!-- ================= SECTION 7 — SAVOL-JAVOB (FAQ) ================= -->
@@ -1656,7 +1621,6 @@
 /* Accordion */
 .faq-list{display:flex;flex-direction:column;gap:14px;}
 .faq-item{position:relative;background:linear-gradient(180deg,rgba(241,236,226,0.96) 0%,rgba(233,226,210,0.94) 100%);border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.30),0 0 0 1px rgba(210,170,90,0.15);transition:box-shadow .3s ease;}
-.faq-item:hover{box-shadow:0 8px 32px rgba(0,0,0,0.38),0 0 0 1px rgba(210,170,90,0.30);}
 .faq-q{display:flex;align-items:center;gap:18px;padding:24px 28px;cursor:pointer;user-select:none;-webkit-user-select:none;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
 .faq-q:focus{outline:2px solid rgba(208,163,90,0.5);outline-offset:-2px;border-radius:16px;}
 .faq-num{width:46px;height:46px;border-radius:50%;background:linear-gradient(160deg,#1a1410 0%,#0d0a07 100%);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 3px 10px rgba(0,0,0,0.35);}
@@ -1664,10 +1628,10 @@
 .faq-q-text{flex:1;font-family:'Manrope',sans-serif;font-weight:700;font-size:19px;line-height:1.35;color:#2b241b;letter-spacing:0.1px;}
 .faq-toggle{width:38px;height:38px;border-radius:50%;background:linear-gradient(160deg,rgba(210,170,90,0.18) 0%,rgba(180,130,60,0.08) 100%);border:1px solid rgba(122,90,46,0.30);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .35s ease,background .3s ease;}
 .faq-toggle svg{width:18px;height:18px;color:#7a5a2e;transition:transform .35s ease;}
-.faq-item.open .faq-toggle,.faq-item:hover .faq-toggle{background:linear-gradient(160deg,#1a1410 0%,#0d0a07 100%);border-color:rgba(210,170,90,0.4);}
-.faq-item.open .faq-toggle svg,.faq-item:hover .faq-toggle svg{color:#e6c48a;transform:rotate(45deg);}
+.faq-item.open .faq-toggle{background:linear-gradient(160deg,#1a1410 0%,#0d0a07 100%);border-color:rgba(210,170,90,0.4);}
+.faq-item.open .faq-toggle svg{color:#e6c48a;transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(0.4,0,0.2,1),padding .35s ease;}
-.faq-item.open .faq-a,.faq-item:hover .faq-a{max-height:300px;}
+.faq-item.open .faq-a{max-height:300px;}
 .faq-a-inner{padding:0 28px 28px 92px;font-family:'Manrope',sans-serif;font-weight:500;font-size:17px;line-height:1.65;color:#4a4030;}
 .faq-a-inner strong{font-weight:700;color:#2b241b;}
 
@@ -1763,14 +1727,8 @@
   <div class="faq-inner">
     <!-- Header -->
     <div class="faq-header">
-      <div class="faq-eyebrow">Tez-tez so'raladigan savollar</div>
       <h2 class="faq-title">Savol-javob</h2>
       <p class="faq-subtitle">Dastur bo'yicha eng ko'p so'raladigan savollar</p>
-      <div class="faq-orn">
-        <span class="faq-orn-line"></span>
-        <span class="faq-orn-dot"></span>
-        <span class="faq-orn-line"></span>
-      </div>
     </div>
 
     <!-- Accordion -->
@@ -1803,8 +1761,8 @@
         <div class="faq-a"><div class="faq-a-inner">Dastur <strong>3 oy</strong> davom etadi. Har hafta darslar, vazifalar va nazorat bo'lib turadi.</div></div>
       </div>
 
-      <div class="faq-item open" data-faq>
-        <button class="faq-q" aria-expanded="true">
+      <div class="faq-item" data-faq>
+        <button class="faq-q" aria-expanded="false">
           <div class="faq-num"><span>04</span></div>
           <div class="faq-q-text">Sotuvchilarimni ham o'qitasizmi?</div>
           <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
