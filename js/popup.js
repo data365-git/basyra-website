@@ -24,8 +24,8 @@
     "Qanday natijalar beradi?"
   ];
 
-  var MASCOT_SMILE = "assets/mascot/mascot-smile.png";
-  var MASCOT_COOL = "assets/mascot/mascot-cool.png";
+  var MASCOT_SMILE = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
+  var MASCOT_COOL = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
 
   // ---------- state ----------
   var state = {
