@@ -1,0 +1,24 @@
+:root{
+  /* ---- palette (promoted global) ---- */
+  --bg:#161210; --bg-alt:#1b1613; --card:#F8F5F0;
+  --gold:#e4bd6c; --gold-deep:#c79a55; --ink:#2b2418; --muted:#8b8072; --cream:#c8b79a;
+  /* ---- fluid type scale (320px → 1600px viewport) ---- */
+  --fs-xs:  clamp(0.75rem, 0.71rem + 0.20vw, 0.875rem);
+  --fs-sm:  clamp(0.875rem, 0.83rem + 0.23vw, 1rem);
+  --fs-base:clamp(1rem, 0.93rem + 0.36vw, 1.25rem);
+  --fs-md:  clamp(1.25rem, 1.07rem + 0.89vw, 1.75rem);
+  --fs-lg:  clamp(1.5rem, 1.16rem + 1.70vw, 2.25rem);
+  --fs-xl:  clamp(1.9rem, 1.30rem + 3.00vw, 3rem);
+  --fs-2xl: clamp(2.25rem, 1.30rem + 4.75vw, 4.25rem);
+  /* ---- fluid space scale ---- */
+  --sp-2xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
+  --sp-xs:  clamp(0.75rem, 0.68rem + 0.36vw, 1rem);
+  --sp-sm:  clamp(1rem, 0.89rem + 0.54vw, 1.5rem);
+  --sp-md:  clamp(1.5rem, 1.29rem + 1.07vw, 2.5rem);
+  --sp-lg:  clamp(2.5rem, 2.0rem + 2.5vw, 4rem);
+  --sp-xl:  clamp(3rem, 2.0rem + 5.0vw, 7rem);
+  /* ---- layout ---- */
+  --wrap:1200px; --wrap-wide:1440px;
+  --gutter:clamp(1rem, 0.5rem + 3vw, 3rem);
+  --radius:22px; --shadow:0 18px 40px rgba(0,0,0,.28);
+}
