@@ -426,6 +426,7 @@
 .ai-cta svg{width:18px;height:18px;display:block;}
 .ai-cta-tg{background:linear-gradient(180deg,#e8bf6e,#c99a4e);color:#241a0c;box-shadow:0 6px 16px rgba(201,154,78,.32);}
 .ai-cta-call{background:transparent;color:#e6c48a;border:1px solid rgba(210,170,90,.5);}
+.ai-foot:focus-within .ai-actions{display:none;}
 
 /* ── Idle speech bubble ── */
 .mascot-bubble {
