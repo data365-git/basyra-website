@@ -1,0 +1,15 @@
+{
+  "name": "Basyra Academy",
+  "short_name": "Basyra",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#141110",
+  "theme_color": "#141110",
+  "icons": [
+    {
+      "src": "assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -7,11 +7,15 @@ Icon
 .Spotlight-V100
 .Trashes
 
-# Archive backups — large .bak files, not needed in git
+# Archive backups — large .bak files and original bundles
 99-archive/
+_archive/
 
 # Vercel deploy copy — generated from the main standalone HTML
 04-build/dist/
+
+# Node
+node_modules/
 
 # Build artifacts
 __pycache__/
