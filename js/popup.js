@@ -11,7 +11,7 @@
   var STREAM_START_DELAY = 500;
 
   var IDLE_LINES = [
-    "Assalomu Alaykum 👋\nMen Basyra AI-detektiviman 🕵️‍♂️🔍"
+    "Assalomu Alaykum 👋\nMen Basyra AI-detektiviman"
   ];
 
 
@@ -196,8 +196,7 @@
           document.createTextNode("Assalomu Alaykum 👋"),
           h("br", {}, []),
           document.createTextNode("Men "),
-          h("span", { class: "grad", text: "Basyra AI-detektiviman" }, []),
-          document.createTextNode(" 🕵️‍♂️🔍")
+          h("span", { class: "grad", text: "Basyra AI-detektiviman" }, [])
         ]),
         h("div", {
           class: "ws",
@@ -235,7 +234,12 @@
       class: "ai-disclaimer",
       text: "AI javoblari xato bo'lishi mumkin. Muhim savollar uchun murojaat qiling."
     });
-    var footer = h("div", { class: "ai-foot ai-section" }, [errorBox, inputbar, disclaimer]);
+    var tgIcon = h("span", { html: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>' }, []);
+    var callIcon = h("span", { html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>' }, []);
+    var tgBtn = h("a", { class: "ai-cta ai-cta-tg", href: "https://t.me/USERNAME", target: "_blank", rel: "noopener" }, [tgIcon, h("span", { text: "Telegram" }, [])]);
+    var callBtn = h("a", { class: "ai-cta ai-cta-call", href: "tel:+998XXXXXXXXX" }, [callIcon, h("span", { text: "Qo'ng'iroq" }, [])]);
+    var actions = h("div", { class: "ai-actions" }, [tgBtn, callBtn]);
+    var footer = h("div", { class: "ai-foot ai-section" }, [errorBox, inputbar, disclaimer, actions]);
 
     var popup = h(
       "div",

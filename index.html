@@ -1356,7 +1356,11 @@
 
 
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;box-sizing:border-box;padding:0 115px;">
+  <div style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+    <div style="text-align:center;padding:82px 20px 30px;">
+      <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
+      <p style="margin:18px 0 0;font-family:'Playfair Display',serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
+    </div>
     <img src="assets/images/yakuniy-hisobot.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;">
   </div>
 
@@ -1381,7 +1385,7 @@
 .cc-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(210,170,90,0.05) 0%,transparent 60%);pointer-events:none;}
 .cc-panel-grid{position:relative;display:grid;grid-template-columns:340px 1fr;gap:0;min-height:360px;z-index:1;}
 .cc-panel-grid.rev{grid-template-columns:1fr 340px;}
-.cc-panel-grid.wide{grid-template-columns:1.05fr 0.95fr;}
+.cc-panel-grid.wide{grid-template-columns:0.95fr 1.05fr;}
 
 /* Dark stat card */
 .cc-stat{position:relative;padding:52px 40px;background:linear-gradient(160deg,#1e1a15 0%,#120e0a 100%);display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:1px solid rgba(210,170,90,0.14);}
@@ -1412,7 +1416,7 @@
 .cc-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;}
 .cc-avatar svg{width:22px;height:22px;color:#fbf0d5;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
-.cc-tile-more{background:linear-gradient(160deg,#1a1512 0%,#0d0a08 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:26px;font-weight:700;letter-spacing:-1px;}
+.cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:26px;font-weight:700;letter-spacing:-1px;}
 
 /* Category tile */
 .cc-tile-cat{flex-direction:column;gap:10px;padding:22px 10px;min-height:114px;}
@@ -1523,7 +1527,15 @@
 
     <!-- ============ PANEL 2: BITIRUVCHILAR ============ -->
     <div class="cc-panel">
-      <div class="cc-panel-grid rev">
+      <div class="cc-panel-grid">
+        <div class="cc-stat">
+          <div class="cc-stat-num">80<sup>+</sup></div>
+          <div class="cc-stat-label">Bitiruvchilar</div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Odamlar natijaga erishdi
+          </div>
+        </div>
         <div class="cc-board">
           <div class="cc-tiles">
             <div class="cc-tile">Najot Ta'lim</div>
@@ -1535,14 +1547,6 @@
             <div class="cc-tile">Rombik</div>
             <div class="cc-tile">ETHNO logistics</div>
             <div class="cc-tile">Robbit</div>
-          </div>
-        </div>
-        <div class="cc-stat">
-          <div class="cc-stat-num">80<sup>+</sup></div>
-          <div class="cc-stat-label">Bitiruvchilar</div>
-          <div class="cc-badge">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Odamlar natijaga erishdi
           </div>
         </div>
       </div>
@@ -1579,6 +1583,15 @@
     <!-- ============ PANEL 4: YO'NALISHLAR ============ -->
     <div class="cc-panel">
       <div class="cc-panel-grid wide">
+        <div class="cc-summary" style="border-right:1px solid rgba(210,170,90,0.14);">
+          <div class="cc-summary-eyebrow">Xulosa</div>
+          <h3 class="cc-summary-title">Yo'nalishlar</h3>
+          <p class="cc-summary-body">Ko'p yo'nalishda sinovdan o'tgan tajriba. Har xil bozorda bir xil natija — tizim.</p>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ko'p yo'nalishda sinovdan o'tgan
+          </div>
+        </div>
         <div class="cc-board">
           <div class="cc-tiles" style="grid-template-columns:repeat(4,1fr);">
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-6h14l2 6M5 13v5a1 1 0 001 1h2a1 1 0 001-1v-1h6v1a1 1 0 001 1h2a1 1 0 001-1v-5"/><circle cx="7.5" cy="15" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor"/></svg></div><div class="cc-cat-name">Avtosalon</div></div>
@@ -1589,15 +1602,6 @@
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg></div><div class="cc-cat-name">O'quv markazi</div></div>
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-6 9 6v11M9 21v-7h6v7"/></svg></div><div class="cc-cat-name">Xususiy maktab</div></div>
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5-3-1.5-6 0-9 3 1 6 1 9 0 1.5 3 1.5 6 0 9-3-1-6-1-9 0z"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/></svg></div><div class="cc-cat-name">IT startup</div></div>
-          </div>
-        </div>
-        <div class="cc-summary">
-          <div class="cc-summary-eyebrow">Xulosa</div>
-          <h3 class="cc-summary-title">Yo'nalishlar</h3>
-          <p class="cc-summary-body">Ko'p yo'nalishda sinovdan o'tgan tajriba. Har xil bozorda bir xil natija — tizim.</p>
-          <div class="cc-badge">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Ko'p yo'nalishda sinovdan o'tgan
           </div>
         </div>
       </div>
@@ -1623,12 +1627,12 @@
 .faq-header{position:relative;text-align:center;margin-bottom:44px;}
 .faq-title{margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:52px;line-height:1.1;color:#f3ead8;letter-spacing:-1px;}
 .faq-sub{margin:16px auto 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;line-height:1.55;color:rgba(240,230,210,.72);max-width:560px;}
-.faq-list{display:flex;flex-direction:column;gap:12px;}
+.faq-list{display:flex;flex-direction:column;gap:12px;max-width:880px;margin:0 auto;}
 .faq-item{background:#ffffff;border:1px solid #ece2ce;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.12);transition:box-shadow .25s ease,border-color .2s ease;}
 .faq-item:hover{box-shadow:0 10px 26px rgba(0,0,0,0.28);border-color:#e0d3b8;}
 .faq-q{display:flex;align-items:center;gap:16px;padding:22px 26px;cursor:pointer;user-select:none;-webkit-user-select:none;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
 .faq-q:focus{outline:2px solid rgba(208,163,90,0.5);outline-offset:-2px;border-radius:16px;}
-.faq-q-text{flex:1;font-family:'Manrope',sans-serif;font-weight:700;font-size:18px;line-height:1.35;color:#2b241b;}
+.faq-q-text{flex:1;font-family:'Manrope',sans-serif;font-weight:700;font-size:22px;line-height:1.35;color:#2b241b;}
 .faq-toggle{flex:none;transition:transform .3s ease;}
 .faq-toggle svg{width:20px;height:20px;}
 .faq-item:hover .faq-toggle{transform:rotate(45deg);}

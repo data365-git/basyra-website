@@ -8,7 +8,7 @@
 /* ── FAB (mascot image trigger) ── */
 .ai-fab {
   position: fixed;
-  bottom: 16px;
+  bottom: 28px;
   right: 22px;
   z-index: 2147483001;
   width: 104px;
@@ -68,7 +68,7 @@
   font-family: 'Manrope', sans-serif;
   color: #fff;
   color-scheme: dark;
-  background: linear-gradient(160deg, rgba(22,28,40,.55), rgba(10,14,22,.66) 52%, rgba(5,8,13,.74));
+  background: linear-gradient(160deg, rgba(22,28,40,.44), rgba(10,14,22,.55) 52%, rgba(5,8,13,.63));
   -webkit-backdrop-filter: blur(34px) saturate(128%) brightness(.74) contrast(1.05);
   backdrop-filter: blur(34px) saturate(128%) brightness(.74) contrast(1.05);
   box-shadow:
@@ -125,7 +125,7 @@
   z-index: 0;
   pointer-events: none;
   border-radius: inherit;
-  opacity: .3;
+  opacity: .14;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
@@ -414,6 +414,18 @@
   color: rgba(255,246,232,.4);
   margin-top: 8px;
 }
+
+/* ── Action buttons ── */
+.ai-actions{display:flex;gap:10px;margin-top:12px;}
+.ai-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;
+  border-radius:22px;corner-shape:squircle;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;letter-spacing:.2px;
+  text-decoration:none;cursor:pointer;transition:transform .16s ease,filter .16s ease;}
+.ai-cta:hover{transform:translateY(-1px);filter:brightness(1.04);}
+.ai-cta:active{transform:scale(.97);}
+.ai-cta svg{width:18px;height:18px;display:block;}
+.ai-cta-tg{background:linear-gradient(180deg,#e8bf6e,#c99a4e);color:#241a0c;box-shadow:0 6px 16px rgba(201,154,78,.32);}
+.ai-cta-call{background:transparent;color:#e6c48a;border:1px solid rgba(210,170,90,.5);}
 
 /* ── Idle speech bubble ── */
 .mascot-bubble {
