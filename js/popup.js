@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  // Set to a real endpoint URL when the backend is ready. null = mock mode.
+  // Backend endpoint for AI answers. null = placeholder mode.
   var BASYRA_CHAT_URL = null;
 
   var IDLE_BUBBLE_INTERVAL = 25000;
@@ -69,8 +69,16 @@
 
     while (i < lines.length) {
       var line = lines[i];
+      var hMatch = /^(#{1,3})\s+(.*)$/.exec(line);
       var listMatch = /^\s*[-*]\s+(.*)$/.exec(line);
       var olMatch = /^\s*\d+\.\s+(.*)$/.exec(line);
+
+      if (hMatch) {
+        flushPara();
+        var tag = hMatch[1].length === 1 ? "h4" : hMatch[1].length === 2 ? "h5" : "h6";
+        html += "<" + tag + ">" + inlineMd(hMatch[2]) + "</" + tag + ">";
+        i++; continue;
+      }
 
       if (listMatch) {
         flushPara();
@@ -237,13 +245,13 @@
     var tgIcon = h("span", { html: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>' }, []);
     var callIcon = h("span", { html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>' }, []);
     var tgBtn = h("a", { class: "ai-cta ai-cta-tg", href: "https://t.me/USERNAME", target: "_blank", rel: "noopener" }, [tgIcon, h("span", { text: "Telegram" }, [])]);
-    var callBtn = h("a", { class: "ai-cta ai-cta-call", href: "tel:+998XXXXXXXXX" }, [callIcon, h("span", { text: "Qo'ng'iroq" }, [])]);
+    var callBtn = h("a", { class: "ai-cta ai-cta-call", href: "tel:+998555888484" }, [callIcon, h("span", { text: "Qo'ng'iroq" }, [])]);
     var actions = h("div", { class: "ai-actions" }, [tgBtn, callBtn]);
     var poweredBy = h("div", { class: "ai-powered" }, [
       h("a", { href: "https://www.data365.uz/", target: "_blank", rel: "noopener noreferrer" }, [
         h("span", { class: "ai-powered-dot" }, []),
         document.createTextNode("Powered by "),
-        h("span", { text: "DATA365" }, [])
+        h("span", { text: "data365" }, [])
       ])
     ]);
     var footer = h("div", { class: "ai-foot ai-section" }, [errorBox, inputbar, disclaimer, actions]);
@@ -472,92 +480,83 @@
   }
 
   // ---------- mock streaming ----------
-  function pickMockResponse(userText) {
-    var t = userText.toLowerCase();
-    if (
-      t.indexOf("narx") !== -1 ||
-      t.indexOf("qancha") !== -1 ||
-      t.indexOf("pul") !== -1 ||
-      t.indexOf("to'lov") !== -1
-    ) {
-      return "Narx haqida to'liq ma'lumot olish uchun saytdagi ariza formasini to'ldiring yoki bizga yozing.";
-    }
-    if (
-      t.indexOf("dastur") !== -1 ||
-      t.indexOf("kurs") !== -1 ||
-      t.indexOf("nima") !== -1 ||
-      t.indexOf("mos") !== -1 ||
-      t.indexOf("natija") !== -1
-    ) {
-      return "Basyra Academy — bu **2.5 oylik** offline sotuvchilar uchun intensiv dastur. Dasturda:\n\n- 13 ta amaliy dars\n- Video materiallar\n- Jonli sessiyalar\n- Shaxsiy mentorlik\n\nBarchasi real sotuv natijalariga qaratilgan.";
-    }
-    return "Rahmat savolingiz uchun! Men Basyra detektivi — kurs bo'yicha barcha savollaringizga javob beraman. Nimani bilmoqchisiz?";
+  var PLACEHOLDER_MSG = "Hozircha sun'iy intellektimiz laboratoriya ishlarida 🔬🧪\n\nUngacha tabiiy intellekt bilan gaplashib turish uchun bemalol jamoadagi konsultantlarimizga aloqaga chiqsangiz bo'ladi 😊🤝";
+
+  function pickMockResponse() {
+    return PLACEHOLDER_MSG;
   }
 
   function sendMock(userText) {
-    var aborted = false;
+    showTyping();
+    setStreaming(true);
+    hideError();
+
+    setTimeout(function () {
+      hideTyping();
+      var msgRefs = addMessage("assistant", pickMockResponse());
+
+      var cta = document.createElement("a");
+      cta.href = "#ariza";
+      cta.className = "ai-form-cta";
+      cta.textContent = "Dasturga yoziling →";
+      cta.addEventListener("click", function (e) {
+        e.preventDefault();
+        closePopup();
+        var sec = document.getElementById("ariza");
+        if (sec) sec.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(function () {
+          var f = document.getElementById("ar-ism");
+          if (f) f.focus();
+        }, 700);
+      });
+      msgRefs.bubbleEl.appendChild(cta);
+      scrollToBottom();
+
+      setStreaming(false);
+      updateSendState();
+    }, STREAM_START_DELAY);
+  }
+
+  function sendReal(userText) {
+    var abortCtrl = new AbortController();
     streamAbort = function () {
-      aborted = true;
+      abortCtrl.abort();
+      hideTyping();
+      setStreaming(false);
+      streamAbort = null;
     };
 
     showTyping();
     setStreaming(true);
     hideError();
 
-    var startTimer = setTimeout(function () {
-      if (aborted) return;
-      hideTyping();
-
-      var fullText = pickMockResponse(userText);
-      var current = "";
-      var idx = 0;
-      var msgRefs = addMessage("assistant", "");
-      // remove the placeholder we just pushed to history; we'll push final text at the end
-      state.messages.pop();
-
-      function tick() {
-        if (aborted) {
-          finalize();
-          return;
-        }
-        idx++;
-        current = fullText.slice(0, idx);
-        msgRefs.bubbleEl.innerHTML = renderMarkdown(current);
-        scrollToBottom();
-        if (idx < fullText.length) {
-          streamTimer = setTimeout(tick, STREAM_CHAR_DELAY);
-        } else {
-          finalize();
-        }
-      }
-
-      function finalize() {
-        state.messages.push({ role: "assistant", content: current || fullText });
+    fetch(BASYRA_CHAT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: userText }),
+      signal: abortCtrl.signal,
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        hideTyping();
+        var answer = data.answer || "Javob olinmadi. Qayta urinib ko'ring.";
+        addMessage("assistant", answer);
         setStreaming(false);
         streamAbort = null;
         updateSendState();
-      }
-
-      var streamTimer = setTimeout(tick, STREAM_CHAR_DELAY);
-      streamAbort = function () {
-        aborted = true;
-        clearTimeout(streamTimer);
-        finalize();
-      };
-    }, STREAM_START_DELAY);
-
-    streamAbort = function () {
-      aborted = true;
-      clearTimeout(startTimer);
-      hideTyping();
-      setStreaming(false);
-      streamAbort = null;
-    };
-  }
-
-  function sendReal(userText) {
-    // Placeholder for real backend integration once BASYRA_CHAT_URL is set.
-    showError("Ulanishda xatolik yuz berdi. Qayta urinib ko'ring.");
+        scrollToBottom();
+      })
+      .catch(function (err) {
+        hideTyping();
+        setStreaming(false);
+        streamAbort = null;
+        if (err.name === "AbortError") return;
+        showError("Ulanishda xatolik yuz berdi. Qayta urinib ko'ring.");
+        updateSendState();
+      });
   }
 
   function handleSend() {
@@ -601,6 +600,12 @@
 
     els.sendBtn.addEventListener("click", handleSend);
     els.stopBtn.addEventListener("click", handleStop);
+
+    document.addEventListener("click", function (e) {
+      if (!state.open) return;
+      if (els.popup.contains(e.target) || els.fab.contains(e.target)) return;
+      closePopup();
+    });
   }
 
   // ---------- hide fab while the hero is in view (avoid overlapping hero stats) ----------
