@@ -56,7 +56,7 @@
   position: fixed;
   bottom: 150px;
   right: 22px;
-  z-index: 2147483000;
+  z-index: 2147483006;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -426,7 +426,37 @@
 .ai-cta svg{width:18px;height:18px;display:block;}
 .ai-cta-tg{background:linear-gradient(180deg,#e8bf6e,#c99a4e);color:#241a0c;box-shadow:0 6px 16px rgba(201,154,78,.32);}
 .ai-cta-call{background:transparent;color:#e6c48a;border:1px solid rgba(210,170,90,.5);}
-.ai-foot:focus-within .ai-actions{display:none;}
+.ai-foot:has(.ai-input:not(:placeholder-shown)) .ai-actions{display:none;}
+
+/* Powered-by credit badge */
+.ai-powered {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 10px;
+}
+.ai-powered a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.ai-powered a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.ai-powered a span {
+  color: #fff;
+  font-weight: 700;
+}
+.ai-powered a .ai-powered-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e6a84f;
+  flex: none;
+}
 
 /* ── Idle speech bubble ── */
 .mascot-bubble {

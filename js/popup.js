@@ -239,6 +239,13 @@
     var tgBtn = h("a", { class: "ai-cta ai-cta-tg", href: "https://t.me/USERNAME", target: "_blank", rel: "noopener" }, [tgIcon, h("span", { text: "Telegram" }, [])]);
     var callBtn = h("a", { class: "ai-cta ai-cta-call", href: "tel:+998XXXXXXXXX" }, [callIcon, h("span", { text: "Qo'ng'iroq" }, [])]);
     var actions = h("div", { class: "ai-actions" }, [tgBtn, callBtn]);
+    var poweredBy = h("div", { class: "ai-powered" }, [
+      h("a", { href: "https://www.data365.uz/", target: "_blank", rel: "noopener noreferrer" }, [
+        h("span", { class: "ai-powered-dot" }, []),
+        document.createTextNode("Powered by "),
+        h("span", { text: "DATA365" }, [])
+      ])
+    ]);
     var footer = h("div", { class: "ai-foot ai-section" }, [errorBox, inputbar, disclaimer, actions]);
 
     var popup = h(
@@ -253,6 +260,7 @@
       [
         h("div", { class: "ai-noise", "aria-hidden": "true" }, []),
         header,
+        poweredBy,
         body,
         footer
       ]
