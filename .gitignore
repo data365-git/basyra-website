@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Archive backups — large .bak files and original bundles
+99-archive/
+_archive/
+
+# Large design renders — not needed in git (reference only, kept locally)
+03-design/sections-v1/
+03-design/sections-v2-after-critics/
+03-design/exports/*.png
+04-build/assets/site/
+
+# Vercel deploy copy — generated from the main standalone HTML
+04-build/dist/
+
+# Node
+node_modules/
+
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor
+.vscode/
+*.swp
+*.swo
