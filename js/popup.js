@@ -11,18 +11,9 @@
   var STREAM_START_DELAY = 500;
 
   var IDLE_LINES = [
-    "Savolingiz bormi? 🔍",
-    "Kursga qiziqyapsizmi?",
-    "Men yordam beraman!",
-    "Basyra detektivi shu yerda 🕵️"
+    "Assalomu Alaykum 👋\nMen Basyra AI-detektiviman 🕵️‍♂️🔍"
   ];
 
-  var SUGGESTIONS = [
-    "Dastur nimalardan iborat?",
-    "Kurs narxi qancha?",
-    "Kim uchun mos?",
-    "Qanday natijalar beradi?"
-  ];
 
   var MASCOT_SMILE = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
   var MASCOT_COOL = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
@@ -199,23 +190,14 @@
 
     var body = h("div", { class: "ai-body ai-section", role: "log", "aria-live": "polite" }, []);
 
-    var chipsWrap = h("div", { class: "ai-chips" }, []);
-    SUGGESTIONS.forEach(function (s) {
-      var chip = h("button", { class: "ai-chip", type: "button", text: s }, []);
-      chip.addEventListener("click", function () {
-        els.textarea.value = s;
-        autoGrow();
-        updateSendState();
-        els.textarea.focus();
-      });
-      chipsWrap.appendChild(chip);
-    });
-
     var welcome = h("div", { class: "ai-msg ai" }, [
       h("div", { class: "bubble ai-welcome" }, [
         h("div", { class: "wt" }, [
-          document.createTextNode("Salom! Men "),
-          h("span", { class: "grad", text: "Basyra detektivi" }, [])
+          document.createTextNode("Assalomu Alaykum 👋"),
+          h("br", {}, []),
+          document.createTextNode("Men "),
+          h("span", { class: "grad", text: "Basyra AI-detektiviman" }, []),
+          document.createTextNode(" 🕵️‍♂️🔍")
         ]),
         h("div", {
           class: "ws",
@@ -223,7 +205,6 @@
         })
       ])
     ]);
-    welcome.querySelector(".bubble").appendChild(chipsWrap);
     body.appendChild(welcome);
 
     var errorBox = h("div", { class: "ai-error", style: "display:none;" }, [
@@ -290,7 +271,6 @@
     els.errorBox = errorBox;
     els.errorText = errorBox.querySelector(".ai-error-text");
     els.closeBtn = closeBtn;
-    els.chipsWrap = chipsWrap;
 
     wireEvents();
   }
