@@ -1330,249 +1330,351 @@
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
-/* ── Yi = Yopilgan Ishlar ── */
-.yi-sec{position:relative;width:1672px;box-sizing:border-box;padding:78px 56px 88px;font-family:'Manrope',sans-serif;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);}
-.yi-glow{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 40px 80px -60px rgba(60,44,20,.35),inset 0 -40px 80px -60px rgba(60,44,20,.25);}
-.yi-hd{position:relative;z-index:1;text-align:center;margin-bottom:48px;}
-.yi-hd h2{margin:0 0 12px;font-size:58px;font-weight:800;letter-spacing:-1.5px;color:#241d15;}
-.yi-hd p{margin:0;font-size:18px;color:#8a7c64;}
-.yi-panel{position:relative;display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center;background:radial-gradient(150% 130% at 8% -10%,#6a4a2a 0%,#3f2c1a 42%,#231710 78%,#180f08 100%);border:1px solid rgba(201,162,74,.26);border-top-color:rgba(201,162,74,.45);border-radius:22px;padding:36px 40px;margin-bottom:26px;box-shadow:inset 0 1px 0 rgba(255,240,214,.12),0 2px 4px rgba(0,0,0,.2),0 28px 52px -18px rgba(20,14,8,.58);}
-.yi-panel.flip{grid-template-columns:1fr 340px;}
-.yi-panel.flip .yi-stat{order:2;text-align:right;}
-.yi-panel.flip .yi-stat .yi-num{justify-content:flex-end;}
-.yi-panel.flip .yi-lbl{margin-left:auto;}
-.yi-stat{display:flex;flex-direction:column;}
-.yi-num{display:flex;align-items:baseline;gap:5px;margin-top:10px;}
-.yi-num span:first-child{font-size:80px;font-weight:800;line-height:.9;letter-spacing:-3px;color:#e6b968;}
-.yi-num span:last-child{font-size:32px;font-weight:700;color:#c99f52;}
-.yi-lbl{font-size:18px;font-weight:600;color:#e7dcc6;margin-top:12px;max-width:250px;line-height:1.35;}
-.yi-badge{display:inline-flex;align-items:center;gap:9px;margin-top:20px;padding:9px 15px;background:rgba(217,184,116,.14);border:1px solid rgba(217,184,116,.35);border-radius:10px;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#e6b968;}
-.yi-badge-icon{width:16px;height:16px;border-radius:5px;background:#d9b874;display:flex;align-items:center;justify-content:center;flex:none;}
-.yi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
-.yi-tile{background:#ffffff;border:1px solid rgba(201,162,74,.28);border-top-color:#fffdf9;border-radius:14px;padding:18px 10px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 20px -8px rgba(0,0,0,.34);transition:transform .18s ease,box-shadow .18s ease;}
-.yi-tile:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(0,0,0,.06),0 18px 30px -10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.9);}
-.yi-init{width:46px;height:46px;border-radius:50%;background:linear-gradient(150deg,#f4e8ce,#d3b982);border:1px solid rgba(184,134,58,.35);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#7d5a1c;box-shadow:inset 0 1px 2px rgba(255,255,255,.75),inset 0 -2px 4px rgba(138,100,32,.28),0 3px 6px rgba(138,100,32,.2);}
-.yi-name{font-size:12px;font-weight:600;color:#2a2114;text-align:center;line-height:1.3;}
-@media(max-width:1200px){.yi-sec{width:100%;}.yi-grid{grid-template-columns:repeat(4,1fr);}}
-@media(max-width:800px){.yi-sec{padding:60px 24px 70px;}.yi-panel,.yi-panel.flip{grid-template-columns:1fr;}.yi-panel.flip .yi-stat{order:0;text-align:left;}.yi-panel.flip .yi-stat .yi-num{justify-content:flex-start;}.yi-panel.flip .yi-lbl{margin-left:0;}.yi-hd h2{font-size:38px;}.yi-num span:first-child{font-size:56px;}.yi-grid{grid-template-columns:repeat(3,1fr);}}
-</style>
+.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#1a140d 0%,#0e0a07 55%,#070504 100%);padding:120px 0 130px;}
+.cc-sec::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 8% 6%,rgba(214,168,90,0.14) 0%,transparent 28%),
+  radial-gradient(circle at 92% 8%,rgba(200,150,70,0.10) 0%,transparent 30%),
+  radial-gradient(circle at 6% 96%,rgba(190,140,60,0.10) 0%,transparent 32%),
+  radial-gradient(circle at 96% 94%,rgba(200,150,70,0.11) 0%,transparent 30%);
+  pointer-events:none;z-index:0;}
+.cc-sec::after{content:"";position:absolute;inset:0;background-image:
+  repeating-linear-gradient(0deg,rgba(255,255,255,0.012) 0px,rgba(255,255,255,0.012) 1px,transparent 1px,transparent 3px),
+  repeating-linear-gradient(90deg,rgba(0,0,0,0.02) 0px,rgba(0,0,0,0.02) 1px,transparent 1px,transparent 3px);
+  pointer-events:none;z-index:0;mix-blend-mode:overlay;}
+.cc-inner{position:relative;max-width:1260px;margin:0 auto;padding:0 40px;z-index:2;}
 
-<div class="yi-sec">
-  <div class="yi-glow"></div>
-  <div class="yi-hd">
-    <h2>Yopilgan ishlar</h2>
-    <p>Nazariya emas. Real bizneslar. Real odamlar. Real natijalar.</p>
-  </div>
+/* --- HEADER --- */
+.cc-header{text-align:center;position:relative;padding:0 20px 84px;}
+.cc-eyebrow{display:inline-flex;align-items:center;gap:14px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:5px;color:#d0a35a;text-transform:uppercase;margin-bottom:22px;}
+.cc-eyebrow::before,.cc-eyebrow::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,#d0a35a 45%,#d0a35a 55%,transparent);}
+.cc-title{margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:88px;line-height:1.02;color:#f3ead8;letter-spacing:-1.5px;}
+.cc-title em{font-style:italic;color:#d0a35a;font-weight:500;}
+.cc-subtitle{margin:24px auto 0;max-width:760px;font-family:'Manrope',sans-serif;font-weight:500;font-size:22px;line-height:1.55;color:rgba(240,230,210,0.78);}
+.cc-orn{margin:38px auto 0;display:flex;align-items:center;justify-content:center;gap:16px;opacity:.85;}
+.cc-orn-line{width:72px;height:1px;background:linear-gradient(90deg,transparent,rgba(208,163,90,0.65),transparent);}
 
-  <!-- PANEL 1: 10+ BIZNESLAR -->
-  <div class="yi-panel">
-    <div class="yi-stat">
-      <div class="yi-num"><span>10</span><span>+</span></div>
-      <div class="yi-lbl">Tizimlashtirilgan bizneslar</div>
-      <div class="yi-badge">
-        <div class="yi-badge-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.3L4 7.3L8 3" stroke="#241a0f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        Tizim yo'lga qo'yilgan
-      </div>
-    </div>
-    <div class="yi-grid-wrap">
-      <div class="yi-grid">
-        <div class="yi-tile"><div class="yi-init">C</div><div class="yi-name">Cambridge</div></div>
-        <div class="yi-tile"><div class="yi-init">JS</div><div class="yi-name">Jahon School</div></div>
-        <div class="yi-tile"><div class="yi-init">CM</div><div class="yi-name">Colba Maktabi</div></div>
-        <div class="yi-tile"><div class="yi-init">NT</div><div class="yi-name">Najot Ta'lim</div></div>
-        <div class="yi-tile"><div class="yi-init">K</div><div class="yi-name">K-Davo</div></div>
-        <div class="yi-tile"><div class="yi-init">ZA</div><div class="yi-name">Zin-Nur akademiyasi</div></div>
-        <div class="yi-tile"><div class="yi-init">UC</div><div class="yi-name">Ucan Consulting</div></div>
-        <div class="yi-tile"><div class="yi-init">R</div><div class="yi-name">Rida</div></div>
-        <div class="yi-tile"><div class="yi-init">B</div><div class="yi-name">Basyra</div></div>
-        <div class="yi-tile"><div class="yi-init">E</div><div class="yi-name">edfix</div></div>
-      </div>
-    </div>
-  </div>
+/* --- PANELS --- */
+.cc-panel{position:relative;margin-top:34px;border-radius:22px;overflow:hidden;background:#151210;box-shadow:0 26px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(210,170,90,0.18),inset 0 1px 0 rgba(255,255,255,0.05);}
+.cc-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(210,170,90,0.05) 0%,transparent 60%);pointer-events:none;}
+.cc-panel-grid{position:relative;display:grid;grid-template-columns:340px 1fr;gap:0;min-height:360px;z-index:1;}
+.cc-panel-grid.rev{grid-template-columns:1fr 340px;}
+.cc-panel-grid.wide{grid-template-columns:1.05fr 0.95fr;}
 
-  <!-- PANEL 2: 80+ BITIRUVCHILAR (flipped) -->
-  <div class="yi-panel flip">
-    <div class="yi-stat">
-      <div class="yi-num"><span>80</span><span>+</span></div>
-      <div class="yi-lbl">Bitiruvchilar</div>
-      <div class="yi-badge">
-        <div class="yi-badge-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.3L4 7.3L8 3" stroke="#241a0f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        Natijaga erishildi
-      </div>
-    </div>
-    <div class="yi-grid-wrap">
-      <div class="yi-grid">
-        <div class="yi-tile"><div class="yi-init">NT</div><div class="yi-name">Najot Ta'lim</div></div>
-        <div class="yi-tile"><div class="yi-init">R</div><div class="yi-name">Registon</div></div>
-        <div class="yi-tile"><div class="yi-init">S</div><div class="yi-name">Smartlife</div></div>
-        <div class="yi-tile"><div class="yi-init">MI</div><div class="yi-name">Mas IT</div></div>
-        <div class="yi-tile"><div class="yi-init">GM</div><div class="yi-name">Gigu Moda akademiyasi</div></div>
-        <div class="yi-tile"><div class="yi-init">FM</div><div class="yi-name">Foyda Marketing</div></div>
-        <div class="yi-tile"><div class="yi-init">R</div><div class="yi-name">Rombik</div></div>
-        <div class="yi-tile"><div class="yi-init">EL</div><div class="yi-name">ETHNO logistics</div></div>
-        <div class="yi-tile"><div class="yi-init">R</div><div class="yi-name">Robbit</div></div>
-      </div>
-    </div>
-  </div>
+/* Dark stat card */
+.cc-stat{position:relative;padding:52px 40px;background:linear-gradient(160deg,#1e1a15 0%,#120e0a 100%);display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:1px solid rgba(210,170,90,0.14);}
+.cc-panel-grid.rev .cc-stat{border-right:none;border-left:1px solid rgba(210,170,90,0.14);}
+.cc-stat::before{content:"";position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:1px solid rgba(210,170,90,0.14);border-radius:8px;pointer-events:none;}
+.cc-stat::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(230,180,100,0.10) 0%,transparent 60%);pointer-events:none;}
+.cc-stat-num{position:relative;font-family:'Manrope',sans-serif;font-weight:700;font-size:96px;line-height:0.95;color:#e0b878;letter-spacing:-2px;text-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.cc-stat-num sup{font-size:44px;color:#d0a35a;font-weight:700;vertical-align:super;line-height:1;margin-left:2px;}
+.cc-stat-label{position:relative;font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;line-height:1.25;color:#f2e6cf;letter-spacing:0.2px;max-width:250px;}
+.cc-badge{position:relative;margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,rgba(210,170,90,0.14) 0%,rgba(160,120,60,0.06) 100%);border:1px solid rgba(210,170,90,0.35);border-radius:6px;font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.8px;color:#e6c48a;text-transform:uppercase;width:fit-content;}
+.cc-badge svg{width:12px;height:12px;flex:none;}
 
-  <!-- PANEL 3: 40+ OUTSOURCE -->
-  <div class="yi-panel">
-    <div class="yi-stat">
-      <div class="yi-num"><span>40</span><span>+</span></div>
-      <div class="yi-lbl">Outsource sotuv bo'limi zapuslari</div>
-      <div class="yi-badge">
-        <div class="yi-badge-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.3L4 7.3L8 3" stroke="#241a0f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        Jamoalar qurilgan
-      </div>
-    </div>
-    <div class="yi-grid-wrap">
-      <div class="yi-grid">
-        <div class="yi-tile"><div class="yi-init">AI</div><div class="yi-name">Asror Iskandarov</div></div>
-        <div class="yi-tile"><div class="yi-init">HM</div><div class="yi-name">Husan Mamasidov</div></div>
-        <div class="yi-tile"><div class="yi-init">AI</div><div class="yi-name">Alisher Isayev</div></div>
-        <div class="yi-tile"><div class="yi-init">AM</div><div class="yi-name">Abdukarim Mirzayev</div></div>
-        <div class="yi-tile"><div class="yi-init">AS</div><div class="yi-name">Abdurahmonova Sitorabonu</div></div>
-        <div class="yi-tile"><div class="yi-init">SK</div><div class="yi-name">Sardor Karimov</div></div>
-        <div class="yi-tile"><div class="yi-init">DE</div><div class="yi-name">Dilshod Eshmatov</div></div>
-        <div class="yi-tile"><div class="yi-init">NR</div><div class="yi-name">Nodir Raximov</div></div>
-        <div class="yi-tile"><div class="yi-init">JT</div><div class="yi-name">Javohir Toshpulatov</div></div>
-        <div class="yi-tile"><div class="yi-init">BA</div><div class="yi-name">Bekzod Alimov</div></div>
-      </div>
-    </div>
-  </div>
+/* Parchment content area */
+.cc-board{position:relative;padding:44px 40px;background:linear-gradient(180deg,#f2ede0 0%,#eae2cf 100%);background-image:
+  radial-gradient(circle at 20% 15%,rgba(160,110,50,0.06) 0%,transparent 40%),
+  radial-gradient(circle at 85% 80%,rgba(160,110,50,0.05) 0%,transparent 40%);
+  box-shadow:inset 0 0 0 1px rgba(90,60,20,0.08),inset 0 2px 6px rgba(90,60,20,0.06);}
+.cc-board::before{content:"";position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px dashed rgba(90,60,20,0.18);border-radius:10px;pointer-events:none;}
+.cc-board-title{position:relative;font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:3.5px;color:#7a5a2e;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+.cc-board-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(122,90,46,0.35),transparent);}
 
-</div>
-  <!-- ================= SECTION 7 — SAVOL-JAVOB (FAQ) ================= -->
-<style>
-.faq-sec{position:relative;width:1672px;overflow:hidden;min-height:900px;background:#0f0c0a url('assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png') center top/100% auto no-repeat;}
-.faq-sec::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(14,10,7,0.25) 0%,rgba(14,10,7,0.08) 30%,rgba(14,10,7,0.08) 60%,rgba(14,10,7,0.50) 100%),
-  radial-gradient(ellipse at 50% 40%,transparent 35%,rgba(10,7,4,0.35) 100%);
-  pointer-events:none;z-index:1;}
-.faq-inner{position:relative;max-width:920px;margin:0 auto;padding:130px 40px 150px;z-index:3;}
+.cc-tiles{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.cc-tile{position:relative;background:linear-gradient(180deg,#fbf6ea 0%,#f2ecdc 100%);border:1px solid rgba(90,60,20,0.14);border-radius:9px;padding:20px 12px;min-height:74px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:600;font-size:15px;line-height:1.25;color:#2b241b;box-shadow:0 2px 4px rgba(90,60,20,0.06),inset 0 1px 0 rgba(255,255,255,0.7);transition:transform .25s ease,box-shadow .25s ease;}
+.cc-tile:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(90,60,20,0.15),inset 0 1px 0 rgba(255,255,255,0.7);}
 
-/* Decorative assets */
-.faq-decor{position:absolute;pointer-events:none;user-select:none;z-index:2;}
-.faq-lamp{top:20px;left:40px;width:220px;opacity:0.9;filter:drop-shadow(0 20px 50px rgba(220,170,80,0.25));}
-.faq-magnifier{bottom:60px;left:50px;width:160px;opacity:0.72;filter:drop-shadow(0 16px 30px rgba(0,0,0,0.5));}
-.faq-card{bottom:40px;right:60px;width:180px;opacity:0.75;filter:drop-shadow(0 16px 30px rgba(0,0,0,0.5));}
+/* Person tile */
+.cc-tile-person{flex-direction:column;gap:8px;padding:16px 8px 14px;min-height:98px;}
+.cc-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;}
+.cc-avatar svg{width:22px;height:22px;color:#fbf0d5;}
+.cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
+.cc-tile-more{background:linear-gradient(160deg,#1a1512 0%,#0d0a08 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:26px;font-weight:700;letter-spacing:-1px;}
 
-/* Header */
-.faq-header{text-align:center;margin-bottom:60px;position:relative;}
-.faq-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:4px;color:#d0a35a;text-transform:uppercase;margin-bottom:18px;}
-.faq-eyebrow::before,.faq-eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,#d0a35a 40%,#d0a35a 60%,transparent);}
-.faq-title{margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:74px;line-height:1.05;color:#f3ead8;letter-spacing:-1px;}
-.faq-subtitle{margin:18px auto 0;max-width:600px;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.55;color:rgba(240,230,210,0.70);}
+/* Category tile */
+.cc-tile-cat{flex-direction:column;gap:10px;padding:22px 10px;min-height:114px;}
+.cc-cat-ico{width:44px;height:44px;border-radius:10px;background:linear-gradient(160deg,rgba(210,170,90,0.18) 0%,rgba(180,130,60,0.10) 100%);display:flex;align-items:center;justify-content:center;flex:none;border:1px solid rgba(122,90,46,0.22);}
+.cc-cat-ico svg{width:24px;height:24px;color:#7a5a2e;}
+.cc-cat-name{font-size:14px;font-weight:600;color:#2b241b;line-height:1.2;}
 
-/* Accordion */
-.faq-list{display:flex;flex-direction:column;gap:14px;}
-.faq-item{position:relative;background:linear-gradient(180deg,rgba(241,236,226,0.96) 0%,rgba(233,226,210,0.94) 100%);border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.30),0 0 0 1px rgba(210,170,90,0.15);transition:box-shadow .3s ease;}
-.faq-q{display:flex;align-items:center;gap:18px;padding:24px 28px;cursor:pointer;user-select:none;-webkit-user-select:none;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
-.faq-q:focus{outline:2px solid rgba(208,163,90,0.5);outline-offset:-2px;border-radius:16px;}
-.faq-num{width:46px;height:46px;border-radius:50%;background:linear-gradient(160deg,#1a1410 0%,#0d0a07 100%);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 3px 10px rgba(0,0,0,0.35);}
-.faq-num span{font-family:'Manrope',sans-serif;font-weight:700;font-size:18px;color:#e6c48a;}
-.faq-q-text{flex:1;font-family:'Manrope',sans-serif;font-weight:700;font-size:19px;line-height:1.35;color:#2b241b;letter-spacing:0.1px;}
-.faq-toggle{width:38px;height:38px;border-radius:50%;background:linear-gradient(160deg,rgba(210,170,90,0.18) 0%,rgba(180,130,60,0.08) 100%);border:1px solid rgba(122,90,46,0.30);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .35s ease,background .3s ease;}
-.faq-toggle svg{width:18px;height:18px;color:#7a5a2e;transition:transform .35s ease;}
-.faq-item:hover .faq-toggle{background:linear-gradient(160deg,#1a1410 0%,#0d0a07 100%);border-color:rgba(210,170,90,0.4);}
-.faq-item:hover .faq-toggle svg{color:#e6c48a;transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0.4,0,0.2,1);}
-.faq-item:hover .faq-a{max-height:300px;}
-.faq-a-inner{padding:0 28px 28px 92px;font-family:'Manrope',sans-serif;font-weight:500;font-size:17px;line-height:1.65;color:#4a4030;}
-.faq-a-inner strong{font-weight:700;color:#2b241b;}
+/* Panel 4 right column */
+.cc-summary{position:relative;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;gap:20px;background:linear-gradient(160deg,#1e1a15 0%,#0f0c09 100%);}
+.cc-summary::before{content:"";position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:1px solid rgba(210,170,90,0.14);border-radius:8px;pointer-events:none;}
+.cc-summary-eyebrow{font-family:'Manrope',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:#d0a35a;text-transform:uppercase;}
+.cc-summary-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:52px;line-height:1.05;color:#f3ead8;margin:0;letter-spacing:-0.5px;}
+.cc-summary-body{font-family:'Manrope',sans-serif;font-weight:500;font-size:17px;line-height:1.55;color:rgba(240,230,210,0.78);max-width:340px;}
 
-/* Ornamental line under subtitle */
-.faq-orn{margin:34px auto 0;display:flex;align-items:center;justify-content:center;gap:14px;}
-.faq-orn-line{width:56px;height:1px;background:linear-gradient(90deg,transparent,rgba(208,163,90,0.5),transparent);}
-.faq-orn-dot{width:6px;height:6px;border-radius:50%;background:#d0a35a;opacity:0.6;}
+/* --- DECOR --- */
+.cc-decor{position:absolute;pointer-events:none;user-select:none;z-index:1;display:block;height:auto;}
+.cc-lamp{top:26px;left:30px;width:250px;opacity:0.96;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.55));}
+.cc-books-tr{top:40px;right:44px;width:220px;opacity:0.96;filter:drop-shadow(0 16px 26px rgba(0,0,0,0.5));}
+.cc-books-bl{bottom:36px;left:34px;width:250px;opacity:0.96;filter:drop-shadow(0 16px 26px rgba(0,0,0,0.5));}
+.cc-compass{bottom:40px;right:40px;width:230px;opacity:0.96;filter:drop-shadow(0 16px 26px rgba(0,0,0,0.5));}
+.cc-cord-shot{position:absolute;pointer-events:none;z-index:2;opacity:0.92;object-fit:cover;filter:drop-shadow(0 10px 18px rgba(0,0,0,0.45));}
+.cc-cord-r1{top:430px;right:6px;width:52px;height:420px;}
+.cc-cord-l2{top:900px;left:6px;width:52px;height:380px;transform:scaleX(-1);}
+.cc-cord-r3{top:1330px;right:6px;width:52px;height:380px;}
 
-/* Responsive */
+/* --- FOOTER --- */
+.cc-footer{position:relative;text-align:center;padding:80px 20px 6px;}
+.cc-footer-line{display:inline-flex;align-items:center;gap:22px;margin-bottom:34px;}
+.cc-footer-line::before,.cc-footer-line::after{content:"";width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(210,170,90,0.6),transparent);}
+.cc-footer-text{font-family:'Manrope',sans-serif;font-style:italic;font-weight:500;font-size:26px;color:rgba(240,230,210,0.82);letter-spacing:0.2px;}
+.cc-signature{font-family:'Manrope',sans-serif;font-style:italic;font-weight:700;font-size:88px;line-height:1;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-2px;text-shadow:0 4px 20px rgba(200,150,70,0.18);}
+
+/* --- RESPONSIVE --- */
 @media (max-width:1200px){
-  .faq-sec{width:100%;}
-  .faq-lamp{width:160px;left:20px;}
-  .faq-magnifier{width:120px;left:20px;bottom:40px;}
-  .faq-card{width:140px;right:30px;bottom:30px;}
+  .cc-sec{width:100%;}
+  .cc-panel-grid,.cc-panel-grid.rev,.cc-panel-grid.wide{grid-template-columns:1fr;}
+  .cc-panel-grid.rev .cc-stat{border-left:none;border-top:1px solid rgba(210,170,90,0.14);}
+  .cc-stat{border-right:none;border-bottom:1px solid rgba(210,170,90,0.14);}
+  .cc-tiles{grid-template-columns:repeat(4,1fr);}
+  .cc-title{font-size:64px;}
+  .cc-signature{font-size:64px;}
+  .cc-decor{display:none;}
+  .cc-cord-r1,.cc-cord-l2,.cc-cord-r3{display:none;}
 }
 @media (max-width:720px){
-  .faq-sec{min-height:auto;}
-  .faq-inner{padding:80px 18px 100px;}
-  .faq-title{font-size:44px;}
-  .faq-subtitle{font-size:16px;}
-  .faq-eyebrow{font-size:11px;letter-spacing:3px;}
-  .faq-item{border-radius:12px;}
-  .faq-q{padding:18px 18px;gap:14px;}
-  .faq-num{width:38px;height:38px;}
-  .faq-num span{font-size:15px;}
-  .faq-q-text{font-size:16px;}
-  .faq-toggle{width:32px;height:32px;}
-  .faq-toggle svg{width:15px;height:15px;}
-  .faq-a-inner{padding:0 18px 22px 70px;font-size:15px;}
-  .faq-lamp{width:100px;top:10px;left:10px;opacity:0.5;}
-  .faq-magnifier{display:none;}
-  .faq-card{width:100px;right:14px;bottom:20px;opacity:0.45;}
+  .cc-sec{padding:70px 0 80px;}
+  .cc-inner{padding:0 16px;}
+  .cc-header{padding:0 8px 46px;}
+  .cc-title{font-size:44px;letter-spacing:-1px;}
+  .cc-subtitle{font-size:16px;}
+  .cc-eyebrow{font-size:11px;letter-spacing:3.5px;}
+  .cc-panel{margin-top:22px;border-radius:16px;}
+  .cc-stat{padding:34px 24px;}
+  .cc-stat-num{font-size:72px;}
+  .cc-stat-num sup{font-size:32px;}
+  .cc-stat-label{font-size:18px;}
+  .cc-board{padding:28px 20px;}
+  .cc-tiles{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .cc-tile{font-size:14px;padding:16px 8px;min-height:66px;}
+  .cc-tile-person{min-height:88px;}
+  .cc-tile-cat{min-height:100px;}
+  .cc-summary{padding:34px 24px;}
+  .cc-summary-title{font-size:36px;}
+  .cc-summary-body{font-size:15px;}
+  .cc-footer{padding:56px 12px 0;}
+  .cc-footer-text{font-size:18px;}
+  .cc-footer-line::before,.cc-footer-line::after{width:36px;}
+  .cc-signature{font-size:56px;}
 }
 </style>
 
-<div class="faq-sec">
+<div class="cc-sec">
+  <!-- Decor: lamp + case-file photo, top-left -->
+  <img class="cc-decor cc-lamp" src="assets/images/yopilgan-ishlar-lamp.png" alt="" aria-hidden="true" loading="lazy">
 
-  <div class="faq-inner">
-    <!-- Header -->
-    <div class="faq-header">
-      <h2 class="faq-title">Savol-javob</h2>
-      <p class="faq-subtitle">Dastur bo'yicha eng ko'p so'raladigan savollar</p>
+  <!-- Decor: books + magnifier photo, top-right -->
+  <img class="cc-decor cc-books-tr" src="assets/images/yopilgan-ishlar-books-magnifier-1.png" alt="" aria-hidden="true" loading="lazy">
+
+  <!-- Decor: books + magnifier photo, bottom-left -->
+  <img class="cc-decor cc-books-bl" src="assets/images/yopilgan-ishlar-books-magnifier-2.png" alt="" aria-hidden="true" loading="lazy">
+
+  <!-- Decor: compass + ink photo, bottom-right -->
+  <img class="cc-decor cc-compass" src="assets/images/yopilgan-ishlar-compass-ink.png" alt="" aria-hidden="true" loading="lazy">
+
+  <!-- Decor: red thread photo, beside panel 1 (right) -->
+  <img class="cc-cord-shot cc-cord-r1" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
+  <!-- Decor: red thread photo, beside panel 2 (left, mirrored) -->
+  <img class="cc-cord-shot cc-cord-l2" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
+  <!-- Decor: red thread photo, beside panel 3 (right) -->
+  <img class="cc-cord-shot cc-cord-r3" src="assets/images/yopilgan-ishlar-red-thread.png" alt="" aria-hidden="true" loading="lazy">
+
+  <div class="cc-inner">
+    <!-- ============ HEADER ============ -->
+    <header class="cc-header">
+      <div class="cc-eyebrow">Natijalar isbotlangan</div>
+      <h2 class="cc-title">Yopilgan <em>ishlar</em></h2>
+      <p class="cc-subtitle">Nazariya emas. Real bizneslar. Real odamlar. Real natijalar.</p>
+      <div class="cc-orn">
+        <span class="cc-orn-line"></span>
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="#d0a35a" stroke-width="1.6"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="#d0a35a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="cc-orn-line"></span>
+      </div>
+    </header>
+
+    <!-- ============ PANEL 1: BIZNESLAR ============ -->
+    <div class="cc-panel">
+      <div class="cc-panel-grid">
+        <div class="cc-stat">
+          <div class="cc-stat-num">10<sup>+</sup></div>
+          <div class="cc-stat-label">Tizimlashtirilgan bizneslar</div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Tizim yo'lga qo'yilgan
+          </div>
+        </div>
+        <div class="cc-board">
+          <div class="cc-board-title">Ish raqami: BN-01 · Kompaniyalar ro'yxati</div>
+          <div class="cc-tiles">
+            <div class="cc-tile">Cambridge</div>
+            <div class="cc-tile">Jahon School</div>
+            <div class="cc-tile">Colba Maktabi</div>
+            <div class="cc-tile">Najot Ta'lim</div>
+            <div class="cc-tile">K-Davo</div>
+            <div class="cc-tile">Zin-Nur akademiyasi</div>
+            <div class="cc-tile">Ucan Consulting</div>
+            <div class="cc-tile">Rida</div>
+            <div class="cc-tile">Basyra</div>
+            <div class="cc-tile">edfix</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Accordion -->
-    <div class="faq-list">
-
-      <div class="faq-item" data-faq>
-        <button class="faq-q" aria-expanded="false">
-          <div class="faq-num"><span>01</span></div>
-          <div class="faq-q-text">Dastur kimlar uchun?</div>
-          <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Dastur o'z biznesida sotuv tizimini yo'lga qo'ymoqchi bo'lgan <strong>tadbirkorlar</strong>, sotuv bo'lim rahbarlari va startup asoschilari uchun yaratilgan.</div></div>
+    <!-- ============ PANEL 2: BITIRUVCHILAR ============ -->
+    <div class="cc-panel">
+      <div class="cc-panel-grid rev">
+        <div class="cc-board">
+          <div class="cc-board-title">Ish raqami: BN-02 · Bitiruvchilar arxivi</div>
+          <div class="cc-tiles">
+            <div class="cc-tile">Najot Ta'lim</div>
+            <div class="cc-tile">Registon</div>
+            <div class="cc-tile">Smartlife</div>
+            <div class="cc-tile">Mas IT</div>
+            <div class="cc-tile">Gigu Moda akademiyasi</div>
+            <div class="cc-tile">Foyda Marketing</div>
+            <div class="cc-tile">Rombik</div>
+            <div class="cc-tile">ETHNO logistics</div>
+            <div class="cc-tile">Robbit</div>
+          </div>
+        </div>
+        <div class="cc-stat">
+          <div class="cc-stat-num">80<sup>+</sup></div>
+          <div class="cc-stat-label">Bitiruvchilar</div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Odamlar natijaga erishdi
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="faq-item" data-faq>
-        <button class="faq-q" aria-expanded="false">
-          <div class="faq-num"><span>02</span></div>
-          <div class="faq-q-text">Dastur onlaynmi?</div>
-          <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Ha, dasturning asosiy qismi <strong>onlayn formatda</strong> o'tkaziladi. Siz istalgan joydan qatnashishingiz mumkin.</div></div>
+    <!-- ============ PANEL 3: OUTSOURCE ============ -->
+    <div class="cc-panel">
+      <div class="cc-panel-grid">
+        <div class="cc-stat">
+          <div class="cc-stat-num">40<sup>+</sup></div>
+          <div class="cc-stat-label">Outsource sotuv bo'limi zapusklari</div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sotuv tizimlari yo'lga qo'yilgan
+          </div>
+        </div>
+        <div class="cc-board">
+          <div class="cc-board-title">Ish raqami: BN-03 · Sotuv bo'lim rahbarlari</div>
+          <div class="cc-tiles">
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="0" fill="currentColor"/></svg></div><div class="cc-person-name">Asror Iskandarov</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Husan Mamasidov</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Alisher Isayev</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Abdukarim Mirzayev</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Abdurahmonova Sitorabonu</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Barno Suleymanova</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Rano Mo'minova</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Osiyo Ismailova</div></div>
+            <div class="cc-tile cc-tile-person"><div class="cc-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="cc-person-name">Abdulaziz Muhammad</div></div>
+            <div class="cc-tile cc-tile-person cc-tile-more">+30</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="faq-item" data-faq>
-        <button class="faq-q" aria-expanded="false">
-          <div class="faq-num"><span>03</span></div>
-          <div class="faq-q-text">Qancha davom etadi?</div>
-          <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Dastur <strong>3 oy</strong> davom etadi. Har hafta darslar, vazifalar va nazorat bo'lib turadi.</div></div>
+    <!-- ============ PANEL 4: YO'NALISHLAR ============ -->
+    <div class="cc-panel">
+      <div class="cc-panel-grid wide">
+        <div class="cc-board">
+          <div class="cc-board-title">Ish raqami: BN-04 · Sinovdan o'tgan bozorlar</div>
+          <div class="cc-tiles" style="grid-template-columns:repeat(4,1fr);">
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-6h14l2 6M5 13v5a1 1 0 001 1h2a1 1 0 001-1v-1h6v1a1 1 0 001 1h2a1 1 0 001-1v-5"/><circle cx="7.5" cy="15" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor"/></svg></div><div class="cc-cat-name">Avtosalon</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.5 12a1 1 0 01-1 1H6.5a1 1 0 01-1-1L4 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg></div><div class="cc-cat-name">Riteyl</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg></div><div class="cc-cat-name">Tur agentligi</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13l3 4h2v5h-2M3 8v9h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div class="cc-cat-name">Logistika</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l6-4 6 4v12M9 21v-6h6v6M15 13V9l6 4v8h-6"/></svg></div><div class="cc-cat-name">B2B agentlik</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg></div><div class="cc-cat-name">O'quv markazi</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-6 9 6v11M9 21v-7h6v7"/></svg></div><div class="cc-cat-name">Xususiy maktab</div></div>
+            <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5-3-1.5-6 0-9 3 1 6 1 9 0 1.5 3 1.5 6 0 9-3-1-6-1-9 0z"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/></svg></div><div class="cc-cat-name">IT startup</div></div>
+          </div>
+        </div>
+        <div class="cc-summary">
+          <div class="cc-summary-eyebrow">Xulosa</div>
+          <h3 class="cc-summary-title">Yo'nalishlar</h3>
+          <p class="cc-summary-body">Ko'p yo'nalishda sinovdan o'tgan tajriba. Har xil bozorda bir xil natija — tizim.</p>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="#e6c48a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ko'p yo'nalishda sinovdan o'tgan
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="faq-item" data-faq>
-        <button class="faq-q" aria-expanded="false">
-          <div class="faq-num"><span>04</span></div>
-          <div class="faq-q-text">Sotuvchilarimni ham o'qitasizmi?</div>
-          <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Ha — sotuv jamoasi onboardingi va sotuvchilar uchun <strong>onlayn darslar</strong> kiritilgan.</div></div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="cc-footer">
+      <div class="cc-footer-line">
+        <span class="cc-footer-text">Natijalar gapiradi. Biz esa dalillar bilan ishlaymiz.</span>
       </div>
+      <div class="cc-signature">Yopilgan.</div>
+    </footer>
+  </div>
+</div>
+  <!-- ================= SECTION 7 — NIMANI O'RGANASIZ ================= -->
+<style>
+  .no-card{transition:transform .35s ease;}
+  .no-card:hover{transform:translateY(-8px);}
+  @media (max-width:980px){.no-cards{grid-template-columns:1fr !important;justify-items:center;gap:12px !important;}}
+</style>
 
-      <div class="faq-item" data-faq>
-        <button class="faq-q" aria-expanded="false">
-          <div class="faq-num"><span>05</span></div>
-          <div class="faq-q-text">Natijaga kafolat bormi?</div>
-          <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Biz <strong>natijaga ishlaymiz</strong>. Barcha bitiruvchilarimiz real ko'rsatkichlarni ko'rsatgan. Lekin natija sizning harakat va intizomingizga bog'liq.</div></div>
+<section style="position:relative;background:#ede3d1 url(&quot;assets/images/886a30b6-3886-49c2-9aea-f02564b036d5.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
+  <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:92px 28px 104px;box-sizing:border-box;">
+
+    <header style="text-align:center;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px;">
+        <div style="width:44px;height:1px;background:linear-gradient(90deg,transparent,#b98d3e);"></div>
+        <span style="font-weight:700;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#a8753c;">Nimani o'rganasiz</span>
+        <div style="width:44px;height:1px;background:linear-gradient(90deg,#b98d3e,transparent);"></div>
       </div>
+      <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(40px,5vw,64px);line-height:1.05;color:#2b2418;">Nimani o'rganasiz</h2>
+      <p style="margin:14px auto 0;max-width:640px;font-weight:500;font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:rgba(60,48,34,.72);">Dasturda o'qish orqali 3 ta ko'nikmaga ega bo'lasiz.</p>
+    </header>
+
+    <div class="no-cards" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,52px);align-items:end;margin-top:48px;">
+
+      <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
+        <img src="assets/images/9ecc8283-2915-4bc0-9c0f-5fd4b7965b7a.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div style="position:absolute;left:23%;right:9%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+          <div style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">01</div>
+          <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
+          <h3 style="margin:12px 0 0;font-family:'Manrope',sans-serif;font-weight:700;font-size:clamp(19px,1.9vw,25px);line-height:1.12;color:#201b17;">Raqamlarda boshqaruv</h3>
+          <p style="margin:8px 0 0;font-weight:500;font-size:13.5px;line-height:1.45;color:rgba(40,32,24,.72);">Biznesni raqamlarda boshqarishni o'rganasiz.</p>
+        </div>
+      </article>
+
+      <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
+        <img src="assets/images/5eae8531-6250-4ea3-8e25-4a38eba82edd.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div style="position:absolute;left:15%;right:15%;top:18%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+          <div style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(36px,4vw,52px);line-height:1;color:#c89a54;">02</div>
+          <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:10px 0 0;"></div>
+          <h3 style="margin:16px 0 0;font-family:'Manrope',sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.15;color:#201b17;">O'zgarishni boshqarish</h3>
+          <p style="margin:10px 0 0;font-weight:500;font-size:15px;line-height:1.5;color:rgba(40,32,24,.72);">O'zgarishni boshqarish metodi orqali yangi olgan bilimlaringizni qiyinchiliksiz tadbiq qilasiz.</p>
+        </div>
+      </article>
+
+      <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
+        <img src="assets/images/119e6daa-54b8-4508-ab50-44f066f3792f.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div style="position:absolute;left:13%;right:13%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+          <div style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">03</div>
+          <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
+          <h3 style="margin:12px 0 0;font-family:'Manrope',sans-serif;font-weight:700;font-size:clamp(19px,1.9vw,25px);line-height:1.12;color:#201b17;">O'sish nuqtalari</h3>
+          <p style="margin:8px 0 0;font-weight:500;font-size:13.5px;line-height:1.45;color:rgba(40,32,24,.72);">Qayerda mijoz yo'qotayotganingizni (o'sish nuqtalarini) aniqlaysiz.</p>
+        </div>
+      </article>
 
     </div>
   </div>
-</div>
+</section>
 
 <!-- ================= SECTION 8 — ARIZA (APPLICATION) ================= -->
 <style>
