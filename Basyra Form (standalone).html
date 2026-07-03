@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursga yozilish — Business Navigator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: #0c0806;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,151,63,.18), transparent),
+      radial-gradient(ellipse 50% 40% at 80% 100%, rgba(100,60,20,.25), transparent);
+    font-family: 'Inter', sans-serif;
+    color: #1a1209;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px 80px;
+  }
+
+  /* ── Header ── */
+  .bn-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .bn-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #c9973f;
+    margin-bottom: 16px;
+  }
+  .bn-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: #f0e8d8;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .bn-subtitle {
+    font-size: 15px;
+    color: rgba(240,232,216,.55);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* ── Decorative rule ── */
+  .bn-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .bn-rule-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,151,63,.4), transparent); max-width: 120px; }
+  .bn-rule-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9973f; }
+
+  /* ── Card ── */
+  .form-card {
+    width: 100%;
+    max-width: 640px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 48px 48px 40px;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,.55),
+      0 0 0 1px rgba(201,151,63,.12),
+      inset 0 1px 0 rgba(255,255,255,1);
+  }
+
+  /* ── Step counter ── */
+  .form-step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #c9973f;
+    margin-bottom: 28px;
+  }
+  .form-step-badge::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: #c9973f;
+    border-radius: 1px;
+  }
+
+  /* ── Field ── */
+  .field {
+    margin-bottom: 28px;
+  }
+  .field:last-of-type { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1209;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  label .q-num {
+    color: #c9973f;
+    margin-right: 6px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #e2d8cc;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #1a1209;
+    background: #fdfaf6;
+    transition: border-color .18s, box-shadow .18s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type="text"]::placeholder,
+  input[type="tel"]::placeholder,
+  textarea::placeholder { color: #b8a99a; }
+
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #c9973f;
+    box-shadow: 0 0 0 3px rgba(201,151,63,.12);
+    background: #fff;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+  }
+
+  /* Phone field */
+  .phone-wrap {
+    display: flex;
+    gap: 10px;
+  }
+  .phone-prefix {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 14px;
+    border: 1.5px solid #e2d8cc;
+    border-radius: 10px;
+    background: #fdfaf6;
+    font-size: 15px;
+    color: #1a1209;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .flag { font-size: 20px; line-height: 1; }
+  .phone-wrap input[type="tel"] { flex: 1; }
+
+  /* Select arrow */
+  .select-wrap { position: relative; }
+  .select-wrap select { padding-right: 40px; cursor: pointer; }
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #b8a99a;
+    pointer-events: none;
+  }
+
+  /* ── Divider ── */
+  .field-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e2d8cc 30%, #e2d8cc 70%, transparent);
+    margin: 4px 0 28px;
+  }
+
+  /* ── Submit ── */
+  .form-footer {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 18px 32px;
+    background: linear-gradient(135deg, #e7bd6e 0%, #c9973f 100%);
+    border: none;
+    border-radius: 12px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #2a1a08;
+    cursor: pointer;
+    letter-spacing: .3px;
+    box-shadow: 0 8px 24px rgba(201,151,63,.35), inset 0 1px 0 rgba(255,255,255,.4);
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(201,151,63,.45), inset 0 1px 0 rgba(255,255,255,.4);
+    background: linear-gradient(135deg, #f0c96e 0%, #d4a040 100%);
+  }
+  .btn-submit:active { transform: translateY(0); }
+
+  .form-note {
+    font-size: 12px;
+    color: #b8a99a;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Success state ── */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e7bd6e, #c9973f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+  }
+  .success-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1209;
+    margin-bottom: 12px;
+  }
+  .success-text {
+    font-size: 15px;
+    color: #6b5a4a;
+    line-height: 1.6;
+  }
+
+  /* Mobile */
+  @media (max-width: 560px) {
+    .form-card { padding: 32px 24px 28px; border-radius: 16px; }
+    .bn-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bn-header">
+  <div class="bn-brand">acdmy by basyra</div>
+  <h1 class="bn-title">Kursga yozilish</h1>
+  <p class="bn-subtitle">Ariza to'ldiring — biz siz bilan bog'lanamiz</p>
+</div>
+
+<div class="bn-rule">
+  <div class="bn-rule-line"></div>
+  <div class="bn-rule-dot"></div>
+  <div class="bn-rule-line"></div>
+</div>
+
+<div class="form-card">
+
+  <div class="form-step-badge">Ariza shakli</div>
+
+  <!-- Success state -->
+  <div class="success-state" id="success">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Ariza qabul qilindi!</div>
+    <p class="success-text">Rahmat! Tez orada siz bilan bog'lanamiz va keyingi qadamlarni ma'lum qilamiz.</p>
+  </div>
+
+  <form id="appForm" novalidate>
+
+    <!-- 1. Ism va Familiya -->
+    <div class="field">
+      <label for="ism"><span class="q-num">1.</span> Ism va Familiya</label>
+      <input type="text" id="ism" name="ism" placeholder="Ismingiz va familiyangiz" required>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- 2. Telefon -->
+    <div class="field">
+      <label for="telefon"><span class="q-num">2.</span> Telefon raqamingiz</label>
+      <div class="phone-wrap">
+        <div class="phone-prefix"><span class="flag">🇺🇿</span> +998</div>
+        <input type="tel" id="telefon" name="telefon" placeholder="00-000-0000" required>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- 3. Lavozim -->
+    <div class="field">
+      <label for="lavozim"><span class="q-num">3.</span> Lavozimingiz</label>
+      <div class="select-wrap">
+        <select id="lavozim" name="lavozim" required>
+          <option value="" disabled selected>Tanlang</option>
+          <option value="tadbirkor">Tadbirkor</option>
+          <option value="sotuv-rahbar">Sotuv bo'limi rahbari</option>
+          <option value="sotuvchi">Sotuvchi</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- 4. Biznes turi -->
+    <div class="field">
+      <label for="biznes"><span class="q-num">4.</span> Qaysi biznes turi bilan shug'ullanasiz?</label>
+      <textarea id="biznes" name="biznes" placeholder="Masalan: chakana savdo, xizmat ko'rsatish, ishlab chiqarish..." required></textarea>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- 5. Lavozim (duplicate as provided — verify with client) -->
+    <div class="field">
+      <label for="lavozim2"><span class="q-num">5.</span> Lavozimingiz</label>
+      <div class="select-wrap">
+        <select id="lavozim2" name="lavozim2">
+          <option value="" disabled selected>Tanlang</option>
+          <option value="tadbirkor">Tadbirkor</option>
+          <option value="sotuv-rahbar">Sotuv bo'limi rahbari</option>
+          <option value="sotuvchi">Sotuvchi</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- 6. Muammolar -->
+    <div class="field">
+      <label for="muammo"><span class="q-num">6.</span> Biznesingizda qanday muammolar bor?</label>
+      <textarea id="muammo" name="muammo" placeholder="Hozir duch kelayotgan asosiy muammolaringizni yozing..." required></textarea>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn-submit">Arizani yuborish →</button>
+      <p class="form-note">Ma'lumotlaringiz maxfiy saqlanadi va uchinchi shaxslarga berilmaydi</p>
+    </div>
+
+  </form>
+</div>
+
+<script>
+document.getElementById('appForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Basic validation
+  var fields = this.querySelectorAll('[required]');
+  var ok = true;
+  fields.forEach(function(f) {
+    f.style.borderColor = '';
+    if (!f.value.trim()) {
+      f.style.borderColor = '#e05c5c';
+      ok = false;
+    }
+  });
+  if (!ok) return;
+
+  // Show success
+  this.style.display = 'none';
+  document.querySelector('.form-step-badge').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+
+  // TODO: wire up to a form backend (Formspree, Google Sheets, Telegram bot, etc.)
+});
+</script>
+
+</body>
+</html>

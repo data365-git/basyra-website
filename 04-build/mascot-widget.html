@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Basyra AI — mascot widget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0E0B08; --card:#171009; --card-2:#1f160c;
+  --cream:#F5EFE3; --cream-dim:#B8AC97; --cream-mut:#7d7159;
+  --gold:#E8B873; --gold-2:#F2D29B; --red:#9B2D20; --line:#352818;
+  --serif:"Playfair Display",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(120% 90% at 80% 10%,#1c140c,#0E0B08 60%);min-height:100vh;font-family:var(--sans);color:var(--cream)}
+.demo-note{position:fixed;top:24px;left:24px;font-size:.85rem;color:var(--cream-mut);max-width:340px;line-height:1.6}
+.demo-note b{color:var(--gold)}
+
+/* ===== FLOATING MASCOT WIDGET (drop-in component) ===== */
+.bn-mascot-wrap{position:fixed;right:clamp(16px,3vw,34px);bottom:clamp(16px,3vw,30px);z-index:9999;font-family:var(--sans)}
+
+/* the mascot button */
+.bn-mascot{position:relative;display:block;border:0;background:none;cursor:pointer;padding:0;width:clamp(96px,12vw,128px);filter:drop-shadow(0 14px 26px rgba(0,0,0,.55));transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.bn-mascot img{width:100%;display:block;animation:bn-bob 3.4s ease-in-out infinite;transform-origin:bottom center}
+.bn-mascot:hover{transform:translateY(-4px) scale(1.04)}
+.bn-mascot::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:62%;height:14px;border-radius:50%;background:radial-gradient(ellipse,rgba(232,184,115,.28),transparent 70%);filter:blur(3px)}
+@keyframes bn-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* teaser speech bubble */
+.bn-teaser{position:absolute;right:calc(100% + 12px);bottom:34px;white-space:nowrap;background:var(--card-2);border:1px solid var(--line);color:var(--cream);font-size:.82rem;font-weight:500;padding:9px 13px;border-radius:13px 13px 3px 13px;box-shadow:0 10px 26px -10px rgba(0,0,0,.7);animation:bn-pop .5s .8s both}
+.bn-teaser b{color:var(--gold)}
+.bn-teaser .x{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--cream-dim);font-size:.7rem;line-height:1;display:grid;place-items:center;cursor:pointer}
+@keyframes bn-pop{from{opacity:0;transform:translateY(6px) scale(.9)}to{opacity:1;transform:none}}
+.bn-mascot-wrap.open .bn-teaser{display:none}
+
+/* notification dot */
+.bn-dot{position:absolute;top:6px;right:10px;width:13px;height:13px;border-radius:50%;background:var(--red);border:2px solid var(--bg);animation:bn-ping 1.8s ease-out infinite}
+@keyframes bn-ping{0%{box-shadow:0 0 0 0 rgba(155,45,32,.6)}70%,100%{box-shadow:0 0 0 9px rgba(155,45,32,0)}}
+.bn-mascot-wrap.open .bn-dot{display:none}
+
+/* ===== POPUP PANEL ===== */
+.bn-pop{position:absolute;right:0;bottom:calc(100% + 14px);width:min(92vw,360px);background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 70px -24px rgba(0,0,0,.85),0 0 0 1px rgba(232,184,115,.08);overflow:hidden;transform-origin:bottom right;opacity:0;transform:translateY(12px) scale(.96);pointer-events:none;transition:opacity .26s var(--ease),transform .26s cubic-bezier(.16,1,.3,1)}
+.bn-mascot-wrap.open .bn-pop{opacity:1;transform:none;pointer-events:auto}
+
+.bn-pop-head{display:flex;align-items:center;gap:12px;padding:16px 16px 14px;background:linear-gradient(135deg,rgba(232,184,115,.14),transparent 70%);border-bottom:1px solid var(--line);position:relative}
+.bn-pop-head .ava{width:42px;height:42px;border-radius:50%;flex:none;background:radial-gradient(circle at 50% 30%,#2a1f12,#140e08);border:1px solid var(--gold);overflow:hidden;display:grid;place-items:end center}
+.bn-pop-head .ava img{width:150%;margin-bottom:-4px;transform:translateX(2px)}
+.bn-pop-head .who .n{font-family:var(--serif);font-weight:700;font-size:1.06rem;color:var(--gold-2);line-height:1.1}
+.bn-pop-head .who .s{font-size:.72rem;color:var(--cream-dim);display:flex;align-items:center;gap:6px;margin-top:3px}
+.bn-pop-head .who .s .live{width:7px;height:7px;border-radius:50%;background:#5bd07f;box-shadow:0 0 0 0 rgba(91,208,127,.5);animation:bn-ping2 1.8s infinite}
+@keyframes bn-ping2{0%{box-shadow:0 0 0 0 rgba(91,208,127,.5)}70%,100%{box-shadow:0 0 0 6px rgba(91,208,127,0)}}
+.bn-pop-head .close{margin-left:auto;flex:none;width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:rgba(0,0,0,.2);color:var(--cream-dim);cursor:pointer;font-size:1rem;line-height:1;transition:.2s}
+.bn-pop-head .close:hover{color:var(--cream);border-color:var(--gold)}
+
+.bn-pop-body{padding:16px}
+.bn-msg{background:var(--bg);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:13px 15px;font-size:.92rem;line-height:1.55;color:var(--cream)}
+.bn-msg b{color:var(--gold-2)}
+.bn-chips{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.bn-chip{text-align:left;font-family:var(--sans);font-size:.86rem;font-weight:500;color:var(--cream);background:rgba(232,184,115,.06);border:1px solid var(--line);border-radius:11px;padding:11px 13px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:9px}
+.bn-chip::before{content:"›";color:var(--gold);font-weight:700}
+.bn-chip:hover{background:rgba(232,184,115,.13);border-color:rgba(232,184,115,.45);transform:translateX(2px)}
+.bn-cta{display:flex;gap:9px;margin-top:14px}
+.bn-input{flex:1;min-width:0;font-family:var(--sans);font-size:.88rem;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--cream)}
+.bn-input::placeholder{color:var(--cream-mut)}
+.bn-input:focus{outline:none;border-color:var(--gold)}
+.bn-send{flex:none;border:0;cursor:pointer;padding:0 16px;border-radius:11px;font-weight:600;font-size:.88rem;color:#1a1206;background:linear-gradient(135deg,var(--gold-2),var(--gold))}
+.bn-foot{text-align:center;font-size:.66rem;color:var(--cream-mut);padding:0 16px 14px}
+.bn-foot b{color:var(--cream-dim)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-note">
+  <b>Preview demo.</b> The floating detective mascot sits at the bottom edge.
+  Click it → the <b>Basyra AI</b> popup opens. Everything inside
+  <code>.bn-mascot-wrap</code> is the drop-in component for the real site.
+</div>
+
+<!-- ===================== DROP-IN MASCOT WIDGET ===================== -->
+<div class="bn-mascot-wrap" id="bnMascot">
+
+  <!-- popup -->
+  <div class="bn-pop" role="dialog" aria-label="Basyra AI yordamchi">
+    <div class="bn-pop-head">
+      <span class="ava"><img src="assets/mascot.png" alt="" /></span>
+      <span class="who">
+        <span class="n">Basyra AI</span>
+        <span class="s"><span class="live"></span> Raqamli yordamchi · online</span>
+      </span>
+      <button class="close" id="bnClose" aria-label="Yopish">✕</button>
+    </div>
+    <div class="bn-pop-body">
+      <div class="bn-msg">Salom! Men <b>Basyra AI</b> — Abdulboriy akaning raqamli yordamchisiman. Sotuv tizimi bo'yicha savolingiz bormi?</div>
+      <div class="bn-chips">
+        <button class="bn-chip">Dastur kimlar uchun?</button>
+        <button class="bn-chip">Keyingi guruh qachon boshlanadi?</button>
+        <button class="bn-chip">Sotuvchilarimni ham o'qitasizmi?</button>
+      </div>
+      <div class="bn-cta">
+        <input class="bn-input" type="text" placeholder="Savolingizni yozing…" aria-label="Savol" />
+        <button class="bn-send">→</button>
+      </div>
+    </div>
+    <div class="bn-foot"><b>Business Navigator</b> · raqamli Vatson</div>
+  </div>
+
+  <!-- teaser bubble -->
+  <div class="bn-teaser" id="bnTeaser"><b>Savolingiz bormi?</b> Mendan so'rang →<span class="x" id="bnTeaserX">✕</span></div>
+
+  <!-- mascot button -->
+  <button class="bn-mascot" id="bnBtn" aria-label="Basyra AI yordamchini ochish" aria-expanded="false">
+    <span class="bn-dot"></span>
+    <img src="assets/mascot.png" alt="Basyra AI mascot" />
+  </button>
+</div>
+<!-- =================== /DROP-IN MASCOT WIDGET ===================== -->
+
+<script>
+(function(){
+  var wrap=document.getElementById('bnMascot'),
+      btn=document.getElementById('bnBtn'),
+      close=document.getElementById('bnClose'),
+      teaserX=document.getElementById('bnTeaserX');
+  function toggle(open){
+    var o = open===undefined ? !wrap.classList.contains('open') : open;
+    wrap.classList.toggle('open',o);
+    btn.setAttribute('aria-expanded',o);
+  }
+  btn.addEventListener('click',function(){toggle();});
+  close.addEventListener('click',function(){toggle(false);});
+  teaserX.addEventListener('click',function(e){e.stopPropagation();document.getElementById('bnTeaser').style.display='none';});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false);});
+  // chips + send: in the real site, wire these to scroll to the form / send to backend
+  document.querySelectorAll('.bn-chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelector('.bn-input').value=c.textContent;
+      document.querySelector('.bn-input').focus();
+    });
+  });
+})();
+</script>
+</body>
+</html>

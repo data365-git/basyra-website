@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Archive backups — large .bak files, not needed in git
+99-archive/
+
+# Vercel deploy copy — generated from the main standalone HTML
+04-build/dist/
+
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Editor
+.vscode/
+*.swp
+*.swo
