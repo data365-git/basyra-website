@@ -1823,9 +1823,10 @@
   .ar-role{border:1px solid rgba(90,65,35,.24);background:rgba(255,255,255,.36);}
   .ar-role-body{font-weight:600;color:#2e2419;}
   .ar-role:focus-within{border-color:#c9974f;box-shadow:0 0 0 2px rgba(201,151,79,.18);}
-  .ar-role.ar-selected{border-color:#e8bd66;background:linear-gradient(160deg,#2a2015,#160f08);box-shadow:0 0 0 2px #e8bd66,0 10px 24px rgba(120,80,25,.45);transform:translateY(-2px);}
-  .ar-role.ar-selected .ar-role-body{color:#f3dca8;font-weight:700;}
-  .ar-role.ar-selected svg{stroke:#e8bd66;}
+  .ar-role.ar-selected{border:3px solid #e8bd66 !important;background:#1a1207 !important;box-shadow:0 0 0 3px #e8bd66,0 0 20px rgba(232,189,102,.4),0 12px 26px rgba(120,80,25,.5);transform:translateY(-4px) scale(1.06);}
+  .ar-role.ar-selected .ar-role-body{color:#ffd96a !important;font-weight:900 !important;font-size:15px !important;}
+  .ar-role.ar-selected svg{stroke:#ffd96a !important;width:28px !important;height:28px !important;}
+  .ar-role.ar-selected::after{content:"✓";position:absolute;top:-8px;right:-8px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;background:#e8bd66;color:#1a1207;font-size:15px;font-weight:900;line-height:1;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.5);border:2px solid #fff;}
   .ar-cta{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;}
   .ar-cta:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 16px 34px rgba(130,80,28,.42) !important;}
   .ar-cta:active{transform:translateY(0);}
@@ -1914,7 +1915,28 @@
         Dasturga joylar soni cheklangan.
       </p>
     </form>
-    <script>document.querySelectorAll('.ar-role input[type="radio"]').forEach(function(r){r.addEventListener('change',function(){document.querySelectorAll('.ar-role').forEach(function(l){l.classList.toggle('ar-selected',l.querySelector('input').checked)})})});document.querySelectorAll('.ar-role').forEach(function(l){l.classList.toggle('ar-selected',l.querySelector('input').checked)});</script>
+    <script>
+function highlightRoles(){
+  document.querySelectorAll('#ariza-form .ar-role').forEach(function(l){
+    var checked=l.querySelector('input').checked;
+    if(checked){
+      l.style.cssText+='border:3px solid #e8bd66 !important;background:#1a1207 !important;box-shadow:0 0 0 3px #e8bd66,0 0 20px rgba(232,189,102,.4);transform:translateY(-4px) scale(1.06);';
+      l.querySelector('.ar-role-body').style.cssText+='color:#ffd96a !important;font-weight:900 !important;font-size:15px !important;';
+      var svg=l.querySelector('svg');if(svg)svg.setAttribute('stroke','#ffd96a');
+    }else{
+      l.style.border='';l.style.background='';l.style.boxShadow='';l.style.transform='';
+      l.querySelector('.ar-role-body').style.color='';l.querySelector('.ar-role-body').style.fontWeight='';l.querySelector('.ar-role-body').style.fontSize='';
+      var svg=l.querySelector('svg');if(svg)svg.setAttribute('stroke','#7a5424');
+    }
+  });
+}
+document.querySelectorAll('#ariza-form .ar-role input[type="radio"]').forEach(function(r){r.addEventListener('change',highlightRoles)});
+setTimeout(function(){
+  document.querySelectorAll('#__mag-lens input[name="lavozim"]').forEach(function(r){r.name='_mag_lavozim';});
+  document.querySelector('#ariza-form input[value="Tadbirkor"]').checked=true;
+  highlightRoles();
+},500);
+</script>
   </div>
 </section>
 <script>
