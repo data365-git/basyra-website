@@ -26,6 +26,32 @@
 </head>
 <body>
 
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  var stored = {};
+  try { stored = JSON.parse(sessionStorage.getItem('bn_utm') || '{}'); } catch(e){}
+
+  utmKeys.forEach(function(k){
+    var v = params.get(k);
+    if (v) stored[k] = v;
+  });
+
+  if (!stored.utm_source) {
+    var ref = document.referrer || '';
+    if (/instagram\.com/i.test(ref)) { stored.utm_source = 'instagram'; stored.utm_medium = stored.utm_medium || 'social'; }
+    else if (/facebook\.com|fb\.com/i.test(ref)) { stored.utm_source = 'facebook'; stored.utm_medium = stored.utm_medium || 'social'; }
+    else if (/t\.me/i.test(ref)) { stored.utm_source = 'telegram'; stored.utm_medium = stored.utm_medium || 'social'; }
+    else if (/youtube\.com|youtu\.be/i.test(ref)) { stored.utm_source = 'youtube'; stored.utm_medium = stored.utm_medium || 'video'; }
+    else if (/tiktok\.com/i.test(ref)) { stored.utm_source = 'tiktok'; stored.utm_medium = stored.utm_medium || 'video'; }
+  }
+
+  try { sessionStorage.setItem('bn_utm', JSON.stringify(stored)); } catch(e){}
+  window.__bnUtm = stored;
+})();
+</script>
+
 <x-dc>
 <helmet data-dc-atomics="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -674,7 +700,7 @@
     <img src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(16,12,10,.68) 0%, rgba(16,12,10,.30) 34%, rgba(16,12,10,0) 52%);"></div>
     <div id="bn-atmo" style="position:absolute;inset:0;pointer-events:none;"></div>
-    <div style="position:absolute;left:0;right:0;bottom:0;height:206px;background:rgba(18,13,11,.34);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-top:1px solid rgba(201,168,110,.22);box-shadow:inset 0 1px 0 rgba(255,244,220,.08),0 -12px 40px rgba(0,0,0,.28);"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:150px;background:rgba(18,13,11,.34);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-top:1px solid rgba(201,168,110,.22);box-shadow:inset 0 1px 0 rgba(255,244,220,.08),0 -12px 40px rgba(0,0,0,.28);"></div>
 
     <!-- nav: logo lockup -->
     <div style="position:absolute;left:115px;top:34px;">
@@ -705,7 +731,7 @@
     <div style="position:absolute;left:115px;top:520px;font-family:'Manrope',sans-serif;font-style:italic;font-weight:400;font-size:27px;letter-spacing:.2px;color:#c0b4a4;">Avval tashxis, keyin esa tizim.</div>
 
     <!-- CTA -->
-    <a class="bn-cta" href="#" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;
+    <a class="bn-cta" href="#ariza" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;
          background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);
          box-shadow:0 14px 30px rgba(180,140,70,.30);">
       <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:24px;letter-spacing:.2px;color:#241a0f;">Dasturga yoziling</span>
@@ -717,35 +743,39 @@
 
 
     <!-- stat dividers -->
-    <div style="position:absolute;left:433px;top:742px;width:1px;height:80px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
-    <div style="position:absolute;left:839px;top:742px;width:1px;height:80px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
-    <div style="position:absolute;left:1257px;top:742px;width:1px;height:80px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
+    <div style="position:absolute;left:433px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
+    <div style="position:absolute;left:839px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
+    <div style="position:absolute;left:1257px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
 
     <!-- stats -->
-    <div style="position:absolute;left:243px;top:736px;transform:translateX(-50%);text-align:center;">
-      <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:50px;line-height:1;color:#e6ba60;">10+</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:16px;line-height:1.3;color:#a99c86;margin-top:10px;">tizimlashtirilgan biznes</div>
+    <div style="position:absolute;left:243px;top:780px;transform:translateX(-50%);text-align:center;">
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">10+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tizimlashtirilgan biznes</div>
     </div>
-    <div style="position:absolute;left:630px;top:736px;transform:translateX(-50%);text-align:center;">
-      <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:50px;line-height:1;color:#e6ba60;">80+</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:16px;line-height:1.3;color:#a99c86;margin-top:10px;">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
+    <div style="position:absolute;left:630px;top:780px;transform:translateX(-50%);text-align:center;">
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">80+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
     </div>
-    <div style="position:absolute;left:1048px;top:736px;transform:translateX(-50%);text-align:center;">
-      <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:50px;line-height:1;color:#e6ba60;">40+</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:16px;line-height:1.3;color:#a99c86;margin-top:10px;">outsource sotuv<br>bo’limi zapuski</div>
+    <div style="position:absolute;left:1048px;top:780px;transform:translateX(-50%);text-align:center;">
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">40+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">outsource sotuv<br>bo’limi zapuski</div>
     </div>
-    <div style="position:absolute;left:1429px;top:736px;transform:translateX(-50%);text-align:center;">
-      <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:50px;line-height:1;color:#e6ba60;">7</div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:400;font-size:16px;line-height:1.3;color:#a99c86;margin-top:10px;">yo’nalish</div>
+    <div style="position:absolute;left:1429px;top:780px;transform:translateX(-50%);text-align:center;">
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">7</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">yo’nalish</div>
     </div>
 
-    <div style="position:absolute;top:13%;right:8%;display:inline-flex;flex-direction:column;padding:12px 20px;border-radius:12px;border:1px solid rgba(231,189,110,.6);background:rgba(58,42,27,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 10px 26px rgba(0,0,0,.5);">
-      <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;color:#f0cd82;">2,5</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:21px;color:#e7bd6e;">oy —</span></div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;color:#d8c9ac;margin-top:8px;">offline dastur</div>
+    <div style="position:absolute;top:13%;right:8%;display:inline-block;padding:16px 26px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 26px rgba(0,0,0,.4);">
+      <div>
+        <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;color:#f7f3ea;">2,5</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:21px;color:#f7f3ea;">oy —</span></div>
+        <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;color:#e2d4b8;margin-top:8px;">offline dastur</div>
+      </div>
     </div>
-    <div style="position:absolute;top:30%;right:9%;display:inline-flex;flex-direction:column;padding:12px 20px;border-radius:12px;border:1px solid rgba(231,189,110,.6);background:rgba(58,42,27,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 10px 28px rgba(0,0,0,.55);">
-      <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:34px;color:#f0cd82;">13</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;color:#e7bd6e;">dars —</span></div>
-      <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;color:#e2d4b8;margin-top:8px;">amaliy dastur</div>
+    <div style="position:absolute;top:30%;right:9%;display:inline-block;padding:16px 26px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 28px rgba(0,0,0,.45);">
+      <div>
+        <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:34px;color:#f7f3ea;">13</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;color:#f7f3ea;">dars —</span></div>
+        <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;color:#e2d4b8;margin-top:8px;">amaliy dastur</div>
+      </div>
     </div>
   </div>
 
@@ -1290,7 +1320,7 @@
   @media (max-width:980px){.no-cards{grid-template-columns:1fr !important;justify-items:center;gap:12px !important;}}
 </style>
 
-<section style="position:relative;background:#ede3d1 url(&quot;assets/images/nimani-bg.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:’Manrope’,sans-serif;">
+<section id="nimani-organasiz" style="position:relative;background:#ede3d1 url(&quot;assets/images/nimani-bg.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:’Manrope’,sans-serif;">
   <div style="position:relative;z-index:2;max-width:1442px;margin:0 auto;padding:120px 0 120px;box-sizing:border-box;">
 
     <header style="text-align:center;margin-bottom:20px;">
@@ -1964,8 +1994,84 @@ highlightRoles();
     var form = e.target.closest('#ariza-form');
     if (!form) return;
     e.preventDefault();
-    // TODO: wire to backend/CRM endpoint — currently no server-side integration exists on this static site.
-  });
+    e.stopPropagation();
+
+    var btn = form.querySelector('button[type="submit"]');
+    var btnText = btn.querySelector('span');
+    var originalText = btnText.textContent;
+
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btnText.textContent = 'Yuborilmoqda...';
+
+    var ism = form.querySelector('[name="ism"]').value.trim();
+    var telefon = form.querySelector('[name="telefon"]').value.trim();
+    var lavozimEl = form.querySelector('[name="lavozim"]:checked');
+    var lavozim = lavozimEl ? lavozimEl.value : '';
+    var biznes = form.querySelector('[name="biznes"]').value.trim();
+    var muammolar = form.querySelector('[name="muammolar"]').value.trim();
+
+    if (!ism || !telefon) {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btnText.textContent = originalText;
+      if (!ism) form.querySelector('[name="ism"]').style.borderColor = '#c0392b';
+      if (!telefon) form.querySelector('[name="telefon"]').style.borderColor = '#c0392b';
+      return;
+    }
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var utm = window.__bnUtm || {};
+
+    var body = {
+      fields: {
+        TITLE: ism + ' — Basyra Academy ariza',
+        NAME: ism,
+        PHONE: [{ VALUE: telefon, VALUE_TYPE: 'WORK' }],
+        COMMENTS: 'Lavozim: ' + lavozim + '\nBiznes turi: ' + biznes + '\nMuammolar: ' + muammolar,
+        UF_CRM_1751985930: '1741',
+        SOURCE_ID: 'UC_NXB1DZ',
+        STATUS_ID: 'IN_PROCESS',
+        UTM_SOURCE: utm.utm_source || urlParams.get('utm_source') || '',
+        UTM_MEDIUM: utm.utm_medium || urlParams.get('utm_medium') || '',
+        UTM_CAMPAIGN: utm.utm_campaign || urlParams.get('utm_campaign') || '',
+        UTM_CONTENT: utm.utm_content || urlParams.get('utm_content') || '',
+        UTM_TERM: utm.utm_term || urlParams.get('utm_term') || ''
+      }
+    };
+
+    fetch('https://b24-l2y8pg.bitrix24.kz/rest/5981/yg1b8xw2pi9wibi3/crm.lead.add.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.result) {
+        form.reset();
+        btnText.textContent = 'Ariza yuborildi! ✔';
+        btn.style.background = 'linear-gradient(180deg,#5cb85c,#449d44)';
+        btn.style.color = '#fff';
+        btn.style.opacity = '1';
+      } else {
+        throw new Error(data.error_description || 'Xatolik');
+      }
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btnText.textContent = originalText;
+      btnText.textContent = 'Xatolik! Qayta urinib koʼring';
+      btn.style.background = 'linear-gradient(180deg,#e74c3c,#c0392b)';
+      btn.style.color = '#fff';
+      setTimeout(function(){
+        btnText.textContent = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
+  }, true);
 })();
 </script>
 
@@ -2179,12 +2285,19 @@ highlightRoles();
   // anchor jumps and scrollIntoView() — getBoundingClientRect() reflects the
   // actual rendered position post-transform, so compute the offset from that.
   document.addEventListener('click', function(e){
-    var link = e.target.closest('.bn-navlink[data-nav-target]');
-    if (!link) return;
-    var target = document.getElementById(link.getAttribute('data-nav-target'));
+    var link = e.target.closest('[data-nav-target]');
+    var id;
+    if (link) {
+      id = link.getAttribute('data-nav-target');
+    } else {
+      link = e.target.closest('a.bn-cta[href^="#"]');
+      if (link) id = link.getAttribute('href').substring(1);
+    }
+    if (!id) return;
+    var target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
-    var top = target.getBoundingClientRect().top + window.scrollY;
+    var top = target.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({ top: top, behavior: 'smooth' });
   });
 })();
