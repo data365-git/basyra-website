@@ -65,6 +65,7 @@
   height: min(582px, 76vh);
   max-width: calc(100vw - 32px);
   border-radius: 28px;
+  font-family: 'Manrope', sans-serif;
   color: #fff;
   color-scheme: dark;
   background: linear-gradient(160deg, rgba(22,28,40,.55), rgba(10,14,22,.66) 52%, rgba(5,8,13,.74));
