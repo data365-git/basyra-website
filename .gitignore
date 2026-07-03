@@ -11,6 +11,12 @@ Icon
 99-archive/
 _archive/
 
+# Large design renders — not needed in git (reference only, kept locally)
+03-design/sections-v1/
+03-design/sections-v2-after-critics/
+03-design/exports/*.png
+04-build/assets/site/
+
 # Vercel deploy copy — generated from the main standalone HTML
 04-build/dist/
 
