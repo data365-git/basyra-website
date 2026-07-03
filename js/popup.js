@@ -16,12 +16,6 @@
     "Basyra detektivi shu yerda"
   ];
 
-  var SUGGESTIONS = [
-    "Dastur qancha davom etadi?",
-    "Kimlar uchun mos?",
-    "Natijani qanday o‘lchaysiz?"
-  ];
-
   var MASCOT_IMG = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
 
   var state = {
@@ -153,18 +147,6 @@
 
     var body = h("div", { class: "ai-body", role: "log", "aria-live": "polite" }, []);
 
-    // Chips
-    var chipsWrap = h("div", { class: "ai-chips" }, []);
-    SUGGESTIONS.forEach(function (s) {
-      var chip = h("button", { class: "ai-chip", type: "button", text: s }, []);
-      chip.addEventListener("click", function () {
-        els.input.value = s;
-        updateSendState();
-        els.input.focus();
-      });
-      chipsWrap.appendChild(chip);
-    });
-
     // Welcome message
     var gradSpan = h("span", { class: "grad", text: "birga ochamiz" }, []);
     var welcomeTitle = h("div", { class: "wt" }, [document.createTextNode("Ishni "), gradSpan]);
@@ -172,7 +154,7 @@
       class: "ws",
       text: "Sotuv, jarayon yoki dastur haqida savol bering — detektivona aniqlik bilan javob beraman."
     }, []);
-    var welcomeCard = h("div", { class: "ai-welcome" }, [welcomeTitle, welcomeSub, chipsWrap]);
+    var welcomeCard = h("div", { class: "ai-welcome" }, [welcomeTitle, welcomeSub]);
     var welcomeMsg = h("div", { class: "ai-msg ai" }, [
       h("div", { class: "bubble" }, [welcomeCard])
     ]);
