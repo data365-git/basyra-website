@@ -277,6 +277,18 @@
     var root = h("div", { id: "basyra-ai-widget" }, [aura, popup, fab]);
     document.body.appendChild(root);
 
+    var backdrop = document.createElement("div");
+    backdrop.className = "ai-backdrop";
+    document.body.appendChild(backdrop);
+    els.backdrop = backdrop;
+
+    var grab = document.createElement("div");
+    grab.className = "ai-grab";
+    popup.insertBefore(grab, popup.firstChild);
+    els.grab = grab;
+
+    backdrop.addEventListener("click", closePopup);
+
     els.root = root;
     els.fab = fab;
     els.fabImg = fabImg;
@@ -293,6 +305,39 @@
     els.closeBtn = closeBtn;
 
     wireEvents();
+    wireSwipe();
+  }
+
+  // ---------- swipe-down-to-dismiss (mobile only) ----------
+  function wireSwipe() {
+    var sy = 0, cy = 0, drag = false;
+    function tStart(e) {
+      if (window.innerWidth > 640) return;
+      sy = e.touches[0].clientY;
+      drag = true;
+      els.popup.style.transition = "none";
+    }
+    function tMove(e) {
+      if (!drag) return;
+      cy = e.touches[0].clientY;
+      var dy = Math.max(0, cy - sy);
+      els.popup.style.transform = "translateY(" + dy + "px)";
+      if (els.backdrop) els.backdrop.style.opacity = String(Math.max(0, 1 - dy / 450));
+    }
+    function tEnd() {
+      if (!drag) return;
+      drag = false;
+      els.popup.style.transition = "";
+      els.popup.style.transform = "";
+      if (els.backdrop) els.backdrop.style.opacity = "";
+      if (cy - sy > 120) closePopup();
+    }
+
+    [els.header, els.grab].forEach(function (el) {
+      el.addEventListener("touchstart", tStart, { passive: true });
+      el.addEventListener("touchmove", tMove, { passive: true });
+      el.addEventListener("touchend", tEnd);
+    });
   }
 
   // ---------- open/close ----------
@@ -303,6 +348,7 @@
     els.popup.classList.add("open");
     els.popup.setAttribute("data-open", "true");
     els.aura.classList.add("show");
+    els.backdrop.classList.add("open");
     els.fabImg.src = MASCOT_COOL;
     els.fab.setAttribute("aria-expanded", "true");
     hideIdleBubble();
@@ -319,6 +365,8 @@
     els.popup.classList.remove("open");
     els.popup.removeAttribute("data-open");
     els.aura.classList.remove("show");
+    els.backdrop.classList.remove("open");
+    els.popup.style.transform = "";
     els.fabImg.src = MASCOT_SMILE;
     els.fab.setAttribute("aria-expanded", "false");
     document.removeEventListener("keydown", onKeydown, true);
