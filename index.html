@@ -2439,45 +2439,59 @@ highlightRoles();
   .bn-ku-subtitle{ font-size:16px !important; }
 
   .bn-ku-cards-mobile{
-    display:flex !important; flex-direction:column; gap:22px;
+    display:flex !important; flex-direction:column; gap:32px;
     position:relative; z-index:1;
-    padding:32px 20px 0; box-sizing:border-box;
+    padding:34px 20px 0; box-sizing:border-box;
   }
   .bn-ku-card{
     position:relative; z-index:0;
-    background:linear-gradient(180deg,#f7efe0,#efe2c8);
-    border-radius:16px;
-    box-shadow:0 22px 40px rgba(60,40,18,.22), 0 2px 0 rgba(255,255,255,.4) inset;
-    padding:16px 14px;
-    max-width:360px; margin-left:auto; margin-right:auto;
-    box-sizing:border-box;
+    width:calc(100% - 0px); max-width:400px; min-height:250px;
+    background:linear-gradient(180deg,rgba(255,248,235,.96),rgba(248,232,198,.96));
+    border-radius:18px;
+    box-shadow:0 16px 38px rgba(111,79,38,.18), inset 0 1px 0 rgba(255,255,255,.65);
+    border:1px solid rgba(224,184,120,.42);
+    padding:0;
+    margin:0 auto; box-sizing:border-box;
   }
   .bn-ku-card::before{
-    content:""; position:absolute; left:10px; right:10px; bottom:-8px; height:20px;
-    background:#d8c39c; border-radius:0 0 14px 14px; z-index:-1;
+    content:""; position:absolute; inset:18px 12px 18px 12px; border-radius:14px;
+    background:rgba(255,250,240,.55); box-shadow:inset 0 0 0 1px rgba(210,180,130,.25);
+    z-index:-1; pointer-events:none;
   }
-  .bn-ku-card:last-child{ margin-bottom:46px; }
+  .bn-ku-card:last-child{ margin-bottom:20px; }
   .bn-ku-tab{
-    position:absolute; left:16px; top:-16px;
-    display:flex; align-items:center; gap:6px;
+    position:absolute; left:20px; top:-16px; z-index:4;
+    display:flex; align-items:center; gap:8px;
     background:linear-gradient(180deg,#e8d3ad,#dcbf8c);
-    padding:6px 12px 7px; border-radius:9px 9px 0 0;
-    font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; color:#8a5a2b;
+    padding:7px 14px 8px; border-radius:10px 10px 0 0;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:15px; color:#8a5a2b;
   }
-  .bn-ku-body{ position:relative; padding-top:12px; }
-  .bn-ku-body::after{ content:""; display:table; clear:both; }
+  .bn-ku-body{
+    padding:34px 130px 22px 24px; box-sizing:border-box;
+  }
   .bn-ku-photo{
-    float:right; width:100px; height:auto; margin:-2px -2px 8px 12px;
-    border-radius:3px; box-shadow:0 14px 26px rgba(0,0,0,.28); transform:rotate(2deg);
+    position:absolute; z-index:3; right:16px; top:44px;
+    float:none; width:104px; height:132px; margin:0;
+    object-fit:cover; border:4px solid #f7efe2;
+    border-radius:3px; box-shadow:0 10px 22px rgba(0,0,0,.22); transform:rotate(3deg);
   }
-  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; color:#241d13; }
-  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13px; line-height:1.48; color:#6b5f49; }
+  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:clamp(21px,6vw,25px); line-height:1.1; color:#241d13; }
+  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13.5px; line-height:1.48; color:#6b5f49; }
   .bn-ku-sticky{
-    clear:both; display:inline-block; margin-top:14px;
-    background:#f4e3a1; color:#7a4a1a; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
-    font-size:13px; line-height:1.28; padding:8px 12px; border-radius:2px;
-    box-shadow:0 8px 16px rgba(0,0,0,.18); transform:rotate(-3deg);
+    position:absolute; z-index:4; left:24px; bottom:16px; clear:none;
+    display:flex; align-items:center; justify-content:center;
+    min-width:76px; min-height:64px;
+    background:#ffe8a8; color:#8b5522; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
+    font-size:13px; line-height:1.22; padding:8px; text-align:center;
+    box-shadow:0 8px 16px rgba(0,0,0,.16); transform:rotate(-3deg);
   }
+}
+
+@media (max-width: 360px) {
+  .bn-ku-body{ padding:30px 112px 20px 20px; }
+  .bn-ku-photo{ width:92px; height:118px; right:12px; top:40px; }
+  .bn-ku-card-title{ font-size:20px; }
+  .bn-ku-card-desc{ font-size:12.5px; }
 }
 
 /* === BATCH 4: OLDIN → KEYIN MOBILE REBUILD === */
