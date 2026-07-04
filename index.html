@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="assets/images/og-image.webp">
 <script src="js/a6a1f75f-e9ae-43ee-9169-af0db3d8d479.js" defer></script>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/487b67e6-c9f2-47ea-8162-59dd0b9fe0e0.woff2" crossorigin>
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link rel="icon" type="image/png" href="assets/images/cursor-magnifier.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#141110">
 <link rel="stylesheet" href="css/tokens.css">
@@ -684,7 +684,7 @@
     width: 100%; max-width: var(--container); margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-logo{ display: block; height: 36px; width: 150px; flex: none; }
+  .nav-logo{ display: block; height: 36px; width: auto; flex: none; }
   .nav-links{ display: none; }
   .nav-cta-inline{ display: none; }
 
@@ -734,16 +734,18 @@
   body.nav-open{ overflow: hidden; }
 
   @media (min-width: 1024px){
+    .nav-bar{ background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: none; }
     .nav-toggle{ display: none; }
     .nav-container{ gap: 12px; }
+    .nav-logo{ height: 46px; }
     .nav-links{
-      display: flex; align-items: center; gap: clamp(20px, 2.4vw, 44px);
-      font-family: 'Manrope', sans-serif; font-weight: 500; font-size: clamp(14px, 1vw, 17px);
-      letter-spacing: .3px; flex-wrap: nowrap;
+      display: flex; align-items: center; gap: 44px;
+      font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 17px;
+      letter-spacing: 1px; flex-wrap: nowrap;
     }
-    .nav-links a{ color: #c6bba4; white-space: nowrap; }
+    .nav-links a{ color: #c6bba4; white-space: nowrap; text-decoration: none; }
     .nav-links a[aria-current="page"]{ color: #efe8da; }
-    .nav-cta-inline{ display: inline-flex; flex: none; }
+    .nav-cta-inline{ display: none; }
   }
 
   /* ===== HERO — mobile-first ===== */
@@ -791,18 +793,25 @@
 
   @media (min-width: 1024px){
     .hero-section{ min-height: 890px; }
+    .hero-bg-scrim{ background: linear-gradient(90deg, rgba(16,12,10,.68) 0%, rgba(16,12,10,.30) 34%, rgba(16,12,10,0) 52%); }
     .hero-content{
-      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      display: flex; flex-direction: column; justify-content: center;
       min-height: 890px; padding-top: clamp(90px, 12vh, 140px);
+      padding-left: clamp(60px, 7vw, 115px); padding-right: 42%;
+      max-width: none;
     }
-    .hero-text{ display: flex; flex-direction: column; gap: 28px; grid-column: 1; }
+    .hero-text{ display: flex; flex-direction: column; gap: 28px; }
     .hero-cta{ width: auto; }
-    .hero-media{ grid-column: 2; }
-    .hero-media img{ margin: 0 0 0 auto; }
+    .hero-media{ display: none; }
     .hero-stats{
-      display: flex; grid-column: 1 / -1; align-items: stretch;
-      gap: clamp(24px, 4vw, 60px); margin-top: clamp(24px, 4vh, 48px);
-      padding-top: 28px; border-top: 1px solid rgba(201,168,110,.22);
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+      display: flex; align-items: stretch;
+      gap: clamp(24px, 4vw, 60px);
+      padding: 24px clamp(80px, 8vw, 115px);
+      background: rgba(18,13,11,.34);
+      backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3);
+      border-top: 1px solid rgba(201,168,110,.22);
+      box-shadow: inset 0 1px 0 rgba(255,244,220,.08), 0 -12px 40px rgba(0,0,0,.28);
     }
     .hero-stat{ display: flex; flex-direction: column; }
     .hero-stat-num{ font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 36px; line-height: 1; color: #e6ba60; }
@@ -816,6 +825,15 @@
     }
     .hero-badge--months{ top: 8%; right: 4%; }
     .hero-badge--lessons{ top: 26%; right: 6%; }
+  }
+
+  @media (min-width: 1440px){
+    .hero-section{ min-height: 100vh; }
+    .hero-content{ min-height: 100vh; padding-right: 38%; }
+    .hero-headline{ font-size: clamp(5.4rem, 4.5vw + 2rem, 7.2rem); }
+    .hero-subtitle{ font-size: clamp(1.7rem, 1vw + 1rem, 2.1rem); }
+    .hero-stat-num{ font-size: clamp(36px, 2.5vw, 48px); }
+    .hero-stat-label{ font-size: clamp(14px, 1vw, 18px); }
   }
 </style>
 </helmet>
@@ -903,36 +921,36 @@
       <div class="hero-media">
         <img src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="">
       </div>
+    </div>
 
-      <!-- stats (desktop only) -->
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">10+</div>
-          <div class="hero-stat-label">tizimlashtirilgan biznes</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">80+</div>
-          <div class="hero-stat-label">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">40+</div>
-          <div class="hero-stat-label">outsource sotuv<br>bo’limi zapuski</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">7</div>
-          <div class="hero-stat-label">yo’nalish</div>
-        </div>
+    <!-- stats (desktop only) -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">tizimlashtirilgan biznes</div>
       </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">80+</div>
+        <div class="hero-stat-label">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">40+</div>
+        <div class="hero-stat-label">outsource sotuv<br>bo’limi zapuski</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7</div>
+        <div class="hero-stat-label">yo’nalish</div>
+      </div>
+    </div>
 
-      <div class="hero-badges">
-        <div class="hero-badge hero-badge--months">
-          <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;color:#f7f3ea;">2,5</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:21px;color:#f7f3ea;">oy —</span></div>
-          <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;color:#e2d4b8;margin-top:8px;">offline dastur</div>
-        </div>
-        <div class="hero-badge hero-badge--lessons">
-          <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:34px;color:#f7f3ea;">13</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;color:#f7f3ea;">dars —</span></div>
-          <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;color:#e2d4b8;margin-top:8px;">amaliy dastur</div>
-        </div>
+    <div class="hero-badges">
+      <div class="hero-badge hero-badge--months">
+        <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;color:#f7f3ea;">2,5</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:21px;color:#f7f3ea;">oy —</span></div>
+        <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;color:#e2d4b8;margin-top:8px;">offline dastur</div>
+      </div>
+      <div class="hero-badge hero-badge--lessons">
+        <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:34px;color:#f7f3ea;">13</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;color:#f7f3ea;">dars —</span></div>
+        <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;color:#e2d4b8;margin-top:8px;">amaliy dastur</div>
       </div>
     </div>
   </div>
@@ -949,7 +967,7 @@
     .au-cards{margin-top:clamp(32px,6vw,64px);display:grid;grid-template-columns:1fr;gap:32px;justify-items:center;align-items:end;}
     .au-cards img{display:block;width:100%;max-width:420px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));}
     @media (min-width:768px){
-      .au-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:900px;margin-inline:auto;}
+      .au-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:1200px;margin-inline:auto;}
       .au-cards img{max-width:100%;}
     }
   </style>
@@ -1009,7 +1027,10 @@
     }
     @media (min-width:1024px){
       .ok-section{min-height:941px;display:flex;align-items:center;}
-      .ok-magnifier{display:block;position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(18deg);width:180px;height:auto;z-index:3;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));pointer-events:none;user-select:none;}
+      .ok-magnifier{display:none;}
+    }
+    @media (min-width:1440px){
+      .ok-section{ min-height: 100vh; }
     }
   </style>
   <div class="ok-section">
@@ -1469,6 +1490,11 @@
   @media (min-width:1024px){
     .dt-grid{ grid-template-columns:repeat(4,1fr); }
   }
+  @media (min-width:1440px){
+    .dt-container h2{ font-size:clamp(60px, 5vw, 80px); }
+    .dt-card h3{ font-size:clamp(22px, 1.5vw, 28px); }
+    .dt-card p{ font-size:clamp(15px, 1.1vw, 18px); }
+  }
   .dt-card{
     position:relative;
     background:var(--card,#F8F5F0);
@@ -1527,9 +1553,12 @@
   @media (min-width:1024px){
     .no-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,52px);}
   }
+  @media (min-width:1440px){
+    #nimani-organasiz h2{ font-size:clamp(64px, 5vw, 80px) !important; }
+  }
 </style>
 
-<section id="nimani-organasiz" style="position:relative;background:#ede3d1 url(&quot;assets/images/nimani-bg.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:’Manrope’,sans-serif;">
+<section id="nimani-organasiz" style="position:relative;background:#ede3d1;overflow:hidden;font-family:’Manrope’,sans-serif;">
   <div style="position:relative;z-index:2;max-width:var(--container);margin:0 auto;padding:var(--space-section) var(--pad-inline);box-sizing:border-box;">
 
     <header style="text-align:center;margin-bottom:20px;">
@@ -1673,6 +1702,11 @@
       .ah-sign{position:relative;left:auto;bottom:auto;width:100%;padding:20px 16px;background:none;margin:0 auto;}
       .ah-stats-row{flex-direction:column;}
     }
+    @media (min-width:1440px){
+      .ah-section{ min-height: 100vh; }
+      .ah-inner{ min-height: 100vh; }
+      .ah-portrait{ width: min(720px, 42vw); }
+    }
   </style>
 
   <section id="men-haqimda" class="ah-section">
@@ -1724,7 +1758,7 @@
 <style>
 .cc-sec{position:relative;width:100%;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:var(--space-section) 0;}
 .cc-sec::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 40px 80px -60px rgba(60,44,20,.35),inset 0 -40px 80px -60px rgba(60,44,20,.25);}
-.cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0;z-index:2;}
+.cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0 var(--pad-inline);z-index:2;}
 
 /* --- HEADER --- */
 .cc-header{text-align:center;position:relative;padding:0 20px 84px;}
@@ -1776,17 +1810,17 @@
 /* Person tile */
 .cc-tile-person{flex-direction:column;gap:10px;padding:18px 8px 14px;min-height:140px;}
 .cc-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;overflow:hidden;}
-.cc-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.cc-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
 .cc-avatar svg{width:30px;height:30px;color:#fbf0d5;}
-.face-asror{transform:scale(1.5);object-position:center 6% !important;}
-.face-husan{transform:scale(1.35);object-position:center 12% !important;}
-.face-alisher{transform:scale(1.2);object-position:center 8% !important;}
-.face-abdukarim{transform:scale(1.45);object-position:center 20% !important;}
-.face-sitorabonu{transform:scale(1.5);object-position:center 6% !important;}
-.face-barno{transform:scale(1.1);object-position:center 8% !important;}
-.face-rano{transform:scale(1.45);object-position:center 12% !important;}
-.face-osiyo{transform:scale(1.55);object-position:center 8% !important;}
-.face-abdulaziz{transform:scale(1.5);object-position:center 18% !important;}
+.face-asror{transform:scale(1.5);transform-origin:center top;}
+.face-husan{transform:scale(1.45);transform-origin:center top;}
+.face-alisher{transform:scale(1.2);object-position:center 32% !important;}
+.face-abdukarim{transform:scale(1.45);object-position:center 42% !important;}
+.face-sitorabonu{transform:scale(2);transform-origin:center top;}
+.face-barno{transform:scale(1.1);object-position:center 30% !important;}
+.face-rano{transform:scale(1.45);object-position:center 36% !important;}
+.face-osiyo{transform:scale(2);transform-origin:center top;}
+.face-abdulaziz{transform:scale(1.5);transform-origin:center 12%;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
 .cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;}
 
@@ -1860,6 +1894,11 @@
   .cc-footer-text{font-size:18px;}
   .cc-footer-line::before,.cc-footer-line::after{display:none;}
   .cc-signature{font-size:56px;}
+}
+@media (min-width:1440px){
+  .cc-title{ font-size:clamp(88px, 6vw, 110px); }
+  .cc-subtitle{ font-size:clamp(22px, 1.5vw, 28px); }
+  .cc-signature{ font-size:clamp(88px, 6vw, 110px); }
 }
 </style>
 
@@ -2025,6 +2064,11 @@
   .faq-q{padding:18px 18px;gap:14px;}
   .faq-q-text{font-size:16px;}
   .faq-a-inner{padding:0 18px;font-size:15px;}
+}
+@media (min-width:1440px){
+  .faq-title{ font-size:clamp(52px, 4vw, 68px); }
+  .faq-q-text{ font-size:clamp(22px, 1.5vw, 26px); }
+  .faq-sub{ font-size:clamp(18px, 1.3vw, 22px); }
 }
 </style>
 
