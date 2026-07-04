@@ -3,7 +3,7 @@
   "use strict";
 
   // Backend endpoint for AI answers. null = placeholder mode.
-  var BASYRA_CHAT_URL = null;
+  var BASYRA_CHAT_URL = "https://basyralmss-production.up.railway.app/api/public/ask";
 
   var IDLE_BUBBLE_INTERVAL = 25000;
   var IDLE_BUBBLE_DURATION = 4000;
