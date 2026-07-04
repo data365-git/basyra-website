@@ -1553,6 +1553,7 @@
   </style>
 
   <section id="men-haqimda" class="ah-section">
+   <div class="bn-ah-canvas">
     <img class="bn-ah-bg-mobile" src="assets/images/about-mobile-bg.png" srcset="assets/images/mobile/about-mobile-bg-480.webp 480w, assets/images/mobile/about-mobile-bg-960.webp 960w" sizes="100vw" alt="Abdulboriy Abduqodirov" loading="lazy">
     <div class="ah-overlay bn-ah-hide-mobile" aria-hidden="true"></div>
 
@@ -1582,6 +1583,7 @@
         </div>
       </div>
     </div>
+   </div>
   </section>
 
 
@@ -2635,31 +2637,40 @@ highlightRoles();
 .bn-ah-stat-icon{display:none;}
 
 @media (max-width: 768px) {
-  .ah-section{ background:#0d0906 !important; min-height:0 !important; }
+  .ah-section{ background:#0d0906 !important; min-height:0 !important; overflow:visible !important; }
   .bn-ah-hide-mobile{ display:none !important; }
+
+  .bn-ah-canvas{
+    position:relative !important; z-index:0; width:100%; aspect-ratio:853/1844;
+  }
   .bn-ah-bg-mobile{
-    display:block !important; width:100%; height:auto; position:relative; z-index:1;
+    display:block !important; position:absolute !important; z-index:-1;
+    top:0 !important; left:0 !important; right:0 !important; bottom:0 !important;
+    width:100% !important; height:100% !important; object-fit:cover !important;
   }
   .bn-ah-inner{
-    display:block !important; padding:0 22px 40px !important; margin-top:0 !important;
+    display:block !important; position:absolute !important; z-index:1;
+    top:51%; left:6%; right:6%; margin:0 !important; padding:0 !important;
   }
   .bn-ah-content{ max-width:100% !important; margin:0 !important; height:auto !important; }
-  .bn-ah-title{ font-size:clamp(32px,9vw,42px) !important; margin-top:28px !important; }
-  .bn-ah-quote{ font-size:22px !important; line-height:1.42 !important; margin-top:26px !important; max-width:100% !important; }
-  .bn-ah-p{ font-size:15.5px !important; line-height:1.6 !important; margin-top:20px !important; max-width:100% !important; }
+  .bn-ah-title{ font-size:clamp(30px,8.4vw,42px) !important; margin-top:0 !important; letter-spacing:-0.035em !important; }
+  .bn-ah-quote{ font-size:clamp(18px,5.2vw,25px) !important; line-height:1.28 !important; margin-top:18px !important; max-width:100% !important; }
+  .bn-ah-p{ font-size:clamp(13px,3.6vw,16px) !important; line-height:1.48 !important; margin-top:14px !important; max-width:100% !important; }
 
-  .bn-ah-stats-wrap{ margin-top:22px !important; padding-top:0 !important; }
+  .bn-ah-stats-wrap{ margin-top:20px !important; padding-top:0 !important; }
   .ah-stats-row{ flex-direction:row !important; flex-wrap:nowrap !important; gap:8px !important; }
   .ah-stat-pill{
     flex:1 1 0 !important; flex-direction:column !important; gap:4px !important;
-    padding:12px 8px !important; text-align:center;
+    min-height:88px; padding:12px 7px !important; text-align:center; box-sizing:border-box;
+    justify-content:center;
   }
-  .ah-stat-pill span:first-child{ font-size:clamp(24px,7vw,28px) !important; }
-  .ah-stat-pill span:last-child{ font-size:11px !important; line-height:1.22 !important; }
-  .bn-ah-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 2px; }
+  .ah-stat-pill span:first-child{ font-size:clamp(25px,7vw,34px) !important; }
+  .ah-stat-pill span:last-child{ font-size:10px !important; line-height:1.18 !important; }
+  .bn-ah-stat-icon{ display:block !important; width:17px !important; height:17px !important; margin:0 auto 2px; }
 
   .bn-ah-chat-teaser{
-    display:flex !important; margin:22px 0 0 auto !important; max-width:220px;
+    display:flex !important; align-self:flex-end !important;
+    margin:16px 0 0 auto !important; max-width:190px;
   }
 }
 
