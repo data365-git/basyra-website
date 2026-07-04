@@ -617,7 +617,7 @@
       els.fab.style.display = hide ? "none" : "";
       els.aura.style.display = hide ? "none" : "";
       if (idleBubbleEl) idleBubbleEl.style.display = hide ? "none" : "";
-    }, { threshold: 0.2 });
+    }, { threshold: 0 });
     io.observe(hero);
   }
 

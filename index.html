@@ -2335,10 +2335,10 @@ highlightRoles();
     border-bottom:1px solid rgba(201,168,110,.16);
   }
   .bn-hero-logo{ position:static !important; }
-  .bn-hero-logo img{ height:32px !important; max-width:140px; width:auto; }
+  .bn-hero-logo img{ height:34px !important; max-width:145px; width:auto; }
   .bn-hero-burger{ display:flex !important; }
 
-  .bn-hero-nav{ display:none; }
+  .bn-hero-nav{ display:none !important; }
   .bn-hero-nav.is-open{
     display:flex !important;
     position:relative !important; z-index:1; order:1;
@@ -2352,25 +2352,25 @@ highlightRoles();
   .bn-hero-headline{
     position:relative !important; z-index:1; order:2;
     left:auto !important; top:auto !important; margin:8px 22px 0 !important;
-    font-size:clamp(30px,8.4vw,40px) !important; line-height:1.16 !important; letter-spacing:-.5px !important;
+    font-size:clamp(42px,11.5vw,56px) !important; line-height:1.02 !important; letter-spacing:-0.045em !important;
   }
   .bn-hero-subtitle{
     position:relative !important; z-index:1; order:3;
-    left:auto !important; top:auto !important; margin:14px 22px 0 !important; font-size:16px !important;
+    left:auto !important; top:auto !important; margin:16px 22px 0 !important; font-size:16px !important;
   }
   .bn-hero-cta{
     position:relative !important; z-index:1; order:4;
-    left:auto !important; top:auto !important; margin:22px 22px 0 !important;
-    width:auto !important; max-width:none !important; height:58px !important; padding:0 24px !important;
+    left:auto !important; top:auto !important; margin:26px 22px 0 !important;
+    max-width:360px !important; height:64px !important; padding:0 26px !important;
   }
-  .bn-hero-cta span{ font-size:17px !important; }
+  .bn-hero-cta span{ font-size:21px !important; }
 
   .bn-hero-badge{
     position:relative !important; z-index:1; order:5;
     top:auto !important; right:auto !important; left:auto !important;
-    display:block; margin:0 22px 12px;
+    display:block; align-self:flex-start !important; width:150px !important;
+    margin:14px 0 0 22px !important;
   }
-  .bn-hero-badge:first-of-type{ margin-top:24px; }
 
   .bn-hero-chat-teaser{
     display:flex !important;
@@ -2394,10 +2394,12 @@ highlightRoles();
   }
   .bn-hero-stat{
     position:static !important; transform:none !important; text-align:center;
-    background:rgba(20,15,11,.55); border:1px solid rgba(201,168,110,.22); border-radius:16px;
-    padding:20px 10px;
+    background:rgba(28,17,10,.72); border:1px solid rgba(220,158,55,.42); border-radius:18px;
+    min-height:130px; padding:18px 12px; box-sizing:border-box;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
   }
   .bn-hero-stat-icon{ display:block !important; margin:0 auto 10px; }
+  .bn-hero-stat > div:first-of-type{ font-size:42px !important; }
 }
 
 /* === BATCH 3: KIMLAR UCHUN MOBILE REBUILD === */
