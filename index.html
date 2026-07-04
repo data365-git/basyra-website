@@ -2151,6 +2151,17 @@ highlightRoles();
   </div>
 </footer>
 
+<style id="bn-mobile">
+/* === MOBILE OPTIMIZATION — additive only; every rule scoped ≤768px === */
+/* === BATCH 1: scaler neutralization + global foundation === */
+@media (max-width: 768px) {
+  html { -webkit-text-size-adjust: 100%; }
+  #bn-page { transform: none !important; width: auto !important; }
+  #bn-fit { height: auto !important; }
+  #bn-page > div, #bn-page > section, #bn-page > footer { width: auto !important; max-width: 100% !important; }
+}
+</style>
+
 </div>
 
 </div>
