@@ -626,6 +626,7 @@
     build();
     startIdleTimer();
     setupHeroVisibility();
+    window.BasyraAI = { open: openPopup, close: closePopup };
   }
 
   if (document.readyState === "loading") {
