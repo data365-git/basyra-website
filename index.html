@@ -2356,28 +2356,22 @@ highlightRoles();
   }
   .bn-hero-subtitle{
     position:relative !important; z-index:1; order:3;
-    left:auto !important; top:auto !important; margin:16px 22px 0 !important; font-size:16px !important;
+    left:auto !important; top:auto !important; margin:14px 22px 0 !important; font-size:16px !important;
   }
-  .bn-hero-cta{
-    position:relative !important; z-index:1; order:4;
-    left:auto !important; top:auto !important; margin:26px 22px 0 !important;
-    max-width:360px !important; height:64px !important; padding:0 26px !important;
-  }
-  .bn-hero-cta span{ font-size:21px !important; }
 
   .bn-hero-badge{
-    position:relative !important; z-index:1; order:5;
+    position:relative !important; z-index:1; order:4;
     top:auto !important; right:auto !important; left:auto !important;
     display:block; align-self:flex-start !important; width:124px !important;
     padding:10px 11px !important; border-radius:12px !important;
-    margin:10px 0 0 22px !important;
+    margin:20px 0 0 22px !important;
   }
   .bn-hero-badge span{ font-size:15px !important; }
   .bn-hero-badge > div > div:last-child{ font-size:11px !important; margin-top:4px !important; }
 
   .bn-hero-chat-teaser{
     display:flex !important;
-    position:relative !important; z-index:1; order:6;
+    position:relative !important; z-index:1; order:5;
     align-items:flex-end; gap:6px;
     margin:14px 22px 0 auto; max-width:80%;
     align-self:flex-end; cursor:pointer;
@@ -2391,9 +2385,9 @@ highlightRoles();
 
   .bn-hero-stat-divider{ display:none !important; }
   .bn-hero-statrow{
-    position:relative !important; z-index:1; order:7;
+    position:relative !important; z-index:1; order:6;
     display:grid !important; grid-template-columns:1fr 1fr; gap:10px;
-    width:100%; box-sizing:border-box; padding:14px 14px 22px; margin:0;
+    width:100%; box-sizing:border-box; padding:14px 14px 0; margin:0;
   }
   .bn-hero-stat{
     position:static !important; transform:none !important; text-align:center;
@@ -2404,6 +2398,13 @@ highlightRoles();
   .bn-hero-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 7px; }
   .bn-hero-stat > div:first-of-type{ font-size:clamp(26px,7.5vw,34px) !important; }
   .bn-hero-stat > div:last-child{ font-size:10.5px !important; margin-top:7px !important; }
+
+  .bn-hero-cta{
+    position:relative !important; z-index:1; order:7;
+    left:auto !important; top:auto !important; margin:20px 22px 0 !important;
+    max-width:360px !important; height:64px !important; padding:0 26px !important;
+  }
+  .bn-hero-cta span{ font-size:21px !important; }
 }
 
 @media (min-width: 390px) {

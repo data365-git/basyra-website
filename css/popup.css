@@ -577,6 +577,16 @@
   .ai-input { font-size: 16px; }
 }
 
+/* Every mobile section provides its own in-page assistant teaser (bubble +
+   mascot) that opens this same popup directly via window.BasyraAI.open().
+   The floating launcher button is a desktop-only affordance; hiding it
+   outright at this breakpoint (rather than relying on JS/scroll-timing to
+   toggle it per-section) removes any chance of it visually doubling up
+   with a section's own teaser. */
+@media (max-width: 768px) {
+  .ai-fab, .ai-aura, .mascot-bubble { display: none !important; }
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .ai-popup { transition: opacity 120ms linear !important; }
