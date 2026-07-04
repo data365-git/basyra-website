@@ -52,6 +52,12 @@ const KILL_MOTION_CSS =
 async function capture(browser, profile) {
   const context = await browser.newContext(profile.contextOptions);
   const page = await context.newPage();
+
+  // Block Yandex.Metrica (counter 110384028 in index.html <head>): keeps QA traffic
+  // out of the owner's analytics/Webvisor and stops its beacons from starving
+  // the networkidle waits below. Do not remove — see GATE.md.
+  await context.route(/mc\.yandex\.(ru|com)/, (route) => route.abort());
+
   try {
     await page.goto(URL, { waitUntil: 'load', timeout: 60000 });
 

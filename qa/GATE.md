@@ -117,3 +117,13 @@ For every change batch during mobile optimization:
   referenced by the current index.html and have no render impact yet.
 - Baselines are only valid for commit `4b4fd82` + the asset state above. If
   index.html or referenced assets change outside a gated batch, re-baseline.
+
+## Yandex.Metrica (added 2026-07-04)
+
+index.html <head> now carries the Yandex.Metrika counter (ID 110384028, webvisor+clickmap),
+mirrored from "Basyra Website (standalone).html" where an external agent first installed it.
+- qa/capture.mjs aborts all requests to mc.yandex.ru|com — REQUIRED: keeps QA screenshot/
+  Lighthouse traffic out of the owner's analytics and prevents Webvisor beacons from
+  starving networkidle waits. Any NEW qa script that loads the page must add the same route.
+- The <noscript> tracking pixel is positioned off-screen and noscript doesn't render with
+  JS enabled, so the counter has zero visual impact (verified by the zero-diff run below).
