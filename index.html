@@ -1683,6 +1683,7 @@
 .logo-marsit{transform:scale(1.35);}
 .logo-riada{transform:scale(1.35);}
 .logo-buran{transform:scale(1.6);}
+.cc-tile-less{display:none;}
 .cc-logo-chip{display:flex;align-items:center;justify-content:center;background:#1a130c;border-radius:8px;padding:10px 20px;}
 .cc-logo-chip .cc-logo{max-height:56px;}
 
@@ -1849,6 +1850,7 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
               <div class="cc-tile"><img class="cc-logo logo-buran" src="assets/images/logos/buran-consulting.png" alt="Buran Consulting"></div>
               <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/zin-nur-akademiyasi.png" alt="Zin-Nur akademiyasi"></div>
               <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/nebula-bogchasi.png" alt="Nebula bog'chasi"></div>
+              <button type="button" class="cc-tile cc-tile-more cc-tile-less" data-cc-more-toggle="cc-more-bitiruvchilar" aria-expanded="false" aria-controls="cc-more-bitiruvchilar" aria-label="Ro'yxatni yig'ish">−</button>
             </div>
           </div>
         </div>
@@ -2926,17 +2928,20 @@ highlightRoles();
       if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
       return;
     }
-    // "Yopilgan ishlar" client grids: "+N" tile expands a hidden panel of more clients
+    // "Yopilgan ishlar" client grids: "+N" tile (end of the visible row) expands a hidden
+    // panel of more clients; a separate "−" tile at the end of that panel collapses it back.
     var moreToggle = e.target.closest('[data-cc-more-toggle]');
     if (moreToggle) {
-      var panel = document.getElementById(moreToggle.getAttribute('data-cc-more-toggle'));
+      var panelId = moreToggle.getAttribute('data-cc-more-toggle');
+      var panel = document.getElementById(panelId);
       if (!panel) return;
-      if (!moreToggle.dataset.ccMoreLabel) moreToggle.dataset.ccMoreLabel = moreToggle.textContent;
-      if (!moreToggle.dataset.ccMoreAriaLabel) moreToggle.dataset.ccMoreAriaLabel = moreToggle.getAttribute('aria-label') || '';
       var open = panel.classList.toggle('is-open');
-      moreToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      moreToggle.textContent = open ? '−' : moreToggle.dataset.ccMoreLabel;
-      moreToggle.setAttribute('aria-label', open ? 'Ro\'yxatni yig\'ish' : moreToggle.dataset.ccMoreAriaLabel);
+      var toggles = document.querySelectorAll('[data-cc-more-toggle="' + panelId + '"]');
+      toggles.forEach(function (btn) {
+        var isCloseBtn = btn.classList.contains('cc-tile-less');
+        btn.style.display = (isCloseBtn === open) ? 'flex' : 'none';
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
     }
   });
   document.addEventListener('keydown', function(e){
