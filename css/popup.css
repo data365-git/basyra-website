@@ -584,7 +584,8 @@
    toggle it per-section) removes any chance of it visually doubling up
    with a section's own teaser. */
 @media (max-width: 768px) {
-  .ai-fab, .ai-aura, .mascot-bubble { display: none !important; }
+  .ai-aura, .mascot-bubble { display: none !important; }
+  .ai-fab { width: 72px; bottom: 18px; right: 14px; }
 }
 
 /* ── Reduced motion ── */

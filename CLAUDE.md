@@ -12,7 +12,7 @@ Personal mentorship landing page for Abdulboriy Abduqodirov ("Business Navigator
 |-------|-----------|
 | Language | HTML / inline CSS / vanilla JS (embedded in the standalone export); Python (legacy merge script) |
 | Framework | None — Framer-style "bundler" export format (`__bundler/template` + `__bundler/manifest` script tags); a hand-rolled component class drives the chat widget |
-| Styling | Inline styles, fixed 1672px-wide absolutely-positioned canvas per section, scaled to viewport at runtime via `#bn-page` |
+| Styling | Inline styles, dual-base scale-to-fit canvas: 1672px (desktop) / 375px (mobile, ≤768px), scaled to viewport at runtime via `#bn-page` with `transform: scale()` |
 | Database | None |
 | Auth | None |
 | Hosting | Static file — opened directly or served via `python3 -m http.server` for local preview |
@@ -38,7 +38,8 @@ Personal mentorship landing page for Abdulboriy Abduqodirov ("Business Navigator
 ├── 04-build/                         # Legacy image-stack build (superseded — see §7)
 │   ├── website-v2.html               #   older 1:1 image-stack page
 │   └── merge_v2.py                   #   rebuilds the export PDF from section renders
-├── Basyra Website (standalone).html  # ★ THE CURRENT LIVE BUILD — see §7
+├── index.html                        # ★ THE CURRENT ACTIVE BUILD — mobile-first responsive rebuild
+├── Basyra Website (standalone).html  # Previous standalone export (legacy — see §7)
 ├── 99-archive/                       # Old experiments + timestamped .bak backups — not used, kept for reference
 └── .claude/launch.json               # preview server config (python http.server, pinned port 4601)
 ```
@@ -78,14 +79,15 @@ No install step, no build step, no deploy pipeline — it's a single HTML file.
   - Page content lives as an *escaped HTML string* inside `<script type="__bundler/template">`.
   - Images are base64-encoded in `<script type="__bundler/manifest">` as a JSON object keyed by UUID; the template references them via `<img src="UUID">`.
   - Sections are delimited with `<!-- ================= SECTION N — NAME ================= -->` HTML comments — use these as anchors when locating or splicing content.
-  - The canvas is a fixed 1672px-wide absolutely-positioned layout (`left:`/`top:` in px), scaled to fit the viewport at runtime — there is no responsive reflow, so margin/spacing changes are canvas-px edits, not CSS container padding.
+  - **Dual-base frozen canvas:** desktop uses a 1672px-wide canvas; mobile (≤768px) uses a 375px-wide frozen canvas. Both scale to fit the viewport via `transform: scale()` in the `fit()` function (~line 700). Mobile has a 1.25× scale cap to prevent the 375px design from blowing up too much on wider viewports, and uses `transform-origin: top center` (desktop uses `top left`). There is no responsive reflow on either — the layout scales like an image, so spacing changes are canvas-px edits, not CSS container padding.
+  - **Mobile viewport units are frozen:** all `vw`/`svh`/`vh` inside `@media (max-width:768px)` blocks have been converted to fixed `px` at the 375×812 base (1vw=3.75px, 1svh=8.12px) to prevent double-scaling under the transform. Don't reintroduce viewport-relative units in mobile media queries.
 - **Copying a section between two standalone exports** (e.g. this file vs. a newer/older reference export) requires copying **both** the template HTML block **and** its referenced manifest image entries — copying just the HTML leaves `<img>` tags pointing at UUIDs that don't exist in this file's manifest.
 
 ---
 
 ## 7. Important Notes
 
-- **`Basyra Website (standalone).html` at the project root is the current live build.** The root `README.md` still describes `04-build/website-v2.html` (the older image-stack page) as "the live site" — that's now outdated; treat the standalone file as source of truth unless told otherwise.
+- **`index.html` at the project root is the current active build** — a mobile-first responsive rebuild using the dual-base frozen canvas architecture. `Basyra Website (standalone).html` is the previous standalone export (legacy). The root `README.md` still describes `04-build/website-v2.html` — that's also outdated.
 - **The file is ~19MB** (all images are inline base64). Don't attempt full-file rewrites — locate unique anchor strings (section comments, unique style fragments) and do targeted text replacement, validating match-count uniqueness before writing.
 - **Always back up before editing:** copy the current file into `99-archive/` with a timestamped `...pre-<change> YYYYMMDD-HHMM.html.bak` name before promoting any edit, so every step is revertible.
 - **The chat mascot's cursor-follow magnifier zoom is intentionally disabled.** `setupMagnifier()` (a 7-second-hold auto-zoom lens) is still defined in the inline script but its call in `componentDidMount()` is commented out per client request. Don't re-enable without asking first.
