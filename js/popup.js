@@ -354,9 +354,11 @@
     hideIdleBubble();
     stopIdleTimer();
     document.addEventListener("keydown", onKeydown, true);
-    setTimeout(function () {
-      els.textarea.focus();
-    }, 200);
+    if (window.innerWidth > 768) {
+      setTimeout(function () {
+        els.textarea.focus();
+      }, 200);
+    }
   }
 
   function closePopup() {

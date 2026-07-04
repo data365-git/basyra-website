@@ -880,8 +880,7 @@
     <img class="bn-ok-bg-desktop" src="assets/images/oldin-keyin-desktop-bg.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;">
     <img class="bn-ok-bg-mobile" src="assets/images/mobile/oldin-keyin-mobile-bg.png" srcset="assets/images/mobile/oldin-keyin-mobile-bg-480.webp 480w, assets/images/mobile/oldin-keyin-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
-    <!-- magnifier between cards (desktop) -->
-    <img class="bn-ok-desktop-overlay" src="assets/images/oldin-keyin-stamp-icon.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:836px;top:552px;transform:translate(-50%,-50%) rotate(18deg);width:250px;height:auto;z-index:3;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));pointer-events:none;user-select:none;">
+    <!-- magnifier removed per client request -->
     <div class="bn-ok-desktop-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.16);"></div>
     <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,#0c0806,rgba(12,8,6,0));"></div>
     <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(0deg,#0c0806,rgba(12,8,6,0));"></div>
@@ -932,10 +931,7 @@
       </div>
     </div>
 
-    <!-- magnifier between cards (mobile) -->
-    <div class="bn-ok-magnifier-mobile">
-      <img src="assets/images/oldin-keyin-stamp-icon.png" alt="" aria-hidden="true" loading="lazy" width="90" height="90">
-    </div>
+    <!-- magnifier removed per client request -->
 
     <!-- right card -->
     <div class="bn-ok-card" style="position:absolute;left:957px;top:250px;width:600px;height:604px;box-sizing:border-box;border-radius:24px;corner-shape:squircle;border:1px solid rgba(120,85,45,.5);
@@ -1591,16 +1587,25 @@
 
 
 
+<img class="bn-ah-nt-crossing bn-ah-nt-crossing-left" src="assets/images/crossing-lamp-right.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:-123px;top:5439px;width:455px;height:auto;transform:rotate(-6deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+<img class="bn-ah-nt-crossing bn-ah-nt-crossing-right" src="assets/images/crossing-notebook-left.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;right:0px;top:5414px;width:357px;height:auto;transform:rotate(8deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div class="bn-nt" style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+  <style>
+    :root{--sect-overlap-desktop:220px;--sect-overlap-tablet:165px;--sect-overlap-mobile:110px;--next-safe-space:64px;--footer-cream:#efe7d8;--ariza-ft-overlap-desktop:600px;--ariza-ft-overlap-tablet:440px;--ariza-ft-overlap-mobile:300px;}
+    .bn-nt{position:relative;z-index:2;overflow:visible;background:transparent !important;}
+    .natija-desktop{position:relative;z-index:3;display:block;width:100%;height:auto;}
+    .bn-nt::after{content:"";position:absolute;left:0;right:0;bottom:0;height:300px;z-index:-1;pointer-events:none;background:transparent;}
+  </style>
+  <div class="bn-nt" style="position:relative;width:1672px;background:transparent;overflow:visible;z-index:2;">
     <div class="bn-nt-header" style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
       <h2 class="bn-nt-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
       <p class="bn-nt-subtitle" style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
     </div>
-    <img class="natija-desktop" src="assets/images/natija-blok3.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;transform:scale(1.12);transform-origin:center center;">
+    <img class="natija-desktop" src="assets/images/natija-bg-v2.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;">
 
     <div class="bn-nt-mobile">
-      <img class="bn-nt-bg-mobile" src="assets/images/natija-casefile.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="bn-nt-bg-mobile" src="assets/images/natija-casefile-mobile.png" alt="" aria-hidden="true" loading="lazy">
 
       <div class="bn-nt-result bn-nt-result-1">
         <span class="bn-nt-num">01</span>
@@ -1633,7 +1638,7 @@
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
-.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:120px 0 120px;}
+.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:calc(var(--sect-overlap-desktop) + var(--next-safe-space)) 0 120px;margin-top:calc(var(--sect-overlap-desktop) * -1);z-index:1;}
 .cc-sec::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 40px 80px -60px rgba(60,44,20,.35),inset 0 -40px 80px -60px rgba(60,44,20,.25);}
 .cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0;z-index:2;}
 
@@ -1749,7 +1754,7 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
   .cc-cord-r1,.cc-cord-l2,.cc-cord-r3{display:none;}
 }
 @media (max-width:720px){
-  .cc-sec{padding:30px 0 40px;}
+  .cc-sec{padding:calc(var(--sect-overlap-mobile) + var(--next-safe-space)) 0 40px;}
   .cc-inner{padding:0 16px;}
   .cc-header{padding:0 8px 16px;}
   .cc-title{font-size:44px;letter-spacing:-1px;}
@@ -2034,10 +2039,17 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
   }
 </style>
 
-<section id="ariza" style="position:relative;background:#1a130c url(&quot;assets/images/ariza-desktop-bg.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,12,7,.34),rgba(20,12,7,.02) 55%);pointer-events:none;"></div>
-
-  <div class="ar-inner" style="position:relative;z-index:2;max-width:1442px;margin:0 auto;padding:120px 0 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:56px;align-items:center;box-sizing:border-box;">
+<style>
+  @media(max-width:768px){
+    .ariza-bg-desktop{display:none !important;}
+    #ariza{background:#1a130c !important;overflow:hidden !important;}
+    .ar-inner{position:relative !important;}
+  }
+</style>
+<section id="ariza" style="position:relative;background:transparent;overflow:visible;z-index:2;font-family:'Manrope',sans-serif;">
+  <img class="ariza-bg-desktop" src="assets/images/ariza-desktop-bg-v4.png" alt="" aria-hidden="true" loading="lazy" style="width:100%;display:block;">
+  <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;bottom:100px;background:linear-gradient(90deg,rgba(20,12,7,.34),rgba(20,12,7,.02) 55%);pointer-events:none;z-index:1;mask-image:linear-gradient(to bottom,black 85%,transparent);-webkit-mask-image:linear-gradient(to bottom,black 85%,transparent);"></div>
+  <div class="ar-inner" style="position:absolute;top:0;left:0;right:0;z-index:2;max-width:1442px;margin:0 auto;padding:120px 120px 120px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:56px;align-items:center;box-sizing:border-box;">
 
     <div class="ar-copy">
       <h2 style="margin:0;font-family:'Manrope',sans-serif;font-weight:600;font-size:clamp(54px,5.8vw,88px);line-height:1.03;text-wrap:balance;color:#f4ebdd;">Ishingizni <span style="color:#d2a45a;">oching</span></h2>
@@ -2221,6 +2233,8 @@ highlightRoles();
 })();
 </script>
 
+<img class="bn-ar-ft-crossing bn-ar-ft-crossing-right" src="assets/images/ariza-plant-right.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;right:-383px;top:9358px;width:771px;height:auto;transform:rotate(0deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+
 <!-- ================= SECTION 9 — FOOTER ================= -->
 <style>
   html,body{margin:0;background:#efe7d8;}
@@ -2235,7 +2249,7 @@ highlightRoles();
   }
 </style>
 
-<footer id="aloqa" style="position:relative;background:#efe7d8 url(&quot;assets/images/ad892dd8-3b6b-44fe-b857-6b21a854ead8.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
+<footer id="aloqa" style="position:relative;z-index:1;margin-top:calc(var(--ariza-ft-overlap-desktop) * -1);padding-top:calc(var(--ariza-ft-overlap-desktop));background:#efe7d8 url(&quot;assets/images/footer-bg.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
   <div class="ft-inner" style="position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:120px 40px 120px;box-sizing:border-box;">
 
     <div class="ft-cols" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:start;">
@@ -2304,6 +2318,7 @@ highlightRoles();
   html { -webkit-text-size-adjust: 100%; }
   #bn-page > div, #bn-page > section, #bn-page > footer { width: auto !important; max-width: 100% !important; }
   .ft-link{font-size:18px !important;white-space:nowrap;}
+  .bn-ah-nt-crossing, .bn-ar-ft-crossing { display:none !important; }
 }
 
 /* === BATCH 2: HERO MOBILE REBUILD === */
@@ -2662,24 +2677,31 @@ highlightRoles();
 @media (max-width: 768px) {
   .natija-desktop{ display:none !important; }
   .natija-mobile{ display:none !important; }
-  .bn-nt{ position:relative !important; overflow:visible !important; }
+  .bn-nt{ position:relative !important; z-index:2 !important; overflow:visible !important; background:transparent !important; }
   .bn-nt-header{
     position:absolute !important; top:0 !important; left:0 !important; right:0 !important; z-index:2 !important;
     text-align:center; padding:30px 22px 0 !important; pointer-events:none;
   }
   .bn-nt-title{ font-size:34px !important; }
   .bn-nt-subtitle{ font-size:16px !important; margin-top:12px !important; }
-
-  .bn-nt{ position:relative !important; }
+  .bn-nt::after{ height:200px !important; background:transparent !important; }
   .bn-nt-mobile{
-    display:block !important; position:relative; z-index:0;
+    display:block !important; position:relative; z-index:1;
     margin:0 !important; padding:0 !important; width:100% !important;
-    overflow:hidden !important; aspect-ratio:941/1550;
+    aspect-ratio:auto !important; overflow:visible !important;
   }
-  .bn-nt-bg-mobile{ display:block; width:100%; height:100%; position:relative; z-index:0; object-fit:cover !important; object-position:center bottom !important; }
+  .bn-nt-bg-mobile{ display:block !important; width:100% !important; height:auto !important; position:relative; z-index:1; object-fit:contain !important; object-position:center top !important; }
 
   .bn-nt-result{ display:none !important; }
   .bn-nt-mapicon{ display:none !important; }
+}
+@media(max-width:1024px){
+  .cc-sec{margin-top:calc(var(--sect-overlap-tablet) * -1)!important;padding-top:calc(var(--sect-overlap-tablet) + var(--next-safe-space))!important;}
+  #aloqa{margin-top:calc(var(--ariza-ft-overlap-tablet) * -1)!important;padding-top:calc(var(--ariza-ft-overlap-tablet))!important;}
+}
+@media(max-width:768px){
+  .cc-sec{margin-top:calc(var(--sect-overlap-mobile) * -1)!important;padding-top:calc(var(--sect-overlap-mobile) + var(--next-safe-space))!important;}
+  #aloqa{margin-top:calc(var(--ariza-ft-overlap-mobile) * -1)!important;padding-top:calc(var(--ariza-ft-overlap-mobile))!important;}
 }
 </style>
 
@@ -2877,5 +2899,4 @@ highlightRoles();
 </script>
 
 <script src="js/popup.js?v=4"></script>
-
 </body></html>
