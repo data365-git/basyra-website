@@ -1835,7 +1835,7 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
             <div class="cc-tile">Rombik</div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-e-mark" src="assets/images/logos/ethno-logistics.png" alt="ETHNO logistics"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">ETHNO logistics</span></div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-r-app" src="assets/images/logos/robbit.png" alt="Robbit"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Robbit</span></div>
-            <button type="button" class="cc-tile cc-tile-more" data-cc-more-toggle="cc-more-bitiruvchilar" aria-expanded="false" aria-controls="cc-more-bitiruvchilar">+9</button>
+            <button type="button" class="cc-tile cc-tile-more" data-cc-more-toggle="cc-more-bitiruvchilar" aria-expanded="false" aria-controls="cc-more-bitiruvchilar" aria-label="Yana 9 ta mijozni ko'rsatish">+9</button>
           </div>
           <div id="cc-more-bitiruvchilar" class="cc-more-panel">
             <div class="cc-tiles">
@@ -2930,8 +2930,12 @@ highlightRoles();
     if (moreToggle) {
       var panel = document.getElementById(moreToggle.getAttribute('data-cc-more-toggle'));
       if (!panel) return;
+      if (!moreToggle.dataset.ccMoreLabel) moreToggle.dataset.ccMoreLabel = moreToggle.textContent;
+      if (!moreToggle.dataset.ccMoreAriaLabel) moreToggle.dataset.ccMoreAriaLabel = moreToggle.getAttribute('aria-label') || '';
       var open = panel.classList.toggle('is-open');
       moreToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      moreToggle.textContent = open ? '−' : moreToggle.dataset.ccMoreLabel;
+      moreToggle.setAttribute('aria-label', open ? 'Ro\'yxatni yig\'ish' : moreToggle.dataset.ccMoreAriaLabel);
     }
   });
   document.addEventListener('keydown', function(e){
