@@ -1593,12 +1593,18 @@
 
 
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div class="bn-nt" style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+  <div class="bn-nt" style="position:relative;width:1672px;height:941px;background:#0d0b09;overflow:hidden;">
+    <img class="natija-leather-bg" src="assets/images/natija-leather-bg.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;user-select:none;">
+
     <div class="bn-nt-header" style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
       <h2 class="bn-nt-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
       <p class="bn-nt-subtitle" style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
     </div>
-    <img class="natija-desktop" src="assets/images/natija-blok3.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;transform:scale(1.12);transform-origin:center center;">
+
+    <div class="natija-desktop" style="position:absolute;inset:0;z-index:1;pointer-events:none;">
+      <img class="natija-lamp" src="assets/images/natija-desk-lamp.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:1190px;top:260px;width:200px;height:auto;transform:rotate(6deg);z-index:2;filter:drop-shadow(0 20px 26px rgba(0,0,0,.5));">
+      <img class="natija-notebook" src="assets/images/natija-black-notebook.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:300px;top:620px;width:160px;height:auto;transform:rotate(-8deg);z-index:2;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5));">
+    </div>
 
     <div class="bn-nt-mobile">
       <img class="bn-nt-bg-mobile" src="assets/images/natija-mobile-bg-v2.png" srcset="assets/images/mobile/natija-mobile-bg-v2-480.webp 480w, assets/images/mobile/natija-mobile-bg-v2-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
@@ -1637,6 +1643,10 @@
     <img class="natija-mobile" src="assets/images/natija-mobile.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:none;">
   </div>
 
+  <!-- crossing dossier board: straddle the Natija / Yopilgan-ishlar border, ~20% of the board's height dips into Section 6 -->
+  <img class="natija-cross-board" src="assets/images/natija-dossier-board.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="position:absolute;left:506px;top:5799px;width:660px;height:auto;z-index:2;filter:drop-shadow(0 34px 50px rgba(0,0,0,.55));pointer-events:none;user-select:none;">
+  <img class="natija-cross-photo" src="assets/images/natija-detective-photo.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:546px;top:5849px;width:230px;height:auto;transform:rotate(-7deg);z-index:3;filter:drop-shadow(0 16px 22px rgba(0,0,0,.55));pointer-events:none;user-select:none;">
+
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
 .cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:120px 0 120px;}
@@ -1644,7 +1654,7 @@
 .cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0;z-index:2;}
 
 /* --- HEADER --- */
-.cc-header{text-align:center;position:relative;padding:0 20px 84px;}
+.cc-header{text-align:center;position:relative;z-index:5;padding:0 20px 84px;}
 .cc-eyebrow{display:inline-flex;align-items:center;gap:14px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:5px;color:#d0a35a;text-transform:uppercase;margin-bottom:22px;}
 .cc-eyebrow::before,.cc-eyebrow::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,#d0a35a 45%,#d0a35a 55%,transparent);}
 .cc-title{margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:88px;line-height:1.02;color:#241d15;letter-spacing:-1.5px;}
@@ -2198,6 +2208,7 @@ highlightRoles();
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (data.result) {
+        if (window.ym) ym(110384028, 'reachGoal', 'ariza_submit');
         form.reset();
         btnText.textContent = 'Ariza yuborildi! ✔';
         btn.style.background = 'linear-gradient(180deg,#5cb85c,#449d44)';
@@ -2723,6 +2734,8 @@ highlightRoles();
 @media (max-width: 768px) {
   .natija-desktop{ display:none !important; }
   .natija-mobile{ display:none !important; }
+  .natija-cross-board{ display:none !important; }
+  .natija-cross-photo{ display:none !important; }
   .bn-nt-header{ position:relative !important; padding:44px 22px 0 !important; }
   .bn-nt-title{ font-size:clamp(34px,9vw,46px) !important; }
   .bn-nt-subtitle{ font-size:16px !important; }
@@ -2989,6 +3002,49 @@ highlightRoles();
     }
     window.addEventListener('load', positionHeroKuFolders);
     window.addEventListener('resize', positionHeroKuFolders);
+  })();
+
+  // Natija / Yopilgan-ishlar crossing dossier board: unlike the hero/Kimlar-uchun
+  // folders (which sit right at the top of the page, offset always 0), the sections
+  // above Natija can still reflow a few frames after 'load' (lazy-loaded images
+  // finishing decode, late web-font swap), so .bn-nt's offsetTop is not a fixed
+  // constant — recompute it live and keep re-checking briefly until it settles.
+  (function () {
+    function positionNatijaCrossing() {
+      var nt = document.querySelector('.bn-nt');
+      var board = document.querySelector('.natija-cross-board');
+      var photo = document.querySelector('.natija-cross-photo');
+      if (!nt || !board || !photo) return;
+      if (window.matchMedia('(max-width:768px)').matches) return;
+      var base = nt.offsetTop;
+      board.style.top = (base + 280) + 'px';
+      photo.style.top = (base + 330) + 'px';
+    }
+    positionNatijaCrossing();
+    window.addEventListener('load', positionNatijaCrossing);
+    window.addEventListener('resize', positionNatijaCrossing);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(positionNatijaCrossing);
+    }
+    // Settle loop: .bn-nt's offsetTop can still shift a little after 'load' and
+    // after fonts.ready resolve (observed drift from late image/layout settling
+    // above this section). Re-measure each frame and reposition whenever it moves,
+    // stopping once it's held steady for a few consecutive frames (or after ~3s).
+    var lastTop = null, stableFrames = 0, ticks = 0;
+    function settle() {
+      var nt = document.querySelector('.bn-nt');
+      if (!nt) return;
+      if (nt.offsetTop === lastTop) {
+        stableFrames++;
+      } else {
+        stableFrames = 0;
+        lastTop = nt.offsetTop;
+        positionNatijaCrossing();
+      }
+      ticks++;
+      if (stableFrames < 5 && ticks < 180) requestAnimationFrame(settle);
+    }
+    requestAnimationFrame(settle);
   })();
 })();
 </script>
