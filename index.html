@@ -18,11 +18,24 @@
 <meta name="twitter:image" content="assets/images/og-image.webp">
 <script src="js/a6a1f75f-e9ae-43ee-9169-af0db3d8d479.js" defer></script>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/487b67e6-c9f2-47ea-8162-59dd0b9fe0e0.woff2" crossorigin>
-<link rel="icon" type="image/png" href="assets/images/cursor-magnifier.png">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#141110">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/popup.css?v=3">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110384028', 'ym');
+
+    ym(110384028, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110384028" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -663,466 +676,300 @@
   .bn-cta:hover svg{transform:translateX(5px);}
   .bn-cta svg{transition:transform .16s ease;}
   .bn-glow{text-shadow:0 0 20px rgba(231,189,110,.85),0 0 46px rgba(228,170,84,.5);}
+  #bn-fit{width:100%;overflow:hidden;}
+  #bn-page{transform-origin:top left;}
   html{scroll-behavior:smooth;}
-  *, *::before, *::after { box-sizing: border-box; }
-  img, video, svg { max-width: 100%; height: auto; }
-  body { margin: 0; overflow-x: hidden; }
 </style>
-<style>
-  /* ===== NAV — mobile-first ===== */
-  .nav-bar{
-    position: sticky; top: 0; z-index: 40;
-    display: flex; align-items: center; justify-content: space-between;
-    width: 100%;
-    padding: 14px var(--pad-inline);
-    background: rgba(20,17,16,.72);
-    backdrop-filter: blur(18px) saturate(1.3);
-    -webkit-backdrop-filter: blur(18px) saturate(1.3);
-    border-bottom: 1px solid rgba(201,168,110,.16);
+<script>
+(function(){
+  var BASE=1672;
+  function fit(){
+    var page=document.getElementById('bn-page');
+    var wrap=document.getElementById('bn-fit');
+    if(!page||!wrap) return;
+    var s=document.documentElement.clientWidth/BASE;
+    page.style.transform='scale('+s+')';
+    wrap.style.height=(page.offsetHeight*s)+'px';
   }
-  .nav-container{
-    width: 100%; max-width: var(--container); margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
+  window.addEventListener('resize',fit);
+  var ro=(typeof ResizeObserver!=='undefined')?new ResizeObserver(fit):null;
+  function boot(){
+    var page=document.getElementById('bn-page');
+    if(page){ if(ro) ro.observe(page); fit(); }
+    else setTimeout(boot,60);
   }
-  .nav-logo{ display: block; height: 36px; width: auto; flex: none; }
-  .nav-links{ display: none; }
-  .nav-cta-inline{ display: none; }
-
-  .nav-toggle{
-    display: flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px; flex: none;
-    background: transparent; border: 1px solid rgba(201,168,110,.35);
-    border-radius: 10px; cursor: pointer; padding: 0;
-  }
-  .nav-toggle-bars{ position: relative; width: 20px; height: 14px; }
-  .nav-toggle-bars span{
-    position: absolute; left: 0; width: 100%; height: 2px; background: #efe8da;
-    transition: transform .2s ease, opacity .2s ease, top .2s ease;
-  }
-  .nav-toggle-bars span:nth-child(1){ top: 0; }
-  .nav-toggle-bars span:nth-child(2){ top: 6px; }
-  .nav-toggle-bars span:nth-child(3){ top: 12px; }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1){ top: 6px; transform: rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2){ opacity: 0; }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3){ top: 6px; transform: rotate(-45deg); }
-
-  .nav-drawer{
-    position: fixed; inset: 0; z-index: 50;
-    background: rgba(15,12,10,.98);
-    display: flex; flex-direction: column;
-    padding: 20px var(--pad-inline) 40px;
-    transform: translateX(100%);
-    transition: transform .28s ease;
-    visibility: hidden;
-  }
-  .nav-drawer.is-open{ transform: translateX(0); visibility: visible; }
-  .nav-drawer-head{ display: flex; align-items: center; justify-content: space-between; }
-  .nav-drawer-close{
-    display: flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px; background: transparent;
-    border: 1px solid rgba(201,168,110,.35); border-radius: 10px; cursor: pointer;
-    color: #efe8da; font-size: 26px; line-height: 1; padding: 0;
-  }
-  .nav-drawer-links{
-    display: flex; flex-direction: column; gap: 28px;
-    margin-top: clamp(32px, 8vh, 64px);
-    font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 22px; letter-spacing: .3px;
-  }
-  .nav-drawer-links a{ color: #c6bba4; text-decoration: none; }
-  .nav-drawer-links a[aria-current="page"]{ color: #efe8da; }
-  .nav-drawer .bn-cta{ margin-top: clamp(28px, 6vh, 48px); width: 100%; max-width: 380px; }
-  body.nav-open{ overflow: hidden; }
-
-  @media (min-width: 1024px){
-    .nav-bar{ background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: none; }
-    .nav-toggle{ display: none; }
-    .nav-container{ gap: 12px; }
-    .nav-logo{ height: 46px; }
-    .nav-links{
-      display: flex; align-items: center; gap: 44px;
-      font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 17px;
-      letter-spacing: 1px; flex-wrap: nowrap;
-    }
-    .nav-links a{ color: #c6bba4; white-space: nowrap; text-decoration: none; }
-    .nav-links a[aria-current="page"]{ color: #efe8da; }
-    .nav-cta-inline{ display: none; }
-  }
-
-  /* ===== HERO — mobile-first ===== */
-  .hero-section{
-    position: relative; width: 100%; overflow: hidden;
-    color: #f2ece1; background: #141110;
-  }
-  .hero-bg{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-  .hero-bg-scrim{ position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(180deg, rgba(16,12,10,.72) 0%, rgba(16,12,10,.4) 55%, rgba(16,12,10,.2) 100%); }
-  .hero-content{
-    position: relative; z-index: 2;
-    display: flex; flex-direction: column;
-    width: 100%; max-width: var(--container); margin: 0 auto;
-    padding: clamp(28px, 6vh, 56px) var(--pad-inline) clamp(40px, 8vh, 72px);
-    gap: clamp(20px, 4vh, 32px);
-  }
-  .hero-headline{
-    margin: 0; font-family: 'Manrope', sans-serif; font-weight: 700;
-    font-size: clamp(2.2rem, 6vw + 1rem, 5.4rem);
-    line-height: 1.14; letter-spacing: -0.5px; color: #f2ecde;
-  }
-  .hero-subtitle{
-    font-family: 'Manrope', sans-serif; font-style: italic; font-weight: 400;
-    font-size: clamp(1.05rem, 1.4vw + .7rem, 1.7rem);
-    letter-spacing: .2px; color: #c0b4a4;
-  }
-  .hero-cta{
-    box-sizing: border-box; width: 100%; max-width: 380px; min-height: 60px;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 clamp(24px, 4vw, 40px); border-radius: 26px; text-decoration: none;
-    background: linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);
-    box-shadow: 0 14px 30px rgba(180,140,70,.30);
-  }
-  .hero-cta-label{ font-family: 'Manrope', sans-serif; font-weight: 600; font-size: clamp(17px, 2vw, 24px); letter-spacing: .2px; color: #241a0f; }
-  .hero-media{ position: relative; width: 100%; }
-  .hero-media img{ display: block; width: 100%; max-width: 600px; height: auto; margin: 0 auto; border-radius: 18px; }
-  .hero-stats{ display: none; }
-  .hero-badges{ display: none; }
-
-  @media (min-width: 768px){
-    .hero-content{ gap: clamp(24px, 3vh, 40px); }
-    .hero-cta{ width: auto; }
-  }
-
-  @media (min-width: 1024px){
-    .hero-section{ min-height: 890px; }
-    .hero-bg-scrim{ background: linear-gradient(90deg, rgba(16,12,10,.68) 0%, rgba(16,12,10,.30) 34%, rgba(16,12,10,0) 52%); }
-    .hero-content{
-      display: flex; flex-direction: column; justify-content: center;
-      min-height: 890px; padding-top: clamp(90px, 12vh, 140px);
-      padding-left: clamp(60px, 7vw, 115px); padding-right: 42%;
-      max-width: none;
-    }
-    .hero-text{ display: flex; flex-direction: column; gap: 28px; }
-    .hero-cta{ width: auto; }
-    .hero-media{ display: none; }
-    .hero-stats{
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
-      display: flex; align-items: stretch;
-      gap: clamp(24px, 4vw, 60px);
-      padding: 24px clamp(80px, 8vw, 115px);
-      background: rgba(18,13,11,.34);
-      backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3);
-      border-top: 1px solid rgba(201,168,110,.22);
-      box-shadow: inset 0 1px 0 rgba(255,244,220,.08), 0 -12px 40px rgba(0,0,0,.28);
-    }
-    .hero-stat{ display: flex; flex-direction: column; }
-    .hero-stat-num{ font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 36px; line-height: 1; color: #e6ba60; }
-    .hero-stat-label{ font-family: 'Manrope', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.3; color: #a99c86; margin-top: 6px; }
-    .hero-badges{ display: block; }
-    .hero-badge{
-      position: absolute; display: inline-block; padding: 16px 26px; border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.10);
-      backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 26px rgba(0,0,0,.4);
-    }
-    .hero-badge--months{ top: 8%; right: 4%; }
-    .hero-badge--lessons{ top: 26%; right: 6%; }
-  }
-
-  @media (min-width: 1440px){
-    .hero-section{ min-height: 100vh; }
-    .hero-content{ min-height: 100vh; padding-right: 38%; }
-    .hero-headline{ font-size: clamp(5.4rem, 4.5vw + 2rem, 7.2rem); }
-    .hero-subtitle{ font-size: clamp(1.7rem, 1vw + 1rem, 2.1rem); }
-    .hero-stat-num{ font-size: clamp(36px, 2.5vw, 48px); }
-    .hero-stat-label{ font-size: clamp(14px, 1vw, 18px); }
-  }
-</style>
+  boot();
+})();
+</script>
 </helmet>
 
-<div id="bn-page" role="main" style="width:100%;background:#141110;font-family:'Manrope',sans-serif;">
+<div id="bn-fit">
+<div id="bn-page" role="main" style="width:1672px;background:#141110;font-family:'Manrope',sans-serif;">
 
-  <!-- ================= NAV ================= -->
-  <header class="nav-bar">
-    <div class="nav-container">
-      <a href="#bn-hero" data-nav-target="bn-hero" style="display:flex;">
-        <img class="nav-logo" src="assets/images/c29c734a-78b9-4f71-b775-c514aa2f825e.png" alt="acdmy by basyra">
-      </a>
+  <!-- ================= SECTION 1 — HERO ================= -->
+  <div id="bn-hero" style="position:relative;width:1672px;height:890px;overflow:hidden;color:#f2ece1;background:#141110;">
 
-      <nav class="nav-links" aria-label="Asosiy navigatsiya">
-        <a class="bn-navlink" href="#bn-hero" data-nav-target="bn-hero" aria-current="page">Bosh sahifa</a>
-        <a class="bn-navlink" href="#dastur" data-nav-target="dastur">Dastur</a>
-        <a class="bn-navlink" href="#men-haqimda" data-nav-target="men-haqimda">Men haqimda</a>
-        <a class="bn-navlink" href="#yopilgan-ishlar" data-nav-target="yopilgan-ishlar">Yopilgan ishlar</a>
-        <a class="bn-navlink" href="#nimani-organasiz" data-nav-target="nimani-organasiz">Nimani o'rganasiz</a>
-        <a class="bn-navlink" href="#aloqa" data-nav-target="aloqa">Aloqa</a>
-      </nav>
+    <!-- background scene -->
+    <img class="bn-hero-bg-desktop" src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <img class="bn-hero-bg-mobile" src="assets/images/hero-mobile-bg.png" srcset="assets/images/mobile/hero-mobile-bg-480.webp 480w, assets/images/mobile/hero-mobile-bg-960.webp 960w" sizes="100vw" alt="" fetchpriority="high">
+    <div class="bn-hero-gradient" style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(16,12,10,.68) 0%, rgba(16,12,10,.30) 34%, rgba(16,12,10,0) 52%);"></div>
+    <div id="bn-atmo" style="position:absolute;inset:0;pointer-events:none;"></div>
+    <div class="bn-hero-bottom-blur" style="position:absolute;left:0;right:0;bottom:0;height:150px;background:rgba(18,13,11,.34);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-top:1px solid rgba(201,168,110,.22);box-shadow:inset 0 1px 0 rgba(255,244,220,.08),0 -12px 40px rgba(0,0,0,.28);"></div>
 
-      <a class="bn-cta nav-cta-inline" href="#ariza" style="align-items:center;justify-content:center;gap:10px;padding:0 22px;height:44px;border-radius:22px;text-decoration:none;background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);box-shadow:0 10px 20px rgba(180,140,70,.30);">
-        <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:15px;color:#241a0f;">Dasturga yoziling</span>
-      </a>
-
-      <button type="button" class="nav-toggle" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="nav-drawer" data-nav-toggle>
-        <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+    <!-- nav: logo lockup -->
+    <div class="bn-hero-header">
+      <div class="bn-hero-logo" style="position:absolute;left:115px;top:34px;">
+        <img src="assets/images/c29c734a-78b9-4f71-b775-c514aa2f825e.png" alt="acdmy by basyra" style="display:block;height:46px;width:auto;">
+      </div>
+      <button type="button" class="bn-hero-burger" aria-label="Menyu" aria-expanded="false" data-hero-burger>
+        <span></span><span></span><span></span>
       </button>
     </div>
-  </header>
 
-  <div class="nav-drawer" id="nav-drawer" data-nav-drawer>
-    <div class="nav-drawer-head">
-      <img class="nav-logo" src="assets/images/c29c734a-78b9-4f71-b775-c514aa2f825e.png" alt="acdmy by basyra">
-      <button type="button" class="nav-drawer-close" aria-label="Menyuni yopish" data-nav-close="true">&times;</button>
+    <!-- nav: links -->
+    <div class="bn-hero-nav" role="navigation" style="position:absolute;right:115px;top:46px;display:flex;align-items:flex-start;gap:44px;font-family:'Manrope',sans-serif;font-weight:500;font-size:17px;letter-spacing:1px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:9px;">
+        <a class="bn-navlink" href="#bn-hero" data-nav-target="bn-hero" style="color:#efe8da;">Bosh sahifa</a>
+        <div style="width:100%;height:2px;background:#c79e48;"></div>
+      </div>
+      <a class="bn-navlink" href="#dastur" data-nav-target="dastur" style="color:#c6bba4;">Dastur</a>
+      <a class="bn-navlink" href="#men-haqimda" data-nav-target="men-haqimda" style="color:#c6bba4;">Men haqimda</a>
+      <a class="bn-navlink" href="#yopilgan-ishlar" data-nav-target="yopilgan-ishlar" style="color:#c6bba4;">Yopilgan ishlar</a>
+      <a class="bn-navlink" href="#nimani-organasiz" data-nav-target="nimani-organasiz" style="color:#c6bba4;">Nimani o'rganasiz</a>
+      <a class="bn-navlink" href="#aloqa" data-nav-target="aloqa" style="color:#c6bba4;">Aloqa</a>
     </div>
-    <nav class="nav-drawer-links" aria-label="Mobil navigatsiya">
-      <a href="#bn-hero" data-nav-target="bn-hero" aria-current="page">Bosh sahifa</a>
-      <a href="#dastur" data-nav-target="dastur">Dastur</a>
-      <a href="#men-haqimda" data-nav-target="men-haqimda">Men haqimda</a>
-      <a href="#yopilgan-ishlar" data-nav-target="yopilgan-ishlar">Yopilgan ishlar</a>
-      <a href="#nimani-organasiz" data-nav-target="nimani-organasiz">Nimani o'rganasiz</a>
-      <a href="#aloqa" data-nav-target="aloqa">Aloqa</a>
-    </nav>
-    <a class="bn-cta" href="#ariza" style="display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;border-radius:26px;text-decoration:none;background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);box-shadow:0 14px 30px rgba(180,140,70,.30);">
-      <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:20px;letter-spacing:.2px;color:#241a0f;">Dasturga yoziling</span>
+
+    <!-- headline -->
+    <h1 class="bn-hero-headline" style="position:absolute;left:115px;top:210px;margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:86px;line-height:1.16;letter-spacing:-1px;color:#f2ecde;">
+      <div>Sotuvlaringizni</div>
+      <div>byudjet emas —</div>
+      <div><span class="bn-glow" style="font-style:italic;color:#e4aa54;">tizim</span> oshiradi</div>
+    </h1>
+
+    <!-- subtitle -->
+    <div class="bn-hero-subtitle" style="position:absolute;left:115px;top:520px;font-family:'Manrope',sans-serif;font-style:italic;font-weight:400;font-size:27px;letter-spacing:.2px;color:#c0b4a4;">Avval tashxis, keyin esa tizim.</div>
+
+    <!-- CTA -->
+    <a class="bn-cta bn-hero-cta" href="#ariza" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;
+         background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);
+         box-shadow:0 14px 30px rgba(180,140,70,.30);">
+      <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:24px;letter-spacing:.2px;color:#241a0f;">Dasturga yoziling</span>
       <svg width="36" height="16" viewBox="0 0 36 16" fill="none">
         <path d="M1 8H33" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round"></path>
         <path d="M26 2L33 8L26 14" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     </a>
-  </div>
 
-  <!-- ================= SECTION 1 — HERO ================= -->
-  <div id="bn-hero" class="hero-section">
 
-    <!-- background scene -->
-    <img class="hero-bg" src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="" fetchpriority="high">
-    <div class="hero-bg-scrim"></div>
-    <div id="bn-atmo" style="position:absolute;inset:0;pointer-events:none;z-index:1;"></div>
+    <div class="bn-hero-statrow">
+    <!-- stat dividers -->
+    <div class="bn-hero-stat-divider" style="position:absolute;left:433px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
+    <div class="bn-hero-stat-divider" style="position:absolute;left:839px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
+    <div class="bn-hero-stat-divider" style="position:absolute;left:1257px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
 
-    <div class="hero-content">
-      <div class="hero-text">
-        <!-- headline -->
-        <h1 class="hero-headline">
-          <div>Sotuvlaringizni</div>
-          <div>byudjet emas —</div>
-          <div><span class="bn-glow" style="font-style:italic;color:#e4aa54;">tizim</span> oshiradi</div>
-        </h1>
-
-        <!-- subtitle -->
-        <div class="hero-subtitle">Avval tashxis, keyin esa tizim.</div>
-
-        <!-- CTA -->
-        <a class="bn-cta hero-cta" href="#ariza">
-          <span class="hero-cta-label">Dasturga yoziling</span>
-          <svg width="36" height="16" viewBox="0 0 36 16" fill="none">
-            <path d="M1 8H33" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round"></path>
-            <path d="M26 2L33 8L26 14" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
-      </div>
-
-      <div class="hero-media">
-        <img src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="">
-      </div>
+    <!-- stats -->
+    <div class="bn-hero-stat" style="position:absolute;left:243px;top:780px;transform:translateX(-50%);text-align:center;">
+      <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#e6ba60" stroke-width="1.6"/><path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#e6ba60" stroke-width="1.6"/><path d="M3 12h18" stroke="#e6ba60" stroke-width="1.6"/></svg>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">10+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tizimlashtirilgan biznes</div>
+    </div>
+    <div class="bn-hero-stat" style="position:absolute;left:630px;top:780px;transform:translateX(-50%);text-align:center;">
+      <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="#e6ba60" stroke-width="1.6"/><path d="M4.5 20c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke="#e6ba60" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">80+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
+    </div>
+    <div class="bn-hero-stat" style="position:absolute;left:1048px;top:780px;transform:translateX(-50%);text-align:center;">
+      <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.5c1.6 2 2.6 4.4 2.6 7 0 2.1-.8 3.6-1.6 4.7l-1 3.8-1-3.8c-.8-1.1-1.6-2.6-1.6-4.7 0-2.6 1-5 2.6-7Z" stroke="#e6ba60" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9" r="1.5" stroke="#e6ba60" stroke-width="1.4"/><path d="M9 15.5 7 21l3-1.6M15 15.5 17 21l-3-1.6" stroke="#e6ba60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">40+</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">outsource sotuv<br>bo’limi zapuski</div>
+    </div>
+    <div class="bn-hero-stat" style="position:absolute;left:1429px;top:780px;transform:translateX(-50%);text-align:center;">
+      <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#e6ba60" stroke-width="1.6"/><path d="M15 9l-4.2 2.8L9 16l4.2-2.8L15 9Z" stroke="#e6ba60" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">7</div>
+      <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">yo’nalish</div>
+    </div>
     </div>
 
-    <!-- stats (desktop only) -->
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">10+</div>
-        <div class="hero-stat-label">tizimlashtirilgan biznes</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">80+</div>
-        <div class="hero-stat-label">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">40+</div>
-        <div class="hero-stat-label">outsource sotuv<br>bo’limi zapuski</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">7</div>
-        <div class="hero-stat-label">yo’nalish</div>
-      </div>
-    </div>
-
-    <div class="hero-badges">
-      <div class="hero-badge hero-badge--months">
+    <div class="bn-hero-badge" style="position:absolute;top:13%;right:8%;display:inline-block;padding:16px 26px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 26px rgba(0,0,0,.4);">
+      <div>
         <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;color:#f7f3ea;">2,5</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:21px;color:#f7f3ea;">oy —</span></div>
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;color:#e2d4b8;margin-top:8px;">offline dastur</div>
       </div>
-      <div class="hero-badge hero-badge--lessons">
+    </div>
+    <div class="bn-hero-badge" style="position:absolute;top:30%;right:9%;display:inline-block;padding:16px 26px;border-radius:14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.10);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 28px rgba(0,0,0,.45);">
+      <div>
         <div style="line-height:1;"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:34px;color:#f7f3ea;">13</span> <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;color:#f7f3ea;">dars —</span></div>
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;color:#e2d4b8;margin-top:8px;">amaliy dastur</div>
       </div>
     </div>
+
+    <!-- chat teaser (mobile only) -->
+    <div class="bn-hero-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+      <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+      <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
+    </div>
   </div>
 
   <!-- ================= SECTION 3 — KIMLAR UCHUN (AUDITORIYA) ================= -->
-  <style>
-    .au-section{position:relative;width:100%;overflow:hidden;background:#efe6d6;padding:var(--space-section) 0;}
-    .au-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none;user-select:none;}
-    .au-inner{position:relative;z-index:1;max-width:var(--container);margin:0 auto;padding-inline:var(--pad-inline);}
-    .au-header{text-align:center;}
-    .au-header h2{margin:12px 0 0;font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(36px,6vw,74px);line-height:1;letter-spacing:-1.5px;color:#2b2418;}
-    .au-header p{margin:14px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(16px,2vw,22px);color:#6b5f49;}
-    .au-rule{width:64px;height:3px;border-radius:99px;background:#c79a55;margin:20px auto 0;}
-    .au-cards{margin-top:clamp(32px,6vw,64px);display:grid;grid-template-columns:1fr;gap:32px;justify-items:center;align-items:end;}
-    .au-cards img{display:block;width:100%;max-width:420px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));}
-    @media (min-width:768px){
-      .au-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:1200px;margin-inline:auto;}
-      .au-cards img{max-width:100%;}
-    }
-  </style>
-  <div class="au-section">
-    <img class="au-bg" src="assets/images/65a22b96-320d-45a1-b619-9d165de42f1e.png" alt="" aria-hidden="true" loading="lazy">
+  <div id="kimlar-uchun" class="bn-ku" style="position:relative;width:1672px;min-height:860px;overflow:hidden;background:#efe6d6;">
+    <img class="bn-ku-bg-desktop" src="assets/images/65a22b96-320d-45a1-b619-9d165de42f1e.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none;user-select:none;">
+    <img class="bn-ku-bg-mobile" src="assets/images/kimlar-mobile-bg.png" srcset="assets/images/mobile/kimlar-mobile-bg-480.webp 480w, assets/images/mobile/kimlar-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
-    <div class="au-inner">
-      <!-- header -->
-      <div class="au-header">
-        <h2>Kimlar uchun</h2>
-        <p>Ushbu dastur kimlarga mos?</p>
-        <div class="au-rule"></div>
-      </div>
-
-      <!-- folder cards -->
-      <div class="au-cards">
-        <img src="assets/images/138baa25-b56f-46e5-8348-be6da5f13dcc.png" alt="Tadbirkorlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async">
-        <img src="assets/images/ef5b4cc1-fa6e-4ad9-adb5-51146f727fe6.png" alt="Top-menejerlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async">
-      </div>
+    <!-- header -->
+    <div class="bn-ku-header" style="position:absolute;left:0;right:0;top:74px;text-align:center;">
+      <h2 class="bn-ku-title" style="margin:12px 0 0;font-family:'Manrope',sans-serif;font-weight:800;font-size:74px;line-height:1;letter-spacing:-1.5px;color:#2b2418;">Kimlar uchun</h2>
+      <p class="bn-ku-subtitle" style="margin:14px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:22px;color:#6b5f49;">Ushbu dastur kimlarga mos?</p>
+      <div class="bn-ku-rule" style="width:64px;height:3px;border-radius:99px;background:#c79a55;margin:20px auto 0;"></div>
     </div>
+
+    <!-- folder cards (desktop: pre-composed images) -->
+    <div class="bn-ku-cards-desktop" style="position:absolute;left:50%;top:235px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:36px;">
+      <img src="assets/images/138baa25-b56f-46e5-8348-be6da5f13dcc.png" alt="Tadbirkorlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
+      <img src="assets/images/ef5b4cc1-fa6e-4ad9-adb5-51146f727fe6.png" alt="Top-menejerlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
+    </div>
+
+    <!-- folder cards (mobile: real HTML/CSS) -->
+    <div class="bn-ku-cards-mobile">
+      <article class="bn-ku-card">
+        <div class="bn-ku-tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="#a9713a" stroke-width="1.6"/><path d="M3.5 19c0-3 2.5-5.4 5.5-5.4s5.5 2.4 5.5 5.4" stroke="#a9713a" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" stroke="#a9713a" stroke-width="1.5"/><path d="M14.8 13.6c2.4.3 4.2 2.3 4.2 4.7" stroke="#a9713a" stroke-width="1.5" stroke-linecap="round"/></svg><span>01</span></div>
+        <div class="bn-ku-body">
+          <img class="bn-ku-photo" src="assets/images/ku-persona-1.png" srcset="assets/images/mobile/ku-persona-1-256.webp 256w, assets/images/mobile/ku-persona-1-480.webp 480w" sizes="140px" alt="Tadbirkorlar uchun mentor" loading="lazy" width="140" height="199">
+          <h3 class="bn-ku-card-title">Tadbirkorlar</h3>
+          <p class="bn-ku-card-desc">Sotuvni tizimlashtirish,<br>jamoani kuchaytirish va<br>barqaror o'sish uchun<br>amaliy yechimlar.</p>
+          <div class="bn-ku-sticky">biznes<br>egasi</div>
+        </div>
+      </article>
+      <article class="bn-ku-card">
+        <div class="bn-ku-tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" stroke="#a9713a" stroke-width="1.6"/><path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#a9713a" stroke-width="1.6"/></svg><span>02</span></div>
+        <div class="bn-ku-body">
+          <img class="bn-ku-photo" src="assets/images/ku-persona-2.png" srcset="assets/images/mobile/ku-persona-2-256.webp 256w, assets/images/mobile/ku-persona-2-480.webp 480w" sizes="140px" alt="Top-menejerlar uchun mentor" loading="lazy" width="140" height="199">
+          <h3 class="bn-ku-card-title">Top-menejerlar</h3>
+          <p class="bn-ku-card-desc">Savdo strategiyasi, KPI va<br>jarayonlarni boshqarish<br>orqali natijani doimiy<br>oshirish.</p>
+          <div class="bn-ku-sticky">natijani<br>maks.</div>
+        </div>
+      </article>
+    </div>
+
   </div>
 
 
   <!-- ================= SECTION 2 — OLDIN → KEYIN ================= -->
-  <style>
-    .ok-section{position:relative;width:100%;overflow:hidden;background:#0f0c0a;padding:var(--space-section) 0;}
-    .ok-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;}
-    .ok-scrim{position:absolute;inset:0;background:rgba(0,0,0,.16);}
-    .ok-fade-top{position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,#0c0806,rgba(12,8,6,0));}
-    .ok-fade-bottom{position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(0deg,#0c0806,rgba(12,8,6,0));}
-    .ok-inner{position:relative;z-index:2;max-width:var(--container);margin:0 auto;padding-inline:var(--pad-inline);}
-    .ok-title{text-align:center;margin-bottom:clamp(28px,5vw,48px);}
-    .ok-title h2{margin:0;font-family:'Manrope',sans-serif;font-weight:600;font-size:clamp(34px,6vw,88px);line-height:1;letter-spacing:-.5px;color:#e4bd6c;text-shadow:0 2px 18px rgba(0,0,0,.55),0 0 40px rgba(210,160,80,.18);}
-    .ok-title h2 span{font-weight:500;color:#d8b25f;margin:0 clamp(10px,2vw,26px);display:inline-block;}
-    .ok-magnifier{display:none;}
-    .ok-cards{position:relative;display:grid;grid-template-columns:1fr;gap:28px;}
-    .ok-card{position:relative;box-sizing:border-box;border-radius:24px;border:1px solid rgba(120,85,45,.5);
-      background:radial-gradient(130% 90% at 16% 6%, rgba(255,250,236,.85), rgba(255,250,236,0) 42%), linear-gradient(158deg,#f4ead1 0%,#eedec2 40%,#e6d6b0 100%);
-      box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,252,240,.6);
-      padding:56px 24px 28px;}
-    .ok-card::before{content:"";position:absolute;inset:14px;border:1px solid rgba(120,85,45,.3);border-radius:18px;pointer-events:none;}
-    .ok-badge{position:absolute;left:50%;top:-22px;transform:translateX(-50%);padding:12px 32px;border-radius:16px;
-      border:1px solid rgba(212,175,90,.65);box-shadow:0 5px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,220,180,.15);white-space:nowrap;}
-    .ok-badge span{font-family:'Manrope',sans-serif;font-weight:600;font-size:clamp(18px,2vw,25px);letter-spacing:.5px;}
-    .ok-card--before .ok-badge{background:linear-gradient(180deg,#6a221c,#521812);}
-    .ok-card--before .ok-badge span{color:#f2e2c2;}
-    .ok-card--after .ok-badge{background:linear-gradient(180deg,#565e2a,#454c20);}
-    .ok-card--after .ok-badge span{color:#f1ecd0;}
-    .ok-list{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
-    .ok-row{display:flex;align-items:flex-start;gap:16px;padding:2px 0;}
-    .ok-row svg{flex:none;margin-top:1px;width:26px;height:26px;}
-    .ok-row p{margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(15px,1.8vw,20px);line-height:1.52;color:#241a11;}
-    .ok-divider{height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);}
-    @media (min-width:768px){
-      .ok-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;}
-      .ok-card{padding:64px 44px 36px;}
-    }
-    @media (min-width:1024px){
-      .ok-section{min-height:941px;display:flex;align-items:center;}
-      .ok-magnifier{display:none;}
-    }
-    @media (min-width:1440px){
-      .ok-section{ min-height: 100vh; }
-    }
-  </style>
-  <div class="ok-section">
+  <div id="oldin-keyin" class="bn-ok" style="position:relative;width:1672px;height:941px;overflow:hidden;background:#0f0c0a;">
 
-    <img class="ok-bg" src="assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png" alt="" aria-hidden="true" loading="lazy">
+    <img class="bn-ok-bg-desktop" src="assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;">
+    <img class="bn-ok-bg-mobile" src="assets/images/oldin-keyin-mobile-bg.png" srcset="assets/images/mobile/oldin-keyin-mobile-bg-480.webp 480w, assets/images/mobile/oldin-keyin-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
-    <!-- magnifier between cards (desktop only) -->
-    <img class="ok-magnifier" src="assets/images/d8e65ec8-550e-457e-b54c-52308fe5f167.png" alt="" aria-hidden="true" loading="lazy">
-    <div class="ok-scrim"></div>
-    <div class="ok-fade-top"></div>
-    <div class="ok-fade-bottom"></div>
+    <!-- magnifier between cards (desktop) -->
+    <img class="bn-ok-desktop-overlay" src="assets/images/d8e65ec8-550e-457e-b54c-52308fe5f167.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:836px;top:552px;transform:translate(-50%,-50%) rotate(18deg);width:250px;height:auto;z-index:3;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));pointer-events:none;user-select:none;">
+    <div class="bn-ok-desktop-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.16);"></div>
+    <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,#0c0806,rgba(12,8,6,0));"></div>
+    <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(0deg,#0c0806,rgba(12,8,6,0));"></div>
 
-    <div class="ok-inner">
-      <!-- title -->
-      <div class="ok-title">
-        <h2>Oldin <span>→</span> Keyin</h2>
+    <!-- title -->
+    <div class="bn-ok-header" style="position:absolute;left:0;right:0;top:48px;text-align:center;">
+      <h2 class="bn-ok-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:600;font-size:88px;line-height:1;letter-spacing:-.5px;color:#e4bd6c;text-shadow:0 2px 18px rgba(0,0,0,.55),0 0 40px rgba(210,160,80,.18);">
+        Oldin <span style="font-weight:500;color:#d8b25f;margin:0 26px;display:inline-block;">→</span> Keyin
+      </h2>
+    </div>
+
+    <!-- left card -->
+    <div class="bn-ok-card" style="position:absolute;left:115px;top:250px;width:600px;height:604px;box-sizing:border-box;border-radius:24px;corner-shape:squircle;border:1px solid rgba(120,85,45,.5);
+         background:radial-gradient(130% 90% at 16% 6%, rgba(255,250,236,.85), rgba(255,250,236,0) 42%), linear-gradient(158deg,#f4ead1 0%,#eedec2 40%,#e6d6b0 100%);
+         box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,252,240,.6);">
+      <div style="position:absolute;inset:14px;border:1px solid rgba(120,85,45,.3);border-radius:18px;corner-shape:squircle;pointer-events:none;"></div>
+      <div class="bn-ok-badge" style="position:absolute;left:50%;top:30px;transform:translateX(-50%);padding:12px 40px;
+           background:linear-gradient(180deg,#6a221c,#521812);border:1px solid rgba(212,175,90,.65);
+           border-radius:16px;corner-shape:squircle;
+           box-shadow:0 5px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,220,180,.15);">
+        <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:25px;letter-spacing:.5px;color:#f2e2c2;">Dasturdan avval</span>
       </div>
-
-      <div class="ok-cards">
-        <!-- left card -->
-        <div class="ok-card ok-card--before">
-          <div class="ok-badge"><span>Dasturdan avval</span></div>
-          <div class="ok-list">
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
-              <p>Qanday xodim olishni bilmaysiz yoki olingan xodimlarni sotuvga olib chiqishga qiynalasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
-              <p>Aniq ketma-ketliksiz jarayonlar bilan band bo’lishdan charchagansiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
-              <p>Xodimlaringizga KPI noto’g’ri qo’ygansiz — xodimlarning ko’zi yonib ishlamaydi.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
-              <p>Marketing katta byudjet ishlatib, kutganingizdek natija olmaysiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
-              <p>Keyingi bosqichga o’tmoqchisiz, lekin qanday o’tishni bilmaysiz.</p>
-            </div>
-          </div>
+      <div class="bn-ok-list" style="position:absolute;left:56px;right:56px;top:112px;bottom:52px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:2px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.52;color:#241a11;">Qanday xodim olishni bilmaysiz yoki olingan xodimlarni sotuvga olib chiqishga qiynalasiz.</p>
         </div>
-
-        <!-- right card -->
-        <div class="ok-card ok-card--after">
-          <div class="ok-badge"><span>Dasturdan keyin</span></div>
-          <div class="ok-list">
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Qo’lingizda jarayonlar tizimlashadi.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Jarayonlarni aniq raqamlarda kuzatib turasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Biznes jarayonlarini yozishni o’rganasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Jarayonlarni to’g’ri tahlil qilishni o’rganasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Yillik / kvartal / oylik sotuv rejalarini qo’yasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>Byudjet yoki xodim soni evaziga emas — jarayonlarni optimallashtirib sotuvni samarali oshirasiz.</p>
-            </div>
-            <div class="ok-divider"></div>
-            <div class="ok-row">
-              <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p>O’zgarish va yangiliklarni kompaniyaga muammosiz joriy qilasiz.</p>
-            </div>
-          </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:2px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.52;color:#241a11;">Aniq ketma-ketliksiz jarayonlar bilan band bo’lishdan charchagansiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:2px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.52;color:#241a11;">Xodimlaringizga KPI noto’g’ri qo’ygansiz — xodimlarning ko’zi yonib ishlamaydi.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:2px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.52;color:#241a11;">Marketing katta byudjet ishlatib, kutganingizdek natija olmaysiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:2px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#7a211c" stroke-width="1.7"></circle><path d="M10 10L20 20M20 10L10 20" stroke="#7a211c" stroke-width="1.9" stroke-linecap="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:20px;line-height:1.52;color:#241a11;">Keyingi bosqichga o’tmoqchisiz, lekin qanday o’tishni bilmaysiz.</p>
         </div>
       </div>
     </div>
+
+    <!-- magnifier between cards (mobile) -->
+    <div class="bn-ok-magnifier-mobile">
+      <img src="assets/images/d8e65ec8-550e-457e-b54c-52308fe5f167.png" alt="" aria-hidden="true" loading="lazy" width="90" height="90">
+    </div>
+
+    <!-- right card -->
+    <div class="bn-ok-card" style="position:absolute;left:957px;top:250px;width:600px;height:604px;box-sizing:border-box;border-radius:24px;corner-shape:squircle;border:1px solid rgba(120,85,45,.5);
+         background:radial-gradient(130% 90% at 16% 6%, rgba(255,250,236,.85), rgba(255,250,236,0) 42%), linear-gradient(158deg,#f4ead1 0%,#eedec2 40%,#e6d6b0 100%);
+         box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,252,240,.6);">
+      <div style="position:absolute;inset:14px;border:1px solid rgba(120,85,45,.3);border-radius:18px;corner-shape:squircle;pointer-events:none;"></div>
+      <div class="bn-ok-badge" style="position:absolute;left:50%;top:30px;transform:translateX(-50%);padding:12px 40px;
+           background:linear-gradient(180deg,#565e2a,#454c20);border:1px solid rgba(212,175,90,.65);
+           border-radius:16px;corner-shape:squircle;
+           box-shadow:0 5px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,240,180,.15);">
+        <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:25px;letter-spacing:.5px;color:#f1ecd0;">Dasturdan keyin</span>
+      </div>
+      <div class="bn-ok-list" style="position:absolute;left:56px;right:56px;top:106px;bottom:48px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Qo’lingizda jarayonlar tizimlashadi.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Jarayonlarni aniq raqamlarda kuzatib turasiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Biznes jarayonlarini yozishni o’rganasiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Jarayonlarni to’g’ri tahlil qilishni o’rganasiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Yillik / kvartal / oylik sotuv rejalarini qo’yasiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">Byudjet yoki xodim soni evaziga emas — jarayonlarni optimallashtirib sotuvni samarali oshirasiz.</p>
+        </div>
+        <div style="height:1px;background:repeating-linear-gradient(90deg, rgba(120,85,45,.32) 0 5px, transparent 5px 10px);"></div>
+        <div style="display:flex;align-items:flex-start;gap:18px;padding:1px 0;">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="flex:none;margin-top:1px;"><circle cx="15" cy="15" r="13" stroke="#536037" stroke-width="1.7"></circle><path d="M9.5 15.5L13.5 19.5L21 11" stroke="#536037" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#241a11;">O’zgarish va yangiliklarni kompaniyaga muammosiz joriy qilasiz.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bn-hero-chat-teaser bn-ok-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+      <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+      <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
+    </div>
+
   </div>
 
 
@@ -1468,9 +1315,9 @@
   }
   .dt-container{
     position:relative;
-    max-width:var(--container);
+    max-width:1442px;
     margin:0 auto;
-    padding:var(--space-section) var(--pad-inline);
+    padding:120px 0 120px;
     text-align:center;
   }
   .dt-container h2{
@@ -1479,21 +1326,10 @@
   }
   .dt-grid{
     display:grid;
-    grid-template-columns:1fr;
+    grid-template-columns:repeat(4,1fr);
     gap:24px;
     margin-top:44px;
     align-items:stretch;
-  }
-  @media (min-width:600px){
-    .dt-grid{ grid-template-columns:repeat(2,1fr); }
-  }
-  @media (min-width:1024px){
-    .dt-grid{ grid-template-columns:repeat(4,1fr); }
-  }
-  @media (min-width:1440px){
-    .dt-container h2{ font-size:clamp(60px, 5vw, 80px); }
-    .dt-card h3{ font-size:clamp(22px, 1.5vw, 28px); }
-    .dt-card p{ font-size:clamp(15px, 1.1vw, 18px); }
   }
   .dt-card{
     position:relative;
@@ -1546,31 +1382,23 @@
 <style>
   .no-card{transition:transform .35s ease;}
   .no-card:hover{transform:translateY(-8px);}
-  .no-cards{display:grid;grid-template-columns:1fr;gap:32px;align-items:end;margin-top:48px;justify-items:center;}
-  @media (min-width:768px){
-    .no-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3vw,40px);}
-  }
-  @media (min-width:1024px){
-    .no-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,52px);}
-  }
-  @media (min-width:1440px){
-    #nimani-organasiz h2{ font-size:clamp(64px, 5vw, 80px) !important; }
-  }
+  @media (max-width:980px){.no-cards{grid-template-columns:1fr !important;justify-items:center;gap:12px !important;}}
 </style>
 
-<section id="nimani-organasiz" style="position:relative;background:#ede3d1;overflow:hidden;font-family:’Manrope’,sans-serif;">
-  <div style="position:relative;z-index:2;max-width:var(--container);margin:0 auto;padding:var(--space-section) var(--pad-inline);box-sizing:border-box;">
+<section id="nimani-organasiz" class="bn-no" style="position:relative;background:#ede3d1 url(&quot;assets/images/nimani-bg.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:’Manrope’,sans-serif;">
+  <div class="bn-no-inner" style="position:relative;z-index:2;max-width:1442px;margin:0 auto;padding:120px 0 120px;box-sizing:border-box;">
 
-    <header style="text-align:center;margin-bottom:20px;">
-      <h2 style="margin:0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(40px,5vw,64px);line-height:1.05;color:#2b2418;">Nimani o’rganasiz</h2>
-      <p style="margin:14px auto 0;max-width:640px;font-weight:500;font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:rgba(60,48,34,.72);">Dasturda o’qish orqali 3 ta ko’nikmaga ega bo’lasiz.</p>
+    <header class="bn-no-header" style="text-align:center;margin-bottom:20px;">
+      <h2 class="bn-no-title" style="margin:0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(40px,5vw,64px);line-height:1.05;color:#2b2418;">Nimani o’rganasiz</h2>
+      <p class="bn-no-subtitle" style="margin:14px auto 0;max-width:640px;font-weight:500;font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:rgba(60,48,34,.72);">Dasturda o’qish orqali 3 ta ko’nikmaga ega bo’lasiz.</p>
     </header>
 
-    <div class="no-cards">
+    <div class="no-cards bn-no-cards" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,52px);align-items:end;margin-top:48px;">
+      <img class="bn-no-bg-mobile" src="assets/images/nimani-mobile-bg.png" srcset="assets/images/mobile/nimani-mobile-bg-480.webp 480w, assets/images/mobile/nimani-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img src="assets/images/9ecc8283-2915-4bc0-9c0f-5fd4b7965b7a.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
-        <div style="position:absolute;left:16%;right:12%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/9ecc8283-2915-4bc0-9c0f-5fd4b7965b7a.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div class="bn-no-copy bn-no-copy-1" style="position:absolute;left:16%;right:12%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">01</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
           <h3 style="margin:12px 0 0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.15;color:#201b17;">Raqamlarda boshqaruv</h3>
@@ -1579,8 +1407,8 @@
       </article>
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img src="assets/images/5eae8531-6250-4ea3-8e25-4a38eba82edd.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
-        <div style="position:absolute;left:13%;right:17%;top:18%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/5eae8531-6250-4ea3-8e25-4a38eba82edd.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div class="bn-no-copy bn-no-copy-2" style="position:absolute;left:13%;right:17%;top:18%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(36px,4vw,52px);line-height:1;color:#c89a54;">02</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:10px 0 0;"></div>
           <h3 style="margin:16px 0 0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.15;color:#201b17;">O’zgarishni boshqarish</h3>
@@ -1589,8 +1417,8 @@
       </article>
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img src="assets/images/119e6daa-54b8-4508-ab50-44f066f3792f.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
-        <div style="position:absolute;left:10%;right:20%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/119e6daa-54b8-4508-ab50-44f066f3792f.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <div class="bn-no-copy bn-no-copy-3" style="position:absolute;left:10%;right:20%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">03</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
           <h3 style="margin:12px 0 0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.15;color:#201b17;">O’sish nuqtalari</h3>
@@ -1598,6 +1426,10 @@
         </div>
       </article>
 
+      <div class="bn-hero-chat-teaser bn-no-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
+      </div>
     </div>
   </div>
 </section>
@@ -1607,59 +1439,77 @@
     <h2 class="dt-reveal" data-delay="80" style="margin:-10px 0 0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(38px,5.4vw,68px);line-height:1.05;color:#e9c877;">Dasturda nimalar bor?</h2>
 
 
-    <div class="dt-grid">
+    <div class="dt-grid bn-dt-grid">
+      <img class="bn-dt-bg-mobile" src="assets/images/dastur-mobile-bg.png" srcset="assets/images/mobile/dastur-mobile-bg-480.webp 480w, assets/images/mobile/dastur-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
-      <article class="dt-card dt-reveal" data-delay="0">
+      <div class="bn-dt-cards-grid">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-1" data-delay="0">
         <img src="assets/images/f943a53d-1047-40be-acda-c637f7edd89e.png" alt="13 amaliy dars" loading="lazy">
         <h3>13 amaliy dars</h3>
-        <p>Sotuvni tizimlashtirishning to’liq bosqichma-bosqich dasturi.</p>
+        <p class="bn-dt-hide-mobile">Sotuvni tizimlashtirishning to’liq bosqichma-bosqich dasturi.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="100">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-2" data-delay="100">
         <img src="assets/images/d95e7109-bc70-43c9-9ec8-37fa67acce00.png" alt="Tayyor shablonlar" loading="lazy">
         <h3>Tayyor shablonlar</h3>
-        <p>Reglament, KPI va skript shablonlarini tayyor holda olasiz.</p>
+        <p class="bn-dt-hide-mobile">Reglament, KPI va skript shablonlarini tayyor holda olasiz.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="200">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-3" data-delay="200">
         <img src="assets/images/8c6f3721-3977-4cc6-97c3-a3929515a591.png" alt="AI vositalari" loading="lazy">
         <h3>AI vositalari</h3>
-        <p>Sotuv va tahlil uchun sun’iy intellekt yordamchilari.</p>
+        <p class="bn-dt-hide-mobile">Sotuv va tahlil uchun sun’iy intellekt yordamchilari.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="300">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-4" data-delay="300">
         <img src="assets/images/f487512a-df8a-4335-9cd6-464d81dbb4c7.png" alt="Shaxsiy mentorlik" loading="lazy">
         <h3>Shaxsiy mentorlik</h3>
-        <p>Bosqichlar davomida individual qo’llab-quvvatlash.</p>
+        <p class="bn-dt-hide-mobile">Bosqichlar davomida individual qo’llab-quvvatlash.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="0">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-5" data-delay="0">
         <img src="assets/images/61ac8159-2b70-4f1a-84c2-4122be3581d2.png" alt="Jonli sessiyalar" loading="lazy">
         <h3>Jonli sessiyalar</h3>
-        <p>Abdulboriy bilan jonli savol-javob va tahlil uchrashuvlari.</p>
+        <p class="bn-dt-hide-mobile">Abdulboriy bilan jonli savol-javob va tahlil uchrashuvlari.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="100">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-6" data-delay="100">
         <img src="assets/images/c69602e7-92f4-4525-8e5a-bcbf8a649b63.png" alt="Amaliy vazifalar" loading="lazy">
         <h3>Amaliy vazifalar</h3>
-        <p>Har bir darsdan keyin bajariladigan real topshiriqlar.</p>
+        <p class="bn-dt-hide-mobile">Har bir darsdan keyin bajariladigan real topshiriqlar.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="200">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-7" data-delay="200">
         <img src="assets/images/de5e111c-7429-43af-a81e-7439bad611e6.png" alt="Video darslar" loading="lazy">
-        <h3>Video darslar</h3>
-        <p>Istalgan vaqtda qayta ko’rish mumkin bo’lgan yozib olingan darslar.</p>
+        <h3 class="bn-dt-hide-mobile">Video darslar</h3>
+        <p class="bn-dt-longtext">Istalgan vaqtda qayta ko’rish mumkin bo’lgan yozib olingan darslar.</p>
       </article>
 
-      <article class="dt-card dt-reveal" data-delay="300">
+      <article class="dt-card dt-reveal bn-dt-card bn-dt-card-8" data-delay="300">
         <img src="assets/images/ac8f338d-478b-40a4-8d08-0a7b9174fdb1.png" alt="Chuqur tahlil" loading="lazy">
         <h3>Chuqur tahlil</h3>
-        <p>Biznesingiz raqamlarini o’qish va tahlil qilishni o’rganasiz.</p>
+        <p class="bn-dt-hide-mobile">Biznesingiz raqamlarini o’qish va tahlil qilishni o’rganasiz.</p>
       </article>
+      </div>
 
+      <div class="bn-dt-benefits">
+        <svg width="22" height="26" viewBox="0 0 26 30" fill="none" style="flex:none;"><path d="M13 1L24 5.2V14c0 8-5.4 12.3-11 14.6C7.4 26.3 2 22 2 14V5.2L13 1z" stroke="#e4bd6c" stroke-width="1.6" fill="rgba(228,189,108,.08)"></path><path d="M8.6 15.2l3 3 6-6.4" stroke="#e4bd6c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span>Umrbod kirish</span>
+        <span class="bn-dt-dot"></span>
+        <span>Yopiq hamjamiyat</span>
+        <span class="bn-dt-dot"></span>
+        <span>Bitiruv sertifikati</span>
+        <span class="bn-dt-dot"></span>
+        <span>Doimiy qo’llab-quvvatlash</span>
+        <svg width="22" height="26" viewBox="0 0 26 30" fill="none" style="flex:none;"><path d="M13 1L24 5.2V14c0 8-5.4 12.3-11 14.6C7.4 26.3 2 22 2 14V5.2L13 1z" stroke="#e4bd6c" stroke-width="1.6" fill="rgba(228,189,108,.08)"></path><path d="M8.6 15.2l3 3 6-6.4" stroke="#e4bd6c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+
+      <div class="bn-hero-chat-teaser bn-dt-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+      </div>
     </div>
 
-    <div class="dt-reveal" data-delay="200" style="margin-top:56px;display:flex;justify-content:center;">
+    <div class="dt-reveal bn-dt-benefits-desktop" data-delay="200" style="margin-top:56px;display:flex;justify-content:center;">
       <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px 22px;max-width:100%;padding:20px 40px;border-radius:999px;border:1px solid rgba(231,189,110,.4);background:rgba(18,12,9,.55);backdrop-filter:blur(4px);box-shadow:0 12px 34px rgba(0,0,0,.4);">
         <svg width="26" height="30" viewBox="0 0 26 30" fill="none" style="flex:none;"><path d="M13 1L24 5.2V14c0 8-5.4 12.3-11 14.6C7.4 26.3 2 22 2 14V5.2L13 1z" stroke="#e4bd6c" stroke-width="1.6" fill="rgba(228,189,108,.08)"></path><path d="M8.6 15.2l3 3 6-6.4" stroke="#e4bd6c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         <span style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:16px;color:#eadfca;">Umrbod kirish</span>
@@ -1682,55 +1532,53 @@
     .ah-portrait{position:absolute;left:0;bottom:0;z-index:2;width:660px;height:auto;pointer-events:none;user-select:none;filter:drop-shadow(0 30px 55px rgba(0,0,0,.55)) saturate(.96) contrast(.97);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 70%,transparent 100%),linear-gradient(180deg,#000 88%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect;mask-image:linear-gradient(90deg,#000 0%,#000 70%,transparent 100%),linear-gradient(180deg,#000 88%,transparent 100%);}
     .ah-desk{position:absolute;left:0;right:0;bottom:0;height:160px;z-index:3;pointer-events:none;background:linear-gradient(to top,#12100c 0%,rgba(18,14,10,.85) 34%,rgba(18,14,10,.35) 70%,rgba(18,14,10,0) 100%);}
     .ah-sign{position:absolute;left:-40px;bottom:56px;width:740px;z-index:5;text-align:center;pointer-events:none;padding:26px 40px 30px;background:radial-gradient(62% 130% at 50% 55%, rgba(8,5,3,.9) 0%, rgba(8,5,3,.6) 46%, transparent 78%);}
-    .ah-inner{position:relative;z-index:4;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:45% 55%;align-items:stretch;padding:var(--space-section) 40px var(--space-section) 80px;box-sizing:border-box;height:100%;min-height:900px;}
+    .ah-inner{position:relative;z-index:4;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:45% 55%;align-items:stretch;padding:120px 40px 120px 80px;box-sizing:border-box;height:100%;min-height:900px;}
     .ah-content{max-width:600px;margin-left:auto;display:flex;flex-direction:column;height:100%;}
     .ah-stat-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:14px;border-radius:22px;padding:26px 30px;border:1px solid rgba(255,240,214,.2);background:linear-gradient(180deg,rgba(255,246,226,.13),rgba(255,246,226,.05));-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,245,220,.3),0 10px 24px rgba(0,0,0,.26);}
-    @media (max-width:1024px){
+    @media (max-width:1023px){
       .ah-inner{grid-template-columns:42% 58%;padding:120px 32px;}
       .ah-portrait{width:500px;}
       .ah-sign{width:560px;left:-20px;bottom:40px;}
-      .ah-content{max-width:100%;}
-      .ah-stats-row{flex-wrap:wrap !important;}
     }
     @media (max-width:768px){
       .ah-section{min-height:0;background-position:center top;}
       .ah-section .ah-overlay{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.4) 45%,rgba(0,0,0,.55) 100%);}
-      .ah-inner{grid-template-columns:1fr;min-height:0;padding:var(--space-section) var(--pad-inline) 0;}
+      .ah-inner{grid-template-columns:1fr;min-height:0;padding:120px 20px 0;}
       .ah-content{max-width:100%;margin-left:0;height:auto;}
       .ah-portrait{position:relative;left:auto;bottom:auto;display:block;width:min(100%,420px);margin:32px auto 0;filter:drop-shadow(0 18px 34px rgba(0,0,0,.45));}
       .ah-desk{display:none;}
       .ah-sign{position:relative;left:auto;bottom:auto;width:100%;padding:20px 16px;background:none;margin:0 auto;}
       .ah-stats-row{flex-direction:column;}
     }
-    @media (min-width:1440px){
-      .ah-section{ min-height: 100vh; }
-      .ah-inner{ min-height: 100vh; }
-      .ah-portrait{ width: min(720px, 42vw); }
-    }
   </style>
 
   <section id="men-haqimda" class="ah-section">
-    <div class="ah-overlay" aria-hidden="true"></div>
+    <img class="bn-ah-bg-mobile" src="assets/images/about-mobile-bg.png" srcset="assets/images/mobile/about-mobile-bg-480.webp 480w, assets/images/mobile/about-mobile-bg-960.webp 960w" sizes="100vw" alt="Abdulboriy Abduqodirov" loading="lazy">
+    <div class="ah-overlay bn-ah-hide-mobile" aria-hidden="true"></div>
 
-    <div class="ah-desk" aria-hidden="true"></div>
-    <div class="ah-sign">
+    <div class="ah-desk bn-ah-hide-mobile" aria-hidden="true"></div>
+    <div class="ah-sign bn-ah-hide-mobile">
       <div style="font-family:'Dancing Script',cursive;font-weight:700;font-size:60px;line-height:1.1;color:#EFC886;text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 34px rgba(0,0,0,.6);">Abdulboriy Abduqodirov</div>
       <div style="margin:14px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:15px;line-height:1.45;color:rgba(242,232,216,.8);text-shadow:0 1px 10px rgba(0,0,0,.9);">Business Navigator muallifi · sotuv tizimlari bo'yicha mentor</div>
     </div>
-    <div class="ah-inner">
-      <div aria-hidden="true"></div>
-      <div class="ah-content">
-        <h2 style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(38px,6vw,68px);line-height:1.04;color:#F2E8D8;">Abdulboriy <span style="color:#D6A75D;">haqida</span></h2>
+    <div class="ah-inner bn-ah-inner">
+      <div aria-hidden="true" class="bn-ah-hide-mobile"></div>
+      <div class="ah-content bn-ah-content">
+        <h2 class="bn-ah-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:68px;line-height:1.04;color:#F2E8D8;">Abdulboriy <span style="color:#D6A75D;">haqida</span></h2>
         <div style="width:62px;height:2px;background:#D6A75D;opacity:.85;margin:30px 0 0;"></div>
-        <blockquote style="margin:42px 0 0;font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:clamp(24px,3.5vw,40px);line-height:1.24;color:#F2E8D8;">"Sotuvdagi eng katta muammo — odamlar emas, tizimning yo'qligi."</blockquote>
-        <p style="margin:36px 0 0;max-width:560px;font-family:'Manrope',sans-serif;font-weight:400;font-size:18px;line-height:1.7;color:rgba(242,232,216,.78);">Men Abdulboriy Abduqodirov. <strong style="color:#E7BD6E;font-weight:700;">10+</strong> biznesni tizimlashtirib, <strong style="color:#E7BD6E;font-weight:700;">80+</strong> tadbirkor, ROP va top-menejerni o'qitganman, <strong style="color:#E7BD6E;font-weight:700;">40+</strong> outsource sotuv bo'limini noldan ishga tushirganman.</p>
-        <p style="margin:22px 0 0;max-width:560px;font-family:'Manrope',sans-serif;font-weight:400;font-size:18px;line-height:1.7;color:rgba(242,232,216,.78);">Men sizga motivatsiya emas — <strong style="color:#F2E8D8;font-weight:700;">ishlaydigan tizim</strong> beraman: <span style="color:#F2E8D8;font-weight:600;">aniq xarita, raqamlar va KPI</span>.</p>
-        <div style="margin-top:auto;padding-top:48px;width:100%;box-sizing:border-box;">
+        <blockquote class="bn-ah-quote" style="margin:42px 0 0;font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:40px;line-height:1.24;color:#F2E8D8;">"Sotuvdagi eng katta muammo — odamlar emas, tizimning yo'qligi."</blockquote>
+        <p class="bn-ah-p" style="margin:36px 0 0;max-width:560px;font-family:'Manrope',sans-serif;font-weight:400;font-size:18px;line-height:1.7;color:rgba(242,232,216,.78);">Men Abdulboriy Abduqodirov. <strong style="color:#E7BD6E;font-weight:700;">10+</strong> biznesni tizimlashtirib, <strong style="color:#E7BD6E;font-weight:700;">80+</strong> tadbirkor, ROP va top-menejerni o'qitganman, <strong style="color:#E7BD6E;font-weight:700;">40+</strong> outsource sotuv bo'limini noldan ishga tushirganman.</p>
+        <p class="bn-ah-p" style="margin:22px 0 0;max-width:560px;font-family:'Manrope',sans-serif;font-weight:400;font-size:18px;line-height:1.7;color:rgba(242,232,216,.78);">Men sizga motivatsiya emas — <strong style="color:#F2E8D8;font-weight:700;">ishlaydigan tizim</strong> beraman: <span style="color:#F2E8D8;font-weight:600;">aniq xarita, raqamlar va KPI</span>.</p>
+        <div class="bn-ah-stats-wrap" style="margin-top:auto;padding-top:48px;width:100%;box-sizing:border-box;">
           <div class="ah-stats-row" style="display:flex;flex-wrap:nowrap;gap:24px;">
-            <div class="ah-stat-pill"><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">10+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">biznes</span></div>
-            <div class="ah-stat-pill"><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">80+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">tadbirkor / РОП</span></div>
-            <div class="ah-stat-pill"><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">40+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">sotuv bo'limi</span></div>
+            <div class="ah-stat-pill"><svg class="bn-ah-stat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#E7BD6E" stroke-width="1.6"/><path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#E7BD6E" stroke-width="1.6"/><path d="M3 12h18" stroke="#E7BD6E" stroke-width="1.6"/></svg><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">10+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">biznes</span></div>
+            <div class="ah-stat-pill"><svg class="bn-ah-stat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="#E7BD6E" stroke-width="1.6"/><path d="M4.5 20c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke="#E7BD6E" stroke-width="1.6" stroke-linecap="round"/></svg><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">80+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">tadbirkor / ROP va top-menejer</span></div>
+            <div class="ah-stat-pill"><svg class="bn-ah-stat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#E7BD6E" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="#E7BD6E" stroke-width="1.4"/><circle cx="12" cy="12" r="1.2" fill="#E7BD6E"/></svg><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">40+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">sotuv bo'limi</span></div>
           </div>
+        </div>
+        <div class="bn-hero-chat-teaser bn-ah-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+          <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+          <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
         </div>
       </div>
     </div>
@@ -1739,26 +1587,55 @@
 
 
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div style="position:relative;width:100%;background:#0d0b09;overflow:hidden;">
-    <div style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
-      <h2 style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(52px,10vw,104px);line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
-      <p style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(16px,2.4vw,26px);line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
+  <div class="bn-nt" style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+    <div class="bn-nt-header" style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
+      <h2 class="bn-nt-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
+      <p class="bn-nt-subtitle" style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
     </div>
     <img class="natija-desktop" src="assets/images/natija-blok3.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;transform:scale(1.12);transform-origin:center center;">
+
+    <div class="bn-nt-mobile">
+      <img class="bn-nt-bg-mobile" src="assets/images/natija-mobile-bg-v2.png" srcset="assets/images/mobile/natija-mobile-bg-v2-480.webp 480w, assets/images/mobile/natija-mobile-bg-v2-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+
+      <div class="bn-nt-result bn-nt-result-1">
+        <span class="bn-nt-num">01</span>
+        <div class="bn-nt-body">
+          <h3>Aniq xarita</h3>
+          <p>Sotuvlarni oshirish uchun aniq xarita va ketma-ketlik hosil bo'ladi.</p>
+        </div>
+        <svg class="bn-nt-mapicon" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3 4 5v16l5-2 6 2 5-2V3l-5 2-6-2Z" stroke="#8a6a34" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 3v16M15 5v16" stroke="#8a6a34" stroke-width="1.2"/><path d="M6.5 15c2-2 3-3.5 5-3.5s2.5 2 4.5 1" stroke="#7a211c" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="2 2"/></svg>
+      </div>
+
+      <div class="bn-nt-result bn-nt-result-2">
+        <span class="bn-nt-num">02</span>
+        <div class="bn-nt-body">
+          <h3>Tizimli jamoa va KPI</h3>
+          <p>Tizimli va samarali ishlaydigan jamoani noldan shakllantirasiz va to'g'ri KPI qo'yasiz.</p>
+        </div>
+      </div>
+
+      <div class="bn-nt-result bn-nt-result-3">
+        <span class="bn-nt-num">03</span>
+        <div class="bn-nt-body">
+          <h3>Minimal resurs bilan sof foyda</h3>
+          <p>Biznes jarayonlarini optimizatsiya qilish evaziga, minimal resurslar bilan sof foydani oshirasiz.</p>
+        </div>
+      </div>
+
+      <div class="bn-hero-chat-teaser bn-nt-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
+      </div>
+    </div>
+
     <img class="natija-mobile" src="assets/images/natija-mobile.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:none;">
   </div>
-  <style>
-    @media (max-width:768px){
-      .natija-desktop{display:none !important;}
-      .natija-mobile{display:block !important;}
-    }
-  </style>
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
-.cc-sec{position:relative;width:100%;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:var(--space-section) 0;}
+.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:120px 0 120px;}
 .cc-sec::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 40px 80px -60px rgba(60,44,20,.35),inset 0 -40px 80px -60px rgba(60,44,20,.25);}
-.cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0 var(--pad-inline);z-index:2;}
+.cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0;z-index:2;}
 
 /* --- HEADER --- */
 .cc-header{text-align:center;position:relative;padding:0 20px 84px;}
@@ -1798,7 +1675,6 @@
 .cc-board-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(122,90,46,0.35),transparent);}
 
 .cc-tiles{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-.cc-tiles--cat{grid-template-columns:repeat(4,1fr);}
 .cc-tile{position:relative;background:linear-gradient(180deg,#fbf6ea 0%,#f2ecdc 100%);border:1px solid rgba(90,60,20,0.14);border-radius:9px;padding:12px 16px;min-height:130px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:600;font-size:15px;line-height:1.25;color:#2b241b;box-shadow:0 2px 4px rgba(90,60,20,0.06),inset 0 1px 0 rgba(255,255,255,0.7);transition:transform .25s ease,box-shadow .25s ease;}
 .cc-tile:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(90,60,20,0.15),inset 0 1px 0 rgba(255,255,255,0.7);}
 .cc-logo{max-width:100%;max-height:100px;object-fit:contain;}
@@ -1810,17 +1686,17 @@
 /* Person tile */
 .cc-tile-person{flex-direction:column;gap:10px;padding:18px 8px 14px;min-height:140px;}
 .cc-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;overflow:hidden;}
-.cc-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
+.cc-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 .cc-avatar svg{width:30px;height:30px;color:#fbf0d5;}
-.face-asror{transform:scale(1.5);transform-origin:center top;}
-.face-husan{transform:scale(1.45);transform-origin:center top;}
-.face-alisher{transform:scale(1.2);object-position:center 32% !important;}
-.face-abdukarim{transform:scale(1.45);object-position:center 42% !important;}
-.face-sitorabonu{transform:scale(2);transform-origin:center top;}
-.face-barno{transform:scale(1.1);object-position:center 30% !important;}
-.face-rano{transform:scale(1.45);object-position:center 36% !important;}
-.face-osiyo{transform:scale(2);transform-origin:center top;}
-.face-abdulaziz{transform:scale(1.5);transform-origin:center 12%;}
+.face-asror{transform:scale(1.5);object-position:center 6% !important;}
+.face-husan{transform:scale(1.35);object-position:center 12% !important;}
+.face-alisher{transform:scale(1.2);object-position:center 8% !important;}
+.face-abdukarim{transform:scale(1.45);object-position:center 20% !important;}
+.face-sitorabonu{transform:scale(1.5);object-position:center 6% !important;}
+.face-barno{transform:scale(1.1);object-position:center 8% !important;}
+.face-rano{transform:scale(1.45);object-position:center 12% !important;}
+.face-osiyo{transform:scale(1.55);object-position:center 8% !important;}
+.face-abdulaziz{transform:scale(1.5);object-position:center 18% !important;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
 .cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;}
 
@@ -1861,8 +1737,7 @@
   .cc-panel-grid,.cc-panel-grid.rev,.cc-panel-grid.wide{grid-template-columns:1fr;}
   .cc-panel-grid.rev .cc-stat{border-left:none;border-top:1px solid rgba(210,170,90,0.14);}
   .cc-stat{border-right:none;border-bottom:1px solid rgba(210,170,90,0.14);}
-  .cc-tiles{grid-template-columns:repeat(3,1fr);}
-  .cc-tiles--cat{grid-template-columns:repeat(3,1fr);}
+  .cc-tiles{grid-template-columns:repeat(4,1fr);}
   .cc-title{font-size:64px;}
   .cc-signature{font-size:64px;}
   .cc-decor{display:none;}
@@ -1882,7 +1757,6 @@
   .cc-stat-label{font-size:18px;}
   .cc-board{padding:28px 20px;}
   .cc-tiles{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .cc-tiles--cat{grid-template-columns:repeat(2,1fr);}
   .cc-tile{font-size:14px;padding:10px 12px;min-height:110px;}
   .cc-logo{max-height:78px;}
   .cc-tile-person{min-height:88px;}
@@ -1894,11 +1768,6 @@
   .cc-footer-text{font-size:18px;}
   .cc-footer-line::before,.cc-footer-line::after{display:none;}
   .cc-signature{font-size:56px;}
-}
-@media (min-width:1440px){
-  .cc-title{ font-size:clamp(88px, 6vw, 110px); }
-  .cc-subtitle{ font-size:clamp(22px, 1.5vw, 28px); }
-  .cc-signature{ font-size:clamp(88px, 6vw, 110px); }
 }
 </style>
 
@@ -2005,7 +1874,7 @@
           </div>
         </div>
         <div class="cc-board">
-          <div class="cc-tiles cc-tiles--cat">
+          <div class="cc-tiles" style="grid-template-columns:repeat(4,1fr);">
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-6h14l2 6M5 13v5a1 1 0 001 1h2a1 1 0 001-1v-1h6v1a1 1 0 001 1h2a1 1 0 001-1v-5"/><circle cx="7.5" cy="15" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor"/></svg></div><div class="cc-cat-name">Avtosalon</div></div>
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.5 12a1 1 0 01-1 1H6.5a1 1 0 01-1-1L4 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg></div><div class="cc-cat-name">Riteyl</div></div>
             <div class="cc-tile cc-tile-cat"><div class="cc-cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg></div><div class="cc-cat-name">Tur agentligi</div></div>
@@ -2030,12 +1899,12 @@
 
 <!-- ================= SECTION 7 — SAVOL-JAVOB (FAQ) ================= -->
 <style>
-.faq-sec{position:relative;width:100%;overflow:hidden;background:#0f0c0a url('assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png') center top/100% auto no-repeat;}
+.faq-sec{position:relative;width:1672px;overflow:hidden;background:#0f0c0a url('assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png') center top/100% auto no-repeat;}
 .faq-sec::before{content:"";position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(14,10,7,0.25) 0%,rgba(14,10,7,0.08) 30%,rgba(14,10,7,0.08) 60%,rgba(14,10,7,0.50) 100%),
   radial-gradient(ellipse at 50% 40%,transparent 35%,rgba(10,7,4,0.35) 100%);
   pointer-events:none;z-index:1;}
-.faq-inner{position:relative;max-width:var(--container);margin:0 auto;padding:var(--space-section) var(--pad-inline);z-index:3;}
+.faq-inner{position:relative;max-width:1442px;margin:0 auto;padding:120px 0;z-index:3;}
 .faq-header{position:relative;text-align:center;margin-bottom:44px;}
 .faq-title{margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:52px;line-height:1.1;color:#f3ead8;letter-spacing:-1px;}
 .faq-sub{margin:16px auto 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:18px;line-height:1.55;color:rgba(240,230,210,.72);max-width:560px;}
@@ -2064,11 +1933,6 @@
   .faq-q{padding:18px 18px;gap:14px;}
   .faq-q-text{font-size:16px;}
   .faq-a-inner{padding:0 18px;font-size:15px;}
-}
-@media (min-width:1440px){
-  .faq-title{ font-size:clamp(52px, 4vw, 68px); }
-  .faq-q-text{ font-size:clamp(22px, 1.5vw, 26px); }
-  .faq-sub{ font-size:clamp(18px, 1.3vw, 22px); }
 }
 </style>
 
@@ -2139,12 +2003,9 @@
   .ar-cta:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 16px 34px rgba(130,80,28,.42) !important;}
   .ar-cta:active{transform:translateY(0);}
   @media (max-width:1024px){
-    .ar-inner{grid-template-columns:1fr !important;gap:38px !important;padding:var(--space-section) var(--pad-inline) !important;}
-    .ar-copy h2{font-size:clamp(40px,10vw,58px) !important;}
+    .ar-inner{grid-template-columns:1fr !important;gap:38px !important;padding:120px 24px !important;}
+    .ar-copy h2{font-size:clamp(46px,12vw,58px) !important;}
     .ar-form{margin:0 auto;}
-  }
-  @media (max-width:480px){
-    .ar-role{height:auto !important;padding:12px 4px !important;}
   }
 </style>
 
@@ -2351,7 +2212,7 @@ highlightRoles();
 </style>
 
 <footer id="aloqa" style="position:relative;background:#efe7d8 url(&quot;assets/images/ad892dd8-3b6b-44fe-b857-6b21a854ead8.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
-  <div class="ft-inner" style="position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:var(--space-section) var(--pad-inline);box-sizing:border-box;">
+  <div class="ft-inner" style="position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:120px 40px 120px;box-sizing:border-box;">
 
     <div class="ft-cols" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:start;">
 
@@ -2364,7 +2225,7 @@ highlightRoles();
       <div>
         <div style="font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:#bd9146;margin-bottom:24px;">Aloqa</div>
         <div style="display:flex;flex-direction:column;gap:18px;">
-          <a href="tel:+998555888484" class="ft-link" style="display:flex;align-items:center;gap:16px;text-decoration:none;color:#403829;font-size:clamp(17px,4.5vw,22px);font-weight:600;">
+          <a href="tel:+998555888484" class="ft-link" style="display:flex;align-items:center;gap:16px;text-decoration:none;color:#403829;font-size:22px;font-weight:600;">
             <span style="flex:none;width:42px;height:42px;border-radius:11px;background:rgba(199,154,85,.13);display:flex;align-items:center;justify-content:center;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b58a3f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4z"></path></svg>
             </span>
@@ -2412,6 +2273,439 @@ highlightRoles();
   </div>
 </footer>
 
+<style id="bn-mobile">
+/* === MOBILE OPTIMIZATION — additive only; every rule scoped ≤768px === */
+/* === BATCH 1: scaler neutralization + global foundation === */
+@media (max-width: 768px) {
+  html { -webkit-text-size-adjust: 100%; }
+  #bn-page { transform: none !important; width: auto !important; }
+  #bn-fit { height: auto !important; }
+  #bn-page > div, #bn-page > section, #bn-page > footer { width: auto !important; max-width: 100% !important; }
+}
+
+/* === BATCH 2: HERO MOBILE REBUILD === */
+.bn-hero-burger{display:none;background:transparent;border:none;padding:0;margin:0;cursor:pointer;width:30px;height:22px;flex:none;flex-direction:column;justify-content:space-between;}
+.bn-hero-burger span{display:block;width:100%;height:2px;border-radius:2px;background:#f2ece1;transition:transform .2s ease,opacity .2s ease;}
+.bn-hero-burger.is-active span:nth-child(1){transform:translateY(10px) rotate(45deg);}
+.bn-hero-burger.is-active span:nth-child(2){opacity:0;}
+.bn-hero-burger.is-active span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
+.bn-hero-bg-mobile{display:none;}
+.bn-hero-chat-teaser{display:none;}
+.bn-hero-stat-icon{display:none;}
+
+@media (max-width: 768px) {
+  #bn-hero{
+    height:auto !important;
+    min-height:100svh;
+    z-index:0;
+    display:flex;
+    flex-direction:column;
+    padding-bottom:32px;
+  }
+  #bn-hero::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:210px; z-index:0;
+    background:linear-gradient(180deg, rgba(10,7,5,.74) 0%, rgba(10,7,5,.38) 55%, rgba(10,7,5,0) 100%);
+    pointer-events:none;
+  }
+  #bn-hero::after{
+    content:"";
+    position:absolute; top:380px; left:0; right:0; height:260px; z-index:0;
+    background:linear-gradient(180deg, rgba(10,7,5,0) 0%, rgba(12,9,7,.7) 55%, #141110 100%);
+    pointer-events:none;
+  }
+
+  .bn-hero-bg-desktop{ display:none !important; }
+  .bn-hero-gradient, .bn-hero-bottom-blur, #bn-atmo{ display:none !important; }
+  .bn-hero-bg-mobile{
+    display:block !important;
+    position:absolute !important; z-index:-1;
+    top:0 !important; left:0 !important; right:0 !important;
+    width:100% !important; height:640px !important;
+    object-fit:cover !important; object-position:center top !important;
+  }
+
+  .bn-hero-header{
+    position:relative !important; z-index:1; order:1;
+    display:flex !important; align-items:center; justify-content:space-between;
+    width:100%; box-sizing:border-box;
+    padding:22px 22px 18px;
+    border-bottom:1px solid rgba(201,168,110,.16);
+  }
+  .bn-hero-logo{ position:static !important; }
+  .bn-hero-logo img{ height:34px !important; max-width:145px; width:auto; }
+  .bn-hero-burger{ display:flex !important; }
+
+  .bn-hero-nav{ display:none !important; }
+  .bn-hero-nav.is-open{
+    display:flex !important;
+    position:relative !important; z-index:1; order:1;
+    right:auto !important; top:auto !important;
+    flex-direction:column; align-items:flex-start; gap:0;
+    width:100%; box-sizing:border-box;
+    padding:6px 22px 18px;
+  }
+  .bn-hero-nav.is-open a.bn-navlink{ display:block; width:100%; padding:13px 0; font-size:16px; border-bottom:1px solid rgba(255,255,255,.08); }
+
+  .bn-hero-headline{
+    position:relative !important; z-index:1; order:2;
+    left:auto !important; top:auto !important; margin:8px 22px 0 !important;
+    font-size:clamp(42px,11.5vw,56px) !important; line-height:1.02 !important; letter-spacing:-0.045em !important;
+  }
+  .bn-hero-subtitle{
+    position:relative !important; z-index:1; order:3;
+    left:auto !important; top:auto !important; margin:16px 22px 0 !important; font-size:16px !important;
+  }
+  .bn-hero-cta{
+    position:relative !important; z-index:1; order:4;
+    left:auto !important; top:auto !important; margin:26px 22px 0 !important;
+    max-width:360px !important; height:64px !important; padding:0 26px !important;
+  }
+  .bn-hero-cta span{ font-size:21px !important; }
+
+  .bn-hero-badge{
+    position:relative !important; z-index:1; order:5;
+    top:auto !important; right:auto !important; left:auto !important;
+    display:block; align-self:flex-start !important; width:124px !important;
+    padding:10px 11px !important; border-radius:12px !important;
+    margin:10px 0 0 22px !important;
+  }
+  .bn-hero-badge span{ font-size:15px !important; }
+  .bn-hero-badge > div > div:last-child{ font-size:11px !important; margin-top:4px !important; }
+
+  .bn-hero-chat-teaser{
+    display:flex !important;
+    position:relative !important; z-index:1; order:6;
+    align-items:flex-end; gap:6px;
+    margin:14px 22px 0 auto; max-width:80%;
+    align-self:flex-end; cursor:pointer;
+  }
+  .bn-hero-chat-bubble{
+    background:#fff; color:#1c1c1e; font-family:'Manrope',sans-serif; font-weight:600;
+    font-size:12px; line-height:1.28; border-radius:15px; padding:10px 12px; max-width:190px;
+    box-shadow:0 14px 30px rgba(0,0,0,.3);
+  }
+  .bn-hero-chat-mascot{ width:48px; height:auto; flex:none; filter:drop-shadow(0 8px 16px rgba(0,0,0,.4)); }
+
+  .bn-hero-stat-divider{ display:none !important; }
+  .bn-hero-statrow{
+    position:relative !important; z-index:1; order:7;
+    display:grid !important; grid-template-columns:1fr 1fr; gap:10px;
+    width:100%; box-sizing:border-box; padding:14px 14px 22px; margin:0;
+  }
+  .bn-hero-stat{
+    position:static !important; transform:none !important; text-align:center;
+    background:rgba(28,17,10,.72); border:1px solid rgba(220,158,55,.42); border-radius:15px;
+    min-height:96px; padding:12px 8px; box-sizing:border-box;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .bn-hero-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 7px; }
+  .bn-hero-stat > div:first-of-type{ font-size:clamp(26px,7.5vw,34px) !important; }
+  .bn-hero-stat > div:last-child{ font-size:10.5px !important; margin-top:7px !important; }
+}
+
+@media (min-width: 390px) {
+  .bn-hero-chat-mascot{ width:54px; }
+  .bn-hero-chat-bubble{ max-width:210px; }
+}
+
+@media (max-width: 360px) {
+  .bn-hero-headline{ font-size:38px !important; }
+  .bn-hero-stat > div:first-of-type{ font-size:25px !important; }
+  .bn-hero-chat-mascot{ width:44px; }
+  .bn-hero-chat-bubble{ max-width:176px; font-size:11.5px; }
+}
+
+/* === BATCH 3: KIMLAR UCHUN MOBILE REBUILD === */
+.bn-ku-bg-mobile{display:none;}
+.bn-ku-cards-mobile{display:none;}
+
+@media (max-width: 768px) {
+  .bn-ku{ min-height:0 !important; padding-bottom:40px; }
+  .bn-ku-bg-desktop, .bn-ku-cards-desktop{ display:none !important; }
+  .bn-ku-bg-mobile{
+    display:block !important; position:absolute !important; top:0; left:0; right:0;
+    width:100%; height:auto; z-index:0; pointer-events:none; user-select:none;
+  }
+  .bn-ku-header{
+    position:relative !important; z-index:1;
+    top:auto !important; left:auto !important; right:auto !important;
+    padding:44px 24px 0;
+  }
+  .bn-ku-title{ font-size:clamp(32px,9vw,42px) !important; }
+  .bn-ku-subtitle{ font-size:16px !important; }
+
+  .bn-ku-cards-mobile{
+    display:flex !important; flex-direction:column; gap:22px;
+    position:relative; z-index:1;
+    padding:32px 20px 0; box-sizing:border-box;
+  }
+  .bn-ku-card{
+    position:relative; z-index:0;
+    background:linear-gradient(180deg,#f7efe0,#efe2c8);
+    border-radius:16px;
+    box-shadow:0 22px 40px rgba(60,40,18,.22), 0 2px 0 rgba(255,255,255,.4) inset;
+    padding:16px 14px;
+    max-width:360px; margin-left:auto; margin-right:auto;
+    box-sizing:border-box;
+  }
+  .bn-ku-card::before{
+    content:""; position:absolute; left:10px; right:10px; bottom:-8px; height:20px;
+    background:#d8c39c; border-radius:0 0 14px 14px; z-index:-1;
+  }
+  .bn-ku-card:last-child{ margin-bottom:46px; }
+  .bn-ku-tab{
+    position:absolute; left:16px; top:-16px;
+    display:flex; align-items:center; gap:6px;
+    background:linear-gradient(180deg,#e8d3ad,#dcbf8c);
+    padding:6px 12px 7px; border-radius:9px 9px 0 0;
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; color:#8a5a2b;
+  }
+  .bn-ku-body{ position:relative; padding-top:12px; }
+  .bn-ku-body::after{ content:""; display:table; clear:both; }
+  .bn-ku-photo{
+    float:right; width:100px; height:auto; margin:-2px -2px 8px 12px;
+    border-radius:3px; box-shadow:0 14px 26px rgba(0,0,0,.28); transform:rotate(2deg);
+  }
+  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; color:#241d13; }
+  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13px; line-height:1.48; color:#6b5f49; }
+  .bn-ku-sticky{
+    clear:both; display:inline-block; margin-top:14px;
+    background:#f4e3a1; color:#7a4a1a; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
+    font-size:13px; line-height:1.28; padding:8px 12px; border-radius:2px;
+    box-shadow:0 8px 16px rgba(0,0,0,.18); transform:rotate(-3deg);
+  }
+}
+
+/* === BATCH 4: OLDIN → KEYIN MOBILE REBUILD === */
+.bn-ok-bg-mobile{display:none;}
+.bn-ok-magnifier-mobile{display:none;}
+
+@media (max-width: 768px) {
+  .bn-ok{
+    height:auto !important; z-index:0; padding-bottom:36px;
+    display:flex; flex-direction:column;
+  }
+  .bn-ok-bg-desktop, .bn-ok-desktop-overlay{ display:none !important; }
+  .bn-ok-bg-mobile{
+    display:block !important; position:absolute !important; top:0; left:0; right:0;
+    width:100%; height:auto; z-index:-1; pointer-events:none; user-select:none;
+  }
+  .bn-ok-header{
+    position:relative !important; z-index:1;
+    top:auto !important; left:auto !important; right:auto !important;
+    padding:38px 22px 0;
+  }
+  .bn-ok-title{ font-size:clamp(34px,9vw,46px) !important; line-height:1.05 !important; }
+  .bn-ok-title span{ margin:0 8px !important; }
+
+  .bn-ok-card{
+    position:relative !important; z-index:1;
+    left:auto !important; top:auto !important; height:auto !important;
+    width:calc(100% - 32px) !important; max-width:356px !important;
+    display:flex !important; flex-direction:column; align-items:center;
+    margin:22px auto 0 !important; padding:16px 14px !important; border-radius:16px !important;
+    box-sizing:border-box;
+  }
+  .bn-ok-badge{
+    position:relative !important; left:auto !important; top:auto !important; transform:none !important;
+    height:40px !important; padding:0 18px !important; border-radius:7px !important;
+    display:flex !important; align-items:center !important; justify-content:center !important;
+    margin:0 0 14px !important;
+  }
+  .bn-ok-badge span{ font-size:18px !important; font-weight:700 !important; }
+  .bn-ok-list{
+    position:relative !important; left:auto !important; right:auto !important; top:auto !important; bottom:auto !important;
+    display:flex !important; flex-direction:column; justify-content:flex-start !important; gap:0;
+    align-self:stretch; width:100%;
+  }
+  .bn-ok-list > div:nth-child(odd){ gap:9px !important; padding:10px 0 !important; }
+  .bn-ok-list svg{ width:20px !important; height:20px !important; }
+  .bn-ok-list p{ font-size:13px !important; line-height:1.38 !important; }
+
+  .bn-ok-magnifier-mobile{
+    display:flex !important; justify-content:center; align-items:center;
+    position:relative; z-index:1; margin:18px 0 0;
+  }
+  .bn-ok-magnifier-mobile img{
+    width:60px; height:auto; transform:rotate(18deg); opacity:.92;
+    filter:drop-shadow(0 14px 20px rgba(0,0,0,.5));
+  }
+
+  .bn-ok-chat-teaser{ margin-top:18px !important; }
+}
+
+/* === BATCH 5: NIMANI O'RGANASIZ MOBILE REBUILD === */
+.bn-no-bg-mobile{display:none;}
+
+@media (max-width: 768px) {
+  .bn-no-inner{ padding:56px 0 40px !important; }
+  .bn-no-header{ padding:0 22px; }
+  .bn-no-title{ font-size:clamp(30px,9vw,40px) !important; }
+  .bn-no-subtitle{ font-size:15px !important; }
+
+  .bn-no-cards{
+    display:block !important; position:relative !important; z-index:0;
+    margin-top:32px !important; padding:0 22px;
+    aspect-ratio:864/1821; width:100%; box-sizing:border-box;
+  }
+  .bn-no-bg-mobile{
+    display:block !important; position:absolute !important;
+    top:0 !important; left:0 !important; right:0 !important;
+    width:100% !important; height:100% !important; object-fit:cover !important; z-index:-1;
+  }
+  .no-card{
+    position:static !important; max-width:none !important; margin:0 !important; filter:none !important;
+  }
+  .bn-no-illustration{ display:none !important; }
+  .bn-no-copy{
+    position:absolute !important; align-items:flex-start !important; text-align:left !important;
+    right:auto !important; top:auto; width:auto;
+  }
+  .bn-no-copy-1{ top:23.5% !important; left:21% !important; width:34% !important; }
+  .bn-no-copy-2{ top:48.5% !important; left:21% !important; width:38% !important; }
+  .bn-no-copy-3{ top:73.2% !important; left:19% !important; width:43% !important; }
+  .bn-no-chat-teaser{
+    display:flex !important; position:absolute !important; z-index:2;
+    right:4%; bottom:2.5%; max-width:180px; margin:0 !important; align-self:auto !important;
+  }
+  .bn-no-copy h3{ font-size:19px !important; }
+  .bn-no-copy p{ font-size:13.5px !important; }
+}
+
+/* === BATCH 6: DASTURDA NIMALAR BOR MOBILE REBUILD === */
+.bn-dt-bg-mobile{display:none;}
+.bn-dt-benefits{display:none;}
+.bn-dt-chat-teaser{display:none;}
+.bn-dt-cards-grid{display:contents;} /* desktop: transparent wrapper so the 8 <article>s stay direct children of .dt-grid's 4-col CSS grid */
+
+@media (max-width: 768px) {
+  .dt-section{ background:#1b1613 !important; }
+  .dt-container{ padding:56px 0 40px !important; }
+  .dt-container h2{ padding:0 22px; }
+  .bn-dt-benefits-desktop{ display:none !important; }
+
+  .bn-dt-grid{
+    display:block !important; position:relative !important; z-index:0;
+    margin-top:28px !important; padding:0 20px;
+    aspect-ratio:864/1821; width:100%; box-sizing:border-box;
+  }
+  .bn-dt-bg-mobile{
+    display:block !important; position:absolute !important;
+    top:0 !important; left:0 !important; right:0 !important;
+    width:100% !important; height:100% !important; object-fit:cover !important; z-index:-1;
+  }
+
+  .bn-dt-cards-grid{
+    position:absolute !important; z-index:1;
+    top:9.8%; left:9.2%; right:9.2%; bottom:17.2%;
+    display:grid; grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,1fr); gap:4.2%;
+  }
+  .bn-dt-card{
+    position:static !important; z-index:auto;
+    background:none !important; box-shadow:none !important; border-radius:0 !important;
+    padding:10px 10px 12px !important; box-sizing:border-box;
+    display:flex !important; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  }
+  .bn-dt-card img{ width:30px !important; height:30px !important; margin:0 0 10px !important; }
+  .bn-dt-card h3{ font-size:14px !important; line-height:1.25 !important; }
+  .bn-dt-hide-mobile{ display:none !important; }
+  .bn-dt-longtext{ display:block !important; position:static !important; opacity:1 !important; transform:none !important; pointer-events:auto !important; margin:0 !important; padding:0 !important; background:none !important; font-size:11.5px !important; line-height:1.3 !important; color:#2b2418 !important; }
+
+  .bn-dt-benefits{
+    display:flex !important; position:absolute !important; z-index:1;
+    left:6.5%; right:17%; bottom:7.2%;
+    align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:'Manrope',sans-serif; font-weight:600; font-size:9.5px; line-height:1.15; color:#f0d18d;
+  }
+  .bn-dt-benefits svg{ width:14px; height:16px; flex:none; }
+  .bn-dt-dot{ width:auto; height:auto; border-radius:0; background:none; color:rgba(240,209,141,.85); font-size:12px; }
+  .bn-dt-dot::before{ content:"•"; }
+
+  .bn-dt-chat-teaser{
+    display:flex !important; position:absolute !important; z-index:4;
+    right:4.5%; bottom:2.6%; max-width:188px; margin:0 !important; align-self:auto !important;
+  }
+  .bn-dt-chat-teaser .bn-hero-chat-bubble{ font-size:11.5px !important; padding:10px 12px !important; }
+}
+
+/* === BATCH 7: ABDULBORIY HAQIDA MOBILE REBUILD === */
+.bn-ah-bg-mobile{display:none;}
+.bn-ah-chat-teaser{display:none;}
+.bn-ah-stat-icon{display:none;}
+
+@media (max-width: 768px) {
+  .ah-section{ background:#0d0906 !important; min-height:0 !important; }
+  .bn-ah-hide-mobile{ display:none !important; }
+  .bn-ah-bg-mobile{
+    display:block !important; width:100%; height:auto; position:relative; z-index:1;
+  }
+  .bn-ah-inner{
+    display:block !important; padding:0 22px 40px !important; margin-top:0 !important;
+  }
+  .bn-ah-content{ max-width:100% !important; margin:0 !important; height:auto !important; }
+  .bn-ah-title{ font-size:clamp(32px,9vw,42px) !important; margin-top:28px !important; }
+  .bn-ah-quote{ font-size:22px !important; line-height:1.42 !important; margin-top:26px !important; max-width:100% !important; }
+  .bn-ah-p{ font-size:15.5px !important; line-height:1.6 !important; margin-top:20px !important; max-width:100% !important; }
+
+  .bn-ah-stats-wrap{ margin-top:22px !important; padding-top:0 !important; }
+  .ah-stats-row{ flex-direction:row !important; flex-wrap:nowrap !important; gap:8px !important; }
+  .ah-stat-pill{
+    flex:1 1 0 !important; flex-direction:column !important; gap:4px !important;
+    padding:12px 8px !important; text-align:center;
+  }
+  .ah-stat-pill span:first-child{ font-size:clamp(24px,7vw,28px) !important; }
+  .ah-stat-pill span:last-child{ font-size:11px !important; line-height:1.22 !important; }
+  .bn-ah-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 2px; }
+
+  .bn-ah-chat-teaser{
+    display:flex !important; margin:22px 0 0 auto !important; max-width:220px;
+  }
+}
+
+/* === BATCH 8: NATIJA MOBILE REBUILD === */
+.bn-nt-mobile{display:none;}
+
+@media (max-width: 768px) {
+  .natija-desktop{ display:none !important; }
+  .natija-mobile{ display:none !important; }
+  .bn-nt-header{ position:relative !important; padding:44px 22px 0 !important; }
+  .bn-nt-title{ font-size:clamp(34px,9vw,46px) !important; }
+  .bn-nt-subtitle{ font-size:16px !important; }
+
+  .bn-nt-mobile{
+    display:block !important; position:relative; z-index:0;
+    margin:24px 20px 40px; padding:0;
+  }
+  .bn-nt-bg-mobile{ display:block; width:100%; height:auto; position:relative; z-index:-1; }
+
+  .bn-nt-result{
+    position:absolute; z-index:1; display:flex; align-items:flex-start; gap:10px;
+  }
+  .bn-nt-result-1{ top:24%; left:31%; width:62%; }
+  .bn-nt-result-2{ top:46.5%; left:31%; width:44%; }
+  .bn-nt-result-3{ top:64%; left:31%; width:62%; }
+
+  .bn-nt-num{
+    flex:none; width:26px; height:26px; border-radius:50%;
+    background:#1c1712; border:1.5px solid #8a6a34; color:#e7bd6e;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:11.5px;
+  }
+  .bn-nt-body{ flex:1; min-width:0; }
+  .bn-nt-body h3{ margin:2px 0 0; font-family:'Manrope',sans-serif; font-weight:700; font-size:14.5px; line-height:1.2; color:#201b17; }
+  .bn-nt-body p{ margin:5px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:11.5px; line-height:1.4; color:#6b5f49; }
+  .bn-nt-mapicon{ flex:none; width:22px; height:22px; align-self:center; opacity:.85; }
+
+  .bn-nt-chat-teaser{
+    display:flex !important; position:absolute !important; z-index:2;
+    top:90%; right:1%; max-width:170px; margin:0 !important; align-self:auto !important;
+  }
+}
+</style>
+
+</div>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1672,&quot;height&quot;:1882},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Amber Noir&quot;,&quot;options&quot;:[&quot;Amber Noir&quot;,&quot;Teal &amp; Ember&quot;,&quot;Summer Glow&quot;,&quot;Emerald Study&quot;,&quot;Royal Indigo&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero mood&quot;}}">class Component extends DCLogic {
@@ -2456,7 +2750,83 @@ highlightRoles();
     const atmo = document.getElementById('bn-atmo');
     if (atmo) { atmo.style.background = t.atmo; atmo.style.mixBlendMode = t.blend || 'normal'; }
   }
-  setupMagnifier() {}
+  setupMagnifier() {
+    if (window.__magCleanup) window.__magCleanup();
+    const SIZE = 300, Z = 2.25, HOLD = 7000;
+    const build = () => {
+      const page = document.getElementById('bn-page');
+      if (!page) { setTimeout(build, 250); return; }
+      const old = document.getElementById('__mag-lens'); if (old) old.remove();
+      const lens = document.createElement('div');
+      lens.id = '__mag-lens';
+      lens.style.cssText = 'position:fixed;left:0;top:0;width:' + SIZE + 'px;height:' + SIZE + 'px;border-radius:50%;overflow:hidden;pointer-events:none;z-index:2147483010;display:none;opacity:0;transition:opacity .16s ease;box-shadow:0 0 0 8px #6b4f22,0 0 0 12px #cba653,0 0 0 13px rgba(55,38,10,.75),0 22px 46px rgba(0,0,0,.6),inset 0 0 34px rgba(0,0,0,.4);';
+      const inner = document.createElement('div');
+      inner.style.cssText = 'position:absolute;left:0;top:0;transform-origin:top left;';
+      const clone = page.cloneNode(true);
+      clone.removeAttribute('id'); clone.style.transform = 'none'; clone.style.margin = '0';
+      clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+      inner.appendChild(clone);
+      const sheen = document.createElement('div');
+      sheen.style.cssText = 'position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(150px 110px at 32% 22%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 63%,rgba(0,0,0,.30) 100%);';
+      lens.appendChild(inner); lens.appendChild(sheen);
+      document.body.appendChild(lens);
+      let timer = null, lx = 0, ly = 0, shown = false;
+      lens.style.opacity = '1';
+      lens.style.transformOrigin = '50% 50%';
+      const place = () => {
+        const p = document.getElementById('bn-page'); if (!p) return;
+        const rect = p.getBoundingClientRect();
+        const s = rect.width / 1672;
+        const cX = (lx - rect.left) / s, cY = (ly - rect.top) / s;
+        const Sc = s * Z;
+        inner.style.transform = 'scale(' + Sc + ')';
+        inner.style.left = (SIZE / 2 - cX * Sc) + 'px';
+        inner.style.top = (SIZE / 2 - cY * Sc) + 'px';
+        lens.style.left = (lx - SIZE / 2) + 'px';
+        lens.style.top = (ly - SIZE / 2) + 'px';
+      };
+      const reveal = () => {
+        shown = true;
+        if(!document.getElementById('__mag-nocursor')){var s=document.createElement('style');s.id='__mag-nocursor';s.textContent='*{cursor:none!important}';document.head.appendChild(s);}
+        place();
+        lens.style.display = 'block';
+        lens.style.transition = 'none';
+        lens.style.transform = 'scale(0.15)';
+        void lens.offsetWidth;
+        lens.style.transition = 'transform .3s cubic-bezier(.34,1.56,.64,1)';
+        lens.style.transform = 'scale(1)';
+      };
+      const conceal = () => {
+        if (!shown) return;
+        shown = false;
+        var ns=document.getElementById('__mag-nocursor');if(ns)ns.remove();
+        lens.style.transition = 'transform .22s cubic-bezier(.4,0,.7,.2)';
+        lens.style.transform = 'scale(0.12)';
+        const done = () => { if (!shown) lens.style.display = 'none'; lens.removeEventListener('transitionend', done); };
+        lens.addEventListener('transitionend', done);
+      };
+      const onMove = (e) => {
+        lx = e.clientX; ly = e.clientY;
+        if (shown) { place(); return; }
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(reveal, HOLD);
+      };
+      const onDown = () => { if (timer) clearTimeout(timer); conceal(); };
+      const onScroll = () => { if (timer) clearTimeout(timer); if (shown) conceal(); };
+      window.addEventListener('mousemove', onMove, { passive: true });
+      window.addEventListener('mousedown', onDown);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.__magCleanup = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mousedown', onDown);
+        window.removeEventListener('scroll', onScroll);
+        const l = document.getElementById('__mag-lens'); if (l) l.remove();
+        var ns=document.getElementById('__mag-nocursor');if(ns)ns.remove();
+        window.__magCleanup = null;
+      };
+    };
+    build();
+  }
   renderVals() {
     return {};
   }
@@ -2464,6 +2834,9 @@ highlightRoles();
 
 <script>
 (function(){
+  // #bn-page is scaled via transform (see fit() above), which breaks native #id
+  // anchor jumps and scrollIntoView() — getBoundingClientRect() reflects the
+  // actual rendered position post-transform, so compute the offset from that.
   document.addEventListener('click', function(e){
     var link = e.target.closest('[data-nav-target]');
     var id;
@@ -2485,36 +2858,34 @@ highlightRoles();
 
 <script>
 (function(){
-  function getDrawer(){ return document.querySelector('[data-nav-drawer]'); }
-  function getToggle(){ return document.querySelector('[data-nav-toggle]'); }
-
-  function openDrawer(){
-    var drawer = getDrawer(), toggle = getToggle();
-    if (!drawer || !toggle) return;
-    drawer.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('nav-open');
-  }
-  function closeDrawer(){
-    var drawer = getDrawer(), toggle = getToggle();
-    if (!drawer || !toggle) return;
-    drawer.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('nav-open');
-  }
-
+  // mobile hero: hamburger toggles the (reused) desktop nav-links list as a dropdown
   document.addEventListener('click', function(e){
-    if (e.target.closest('[data-nav-toggle]')) {
-      var drawer = getDrawer();
-      if (drawer && drawer.classList.contains('is-open')) { closeDrawer(); } else { openDrawer(); }
+    var burger = e.target.closest('[data-hero-burger]');
+    if (burger) {
+      var nav = document.querySelector('.bn-hero-nav');
+      if (!nav) return;
+      var open = nav.classList.toggle('is-open');
+      burger.classList.toggle('is-active', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       return;
     }
-    if (e.target.closest('[data-nav-close]')) { closeDrawer(); return; }
-    var drawer2 = getDrawer();
-    if (drawer2 && drawer2.contains(e.target) && e.target.closest('a')) { closeDrawer(); }
+    if (e.target.closest('.bn-hero-nav.is-open a.bn-navlink')) {
+      var openNav = document.querySelector('.bn-hero-nav.is-open');
+      var openBurger = document.querySelector('.bn-hero-burger.is-active');
+      if (openNav) openNav.classList.remove('is-open');
+      if (openBurger) { openBurger.classList.remove('is-active'); openBurger.setAttribute('aria-expanded', 'false'); }
+      return;
+    }
+    // mobile hero: chat teaser opens the real Basyra AI popup
+    if (e.target.closest('[data-hero-chat-teaser]')) {
+      if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
+    }
   });
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeDrawer();
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('[data-hero-chat-teaser]')) {
+      e.preventDefault();
+      if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
+    }
   });
 })();
 </script>

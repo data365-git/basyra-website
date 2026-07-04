@@ -30,6 +30,7 @@
   var idleBubbleHideTimer = null;
   var streamAbort = null;
   var lastFocusedEl = null;
+  var fabHiddenBySection = false; // true while a section with its own in-page assistant teaser is in view
 
   // ---------- tiny markdown parser (bold, italic, code, links, lists, paragraphs) ----------
   function escapeHtml(s) {
@@ -369,7 +370,7 @@
 
   // ---------- idle speech bubble ----------
   function showIdleBubble() {
-    if (state.open) return;
+    if (state.open || fabHiddenBySection) return;
     hideIdleBubble();
     var line = IDLE_LINES[Math.floor(Math.random() * IDLE_LINES.length)];
     idleBubbleEl = h("div", { class: "mascot-bubble", role: "status" }, [
@@ -608,17 +609,28 @@
     });
   }
 
-  // ---------- hide fab while the hero is in view (avoid overlapping hero stats) ----------
+  // ---------- hide fab while a section with its own in-page assistant teaser is in view
+  // (avoid showing the global FAB mascot/bubble at the same time as a section's own) ----------
   function setupHeroVisibility() {
-    var hero = document.getElementById("bn-hero");
-    if (!hero || !("IntersectionObserver" in window)) return;
+    var selectors = ["#bn-hero", "#oldin-keyin", "#nimani-organasiz", "#dastur", "#men-haqimda", ".bn-nt"];
+    var targets = selectors
+      .map(function (s) { return document.querySelector(s); })
+      .filter(Boolean);
+    if (!targets.length || !("IntersectionObserver" in window)) return;
+    var visible = {};
     var io = new IntersectionObserver(function (entries) {
-      var hide = entries[0].isIntersecting && !state.open;
+      entries.forEach(function (entry) {
+        var key = Array.prototype.indexOf.call(targets, entry.target);
+        visible[key] = entry.isIntersecting;
+      });
+      var anyVisible = Object.keys(visible).some(function (k) { return visible[k]; });
+      var hide = anyVisible && !state.open;
+      fabHiddenBySection = hide;
       els.fab.style.display = hide ? "none" : "";
       els.aura.style.display = hide ? "none" : "";
       if (idleBubbleEl) idleBubbleEl.style.display = hide ? "none" : "";
-    }, { threshold: 0.2 });
-    io.observe(hero);
+    }, { threshold: 0 });
+    targets.forEach(function (t) { io.observe(t); });
   }
 
   // ---------- init ----------
@@ -626,6 +638,7 @@
     build();
     startIdleTimer();
     setupHeroVisibility();
+    window.BasyraAI = { open: openPopup, close: closePopup };
   }
 
   if (document.readyState === "loading") {
