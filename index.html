@@ -1700,7 +1700,11 @@
 .face-osiyo{transform:scale(1.55);object-position:center 8% !important;}
 .face-abdulaziz{transform:scale(1.5);object-position:center 18% !important;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
-.cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;}
+.cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;cursor:pointer;width:100%;}
+button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(90,60,20,0.15);}
+.cc-more-panel{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s ease,opacity .3s ease,margin-top .35s ease;margin-top:0;}
+.cc-more-panel.is-open{grid-template-rows:1fr;opacity:1;margin-top:14px;}
+.cc-more-panel > .cc-tiles{overflow:hidden;min-height:0;}
 
 /* Category tile */
 .cc-tile-cat{flex-direction:column;gap:10px;padding:22px 10px;min-height:114px;}
@@ -1831,6 +1835,20 @@
             <div class="cc-tile">Rombik</div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-e-mark" src="assets/images/logos/ethno-logistics.png" alt="ETHNO logistics"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">ETHNO logistics</span></div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-r-app" src="assets/images/logos/robbit.png" alt="Robbit"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Robbit</span></div>
+            <button type="button" class="cc-tile cc-tile-more" data-cc-more-toggle="cc-more-bitiruvchilar" aria-expanded="false" aria-controls="cc-more-bitiruvchilar">+9</button>
+          </div>
+          <div id="cc-more-bitiruvchilar" class="cc-more-panel">
+            <div class="cc-tiles">
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/ucan-consulting.png" alt="Ucan Consulting"></div>
+              <div class="cc-tile">Turon Turizm</div>
+              <div class="cc-tile">Top Brains</div>
+              <div class="cc-tile">Haris ta'lim</div>
+              <div class="cc-tile">Neus mebel</div>
+              <div class="cc-tile">Data365</div>
+              <div class="cc-tile">Buran Consulting</div>
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/zin-nur-akademiyasi.png" alt="Zin-Nur akademiyasi"></div>
+              <div class="cc-tile">Nebula bog'chasi</div>
+            </div>
           </div>
         </div>
       </div>
@@ -2905,6 +2923,15 @@ highlightRoles();
     // mobile hero: chat teaser opens the real Basyra AI popup
     if (e.target.closest('[data-hero-chat-teaser]')) {
       if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
+      return;
+    }
+    // "Yopilgan ishlar" client grids: "+N" tile expands a hidden panel of more clients
+    var moreToggle = e.target.closest('[data-cc-more-toggle]');
+    if (moreToggle) {
+      var panel = document.getElementById(moreToggle.getAttribute('data-cc-more-toggle'));
+      if (!panel) return;
+      var open = panel.classList.toggle('is-open');
+      moreToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
   });
   document.addEventListener('keydown', function(e){
