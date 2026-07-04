@@ -51,6 +51,10 @@
 }
 .ai-aura.show { opacity: 0.8; }
 
+.ai-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .28s ease;z-index:2147482998;}
+.ai-backdrop.open{opacity:1;pointer-events:auto;}
+.ai-grab{display:none;}
+
 /* ── Main Popup Panel ── */
 .ai-popup {
   position: fixed;
@@ -573,6 +577,9 @@
     border-radius: 0;
     transform-origin: calc(100% - 52px) calc(100% - 52px);
   }
+  .ai-popup{top:auto !important;bottom:0 !important;left:0 !important;width:100vw !important;max-width:100vw !important;height:92dvh !important;max-height:92dvh !important;border-radius:22px 22px 0 0 !important;}
+  .ai-grab{display:block;width:44px;height:5px;border-radius:3px;background:rgba(255,255,255,.28);margin:8px auto 2px;}
+  .ai-x{width:40px !important;height:40px !important;}
   .ai-aura { display: none; }
   .ai-input { font-size: 16px; }
 }
@@ -584,7 +591,8 @@
    toggle it per-section) removes any chance of it visually doubling up
    with a section's own teaser. */
 @media (max-width: 768px) {
-  .ai-fab, .ai-aura, .mascot-bubble { display: none !important; }
+  .ai-aura, .mascot-bubble { display: none !important; }
+  .ai-fab { width: 72px; bottom: 18px; right: 14px; }
 }
 
 /* ── Reduced motion ── */

@@ -15,8 +15,8 @@
   ];
 
 
-  var MASCOT_SMILE = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
-  var MASCOT_COOL = "assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png";
+  var MASCOT_SMILE = "assets/images/mascot-popup.png";
+  var MASCOT_COOL = "assets/images/mascot-popup.png";
 
   // ---------- state ----------
   var state = {
@@ -278,6 +278,18 @@
     var root = h("div", { id: "basyra-ai-widget" }, [aura, popup, fab]);
     document.body.appendChild(root);
 
+    var backdrop = document.createElement("div");
+    backdrop.className = "ai-backdrop";
+    document.body.appendChild(backdrop);
+    els.backdrop = backdrop;
+
+    var grab = document.createElement("div");
+    grab.className = "ai-grab";
+    popup.insertBefore(grab, popup.firstChild);
+    els.grab = grab;
+
+    backdrop.addEventListener("click", closePopup);
+
     els.root = root;
     els.fab = fab;
     els.fabImg = fabImg;
@@ -294,6 +306,39 @@
     els.closeBtn = closeBtn;
 
     wireEvents();
+    wireSwipe();
+  }
+
+  // ---------- swipe-down-to-dismiss (mobile only) ----------
+  function wireSwipe() {
+    var sy = 0, cy = 0, drag = false;
+    function tStart(e) {
+      if (window.innerWidth > 640) return;
+      sy = e.touches[0].clientY;
+      drag = true;
+      els.popup.style.transition = "none";
+    }
+    function tMove(e) {
+      if (!drag) return;
+      cy = e.touches[0].clientY;
+      var dy = Math.max(0, cy - sy);
+      els.popup.style.transform = "translateY(" + dy + "px)";
+      if (els.backdrop) els.backdrop.style.opacity = String(Math.max(0, 1 - dy / 450));
+    }
+    function tEnd() {
+      if (!drag) return;
+      drag = false;
+      els.popup.style.transition = "";
+      els.popup.style.transform = "";
+      if (els.backdrop) els.backdrop.style.opacity = "";
+      if (cy - sy > 120) closePopup();
+    }
+
+    [els.header, els.grab].forEach(function (el) {
+      el.addEventListener("touchstart", tStart, { passive: true });
+      el.addEventListener("touchmove", tMove, { passive: true });
+      el.addEventListener("touchend", tEnd);
+    });
   }
 
   // ---------- open/close ----------
@@ -304,14 +349,17 @@
     els.popup.classList.add("open");
     els.popup.setAttribute("data-open", "true");
     els.aura.classList.add("show");
+    els.backdrop.classList.add("open");
     els.fabImg.src = MASCOT_COOL;
     els.fab.setAttribute("aria-expanded", "true");
     hideIdleBubble();
     stopIdleTimer();
     document.addEventListener("keydown", onKeydown, true);
-    setTimeout(function () {
-      els.textarea.focus();
-    }, 200);
+    if (window.innerWidth > 768) {
+      setTimeout(function () {
+        els.textarea.focus();
+      }, 200);
+    }
   }
 
   function closePopup() {
@@ -320,6 +368,8 @@
     els.popup.classList.remove("open");
     els.popup.removeAttribute("data-open");
     els.aura.classList.remove("show");
+    els.backdrop.classList.remove("open");
+    els.popup.style.transform = "";
     els.fabImg.src = MASCOT_SMILE;
     els.fab.setAttribute("aria-expanded", "false");
     document.removeEventListener("keydown", onKeydown, true);
@@ -609,35 +659,10 @@
     });
   }
 
-  // ---------- hide fab while a section with its own in-page assistant teaser is in view
-  // (avoid showing the global FAB mascot/bubble at the same time as a section's own) ----------
-  function setupHeroVisibility() {
-    var selectors = ["#bn-hero", "#oldin-keyin", "#nimani-organasiz", "#dastur", "#men-haqimda", ".bn-nt"];
-    var targets = selectors
-      .map(function (s) { return document.querySelector(s); })
-      .filter(Boolean);
-    if (!targets.length || !("IntersectionObserver" in window)) return;
-    var visible = {};
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        var key = Array.prototype.indexOf.call(targets, entry.target);
-        visible[key] = entry.isIntersecting;
-      });
-      var anyVisible = Object.keys(visible).some(function (k) { return visible[k]; });
-      var hide = anyVisible && !state.open;
-      fabHiddenBySection = hide;
-      els.fab.style.display = hide ? "none" : "";
-      els.aura.style.display = hide ? "none" : "";
-      if (idleBubbleEl) idleBubbleEl.style.display = hide ? "none" : "";
-    }, { threshold: 0 });
-    targets.forEach(function (t) { io.observe(t); });
-  }
-
   // ---------- init ----------
   function init() {
     build();
     startIdleTimer();
-    setupHeroVisibility();
     window.BasyraAI = { open: openPopup, close: closePopup };
   }
 

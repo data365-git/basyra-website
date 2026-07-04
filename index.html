@@ -22,7 +22,7 @@
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#141110">
 <link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/popup.css?v=3">
+<link rel="stylesheet" href="css/popup.css?v=4">
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -36,6 +36,22 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/110384028" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<script>
+(function(){
+  var h = location.hostname;
+  var isLocal = !h || h==='localhost' || h==='127.0.0.1' || h==='0.0.0.0'
+    || h.endsWith('.local')
+    || /^192\.168\./.test(h) || /^10\./.test(h)
+    || /^172\.(1[6-9]|2\d|3[01])\./.test(h);
+  var mq = window.matchMedia('(min-width:1024px) and (hover:hover) and (pointer:fine)');
+  function apply(){
+    document.documentElement.classList.toggle('bn-fx', !isLocal && mq.matches);
+  }
+  if (mq.addEventListener) mq.addEventListener('change', apply); else mq.addListener(apply);
+  apply();
+  window.__bnFxOn = function(){ return document.documentElement.classList.contains('bn-fx'); };
+})();
+</script>
 </head>
 <body>
 
@@ -667,8 +683,8 @@
 </style>
 <style>
   html,body{margin:0;background:#141110;}
-  *{cursor:url("assets/images/cursor-magnifier.png") 30 18,auto !important;}
-  input,textarea{cursor:text !important;}
+  html.bn-fx *{cursor:url("assets/images/cursor-magnifier.png") 30 18,auto !important;}
+  html.bn-fx input,html.bn-fx textarea{cursor:text !important;}
   .bn-navlink{text-decoration:none;transition:color .18s;white-space:nowrap;}
   .bn-navlink:hover{color:#efe8da !important;}
   .bn-cta{transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;}
@@ -682,13 +698,21 @@
 </style>
 <script>
 (function(){
-  var BASE=1672;
+  var BASE_DESKTOP=1672, BASE_MOBILE=375, MQ=768;
   function fit(){
     var page=document.getElementById('bn-page');
     var wrap=document.getElementById('bn-fit');
     if(!page||!wrap) return;
-    var s=document.documentElement.clientWidth/BASE;
+    var vw=document.documentElement.clientWidth;
+    var mobile=(vw<=MQ);
+    var base=mobile?BASE_MOBILE:BASE_DESKTOP;
+    var s=vw/base;
+    if(mobile) s=Math.min(s,1.25);
+    page.style.width=base+'px';
     page.style.transform='scale('+s+')';
+    page.style.transformOrigin=mobile?'top center':'top left';
+    if(mobile&&s<vw/base){ page.style.marginLeft=((vw-base*s)/2)+'px'; }
+    else{ page.style.marginLeft='0'; }
     wrap.style.height=(page.offsetHeight*s)+'px';
   }
   window.addEventListener('resize',fit);
@@ -704,14 +728,14 @@
 </helmet>
 
 <div id="bn-fit">
-<div id="bn-page" role="main" style="width:1672px;background:#141110;font-family:'Manrope',sans-serif;">
+<div id="bn-page" role="main" style="position:relative;width:1672px;background:#141110;font-family:'Manrope',sans-serif;">
 
   <!-- ================= SECTION 1 — HERO ================= -->
   <div id="bn-hero" style="position:relative;width:1672px;height:890px;overflow:hidden;color:#f2ece1;background:#141110;">
 
     <!-- background scene -->
-    <img class="bn-hero-bg-desktop" src="assets/images/e1beae08-3d1c-4a69-9784-d98c0e1a02b2.png" alt="" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-    <img class="bn-hero-bg-mobile" src="assets/images/hero-mobile-bg.png" srcset="assets/images/mobile/hero-mobile-bg-480.webp 480w, assets/images/mobile/hero-mobile-bg-960.webp 960w" sizes="100vw" alt="" fetchpriority="high">
+    <img class="bn-hero-bg-desktop" src="assets/images/hero-desktop-bg.png" alt="" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <img class="bn-hero-bg-mobile" src="assets/images/mobile/hero-mobile-bg.png?v=2" srcset="assets/images/mobile/hero-mobile-bg-480.webp?v=2 480w, assets/images/mobile/hero-mobile-bg-960.webp?v=2 960w" sizes="100vw" alt="" fetchpriority="high">
     <div class="bn-hero-gradient" style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(16,12,10,.68) 0%, rgba(16,12,10,.30) 34%, rgba(16,12,10,0) 52%);"></div>
     <div id="bn-atmo" style="position:absolute;inset:0;pointer-events:none;"></div>
     <div class="bn-hero-bottom-blur" style="position:absolute;left:0;right:0;bottom:0;height:150px;background:rgba(18,13,11,.34);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-top:1px solid rgba(201,168,110,.22);box-shadow:inset 0 1px 0 rgba(255,244,220,.08),0 -12px 40px rgba(0,0,0,.28);"></div>
@@ -719,7 +743,7 @@
     <!-- nav: logo lockup -->
     <div class="bn-hero-header">
       <div class="bn-hero-logo" style="position:absolute;left:115px;top:34px;">
-        <img src="assets/images/c29c734a-78b9-4f71-b775-c514aa2f825e.png" alt="acdmy by basyra" style="display:block;height:46px;width:auto;">
+        <img src="assets/images/logo-acdmy-basyra.png" alt="acdmy by basyra" style="display:block;height:46px;width:auto;">
       </div>
       <button type="button" class="bn-hero-burger" aria-label="Menyu" aria-expanded="false" data-hero-burger>
         <span></span><span></span><span></span>
@@ -740,17 +764,17 @@
     </div>
 
     <!-- headline -->
-    <h1 class="bn-hero-headline" style="position:absolute;left:115px;top:210px;margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:86px;line-height:1.16;letter-spacing:-1px;color:#f2ecde;">
+    <h1 class="bn-hero-headline" style="position:absolute;left:115px;top:210px;margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:86px;line-height:1.16;letter-spacing:-1px;color:#f2ecde;z-index:5;">
       <div>Sotuvlaringizni</div>
       <div>byudjet emas —</div>
       <div><span class="bn-glow" style="font-style:italic;color:#e4aa54;">tizim</span> oshiradi</div>
     </h1>
 
     <!-- subtitle -->
-    <div class="bn-hero-subtitle" style="position:absolute;left:115px;top:520px;font-family:'Manrope',sans-serif;font-style:italic;font-weight:400;font-size:27px;letter-spacing:.2px;color:#c0b4a4;">Avval tashxis, keyin esa tizim.</div>
+    <div class="bn-hero-subtitle" style="position:absolute;left:115px;top:520px;font-family:'Manrope',sans-serif;font-style:italic;font-weight:400;font-size:27px;letter-spacing:.2px;color:#c0b4a4;z-index:5;">Avval tashxis, keyin esa tizim.</div>
 
     <!-- CTA -->
-    <a class="bn-cta bn-hero-cta" href="#ariza" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;
+    <a class="bn-cta bn-hero-cta" href="#ariza" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;z-index:5;
          background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);
          box-shadow:0 14px 30px rgba(180,140,70,.30);">
       <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:24px;letter-spacing:.2px;color:#241a0f;">Dasturga yoziling</span>
@@ -768,22 +792,22 @@
     <div class="bn-hero-stat-divider" style="position:absolute;left:1257px;top:787px;width:1px;height:56px;background:linear-gradient(180deg,transparent,rgba(201,168,110,.3) 25%,rgba(201,168,110,.3) 75%,transparent);"></div>
 
     <!-- stats -->
-    <div class="bn-hero-stat" style="position:absolute;left:243px;top:780px;transform:translateX(-50%);text-align:center;">
+    <div class="bn-hero-stat" style="position:absolute;left:243px;top:780px;transform:translateX(-50%);text-align:center;z-index:5;">
       <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#e6ba60" stroke-width="1.6"/><path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#e6ba60" stroke-width="1.6"/><path d="M3 12h18" stroke="#e6ba60" stroke-width="1.6"/></svg>
       <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">10+</div>
       <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tizimlashtirilgan biznes</div>
     </div>
-    <div class="bn-hero-stat" style="position:absolute;left:630px;top:780px;transform:translateX(-50%);text-align:center;">
+    <div class="bn-hero-stat" style="position:absolute;left:630px;top:780px;transform:translateX(-50%);text-align:center;z-index:5;">
       <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="#e6ba60" stroke-width="1.6"/><path d="M4.5 20c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke="#e6ba60" stroke-width="1.6" stroke-linecap="round"/></svg>
       <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">80+</div>
       <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">tadbirkor, ROP va<br>top-menejer bitiruvchi</div>
     </div>
-    <div class="bn-hero-stat" style="position:absolute;left:1048px;top:780px;transform:translateX(-50%);text-align:center;">
+    <div class="bn-hero-stat" style="position:absolute;left:1048px;top:780px;transform:translateX(-50%);text-align:center;z-index:5;">
       <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2.5c1.6 2 2.6 4.4 2.6 7 0 2.1-.8 3.6-1.6 4.7l-1 3.8-1-3.8c-.8-1.1-1.6-2.6-1.6-4.7 0-2.6 1-5 2.6-7Z" stroke="#e6ba60" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9" r="1.5" stroke="#e6ba60" stroke-width="1.4"/><path d="M9 15.5 7 21l3-1.6M15 15.5 17 21l-3-1.6" stroke="#e6ba60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">40+</div>
       <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">outsource sotuv<br>bo’limi zapuski</div>
     </div>
-    <div class="bn-hero-stat" style="position:absolute;left:1429px;top:780px;transform:translateX(-50%);text-align:center;">
+    <div class="bn-hero-stat" style="position:absolute;left:1429px;top:780px;transform:translateX(-50%);text-align:center;z-index:5;">
       <svg class="bn-hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#e6ba60" stroke-width="1.6"/><path d="M15 9l-4.2 2.8L9 16l4.2-2.8L15 9Z" stroke="#e6ba60" stroke-width="1.5" stroke-linejoin="round"/></svg>
       <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:36px;line-height:1;color:#e6ba60;">7</div>
       <div style="font-family:’Manrope’,sans-serif;font-weight:400;font-size:14px;line-height:1.3;color:#a99c86;margin-top:6px;">yo’nalish</div>
@@ -803,29 +827,48 @@
       </div>
     </div>
 
-    <!-- chat teaser (mobile only) -->
-    <div class="bn-hero-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-      <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-      <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-    </div>
   </div>
 
+<img class="bn-hero-ku-folder bn-hero-ku-folder-left" src="assets/images/hero-ku-folder-left.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:-270px;top:705px;width:380px;height:auto;transform:rotate(-10deg);z-index:2;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+<img class="bn-hero-ku-folder bn-hero-ku-folder-right" src="assets/images/hero-ku-papers-right.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;right:-265px;top:581px;width:535px;height:auto;transform:rotate(4deg);z-index:2;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
   <!-- ================= SECTION 3 — KIMLAR UCHUN (AUDITORIYA) ================= -->
   <div id="kimlar-uchun" class="bn-ku" style="position:relative;width:1672px;min-height:860px;overflow:hidden;background:#efe6d6;">
-    <img class="bn-ku-bg-desktop" src="assets/images/65a22b96-320d-45a1-b619-9d165de42f1e.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none;user-select:none;">
-    <img class="bn-ku-bg-mobile" src="assets/images/kimlar-mobile-bg.png" srcset="assets/images/mobile/kimlar-mobile-bg-480.webp 480w, assets/images/mobile/kimlar-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+    <img class="bn-ku-bg-desktop" src="assets/images/kimlar-desktop-bg.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;pointer-events:none;user-select:none;">
+    <img class="bn-ku-bg-mobile" src="assets/images/kimlar-mobile-bg.png" alt="" aria-hidden="true" loading="lazy">
 
     <!-- header -->
-    <div class="bn-ku-header" style="position:absolute;left:0;right:0;top:74px;text-align:center;">
+    <div class="bn-ku-header" style="position:absolute;left:0;right:0;top:74px;text-align:center;z-index:5;">
       <h2 class="bn-ku-title" style="margin:12px 0 0;font-family:'Manrope',sans-serif;font-weight:800;font-size:74px;line-height:1;letter-spacing:-1.5px;color:#2b2418;">Kimlar uchun</h2>
       <p class="bn-ku-subtitle" style="margin:14px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:22px;color:#6b5f49;">Ushbu dastur kimlarga mos?</p>
       <div class="bn-ku-rule" style="width:64px;height:3px;border-radius:99px;background:#c79a55;margin:20px auto 0;"></div>
     </div>
 
     <!-- folder cards (desktop: pre-composed images) -->
-    <div class="bn-ku-cards-desktop" style="position:absolute;left:50%;top:235px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:36px;">
-      <img src="assets/images/138baa25-b56f-46e5-8348-be6da5f13dcc.png" alt="Tadbirkorlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
-      <img src="assets/images/ef5b4cc1-fa6e-4ad9-adb5-51146f727fe6.png" alt="Top-menejerlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
+    <div class="bn-ku-cards-desktop" style="position:absolute;left:50%;top:235px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:36px;z-index:5;">
+      <img src="assets/images/kimlar-tadbirkorlar-mockup.png" alt="Tadbirkorlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
+      <img src="assets/images/kimlar-top-menejerlar-mockup.png" alt="Top-menejerlar uchun Business Navigator dasturi" width="1448" height="1086" loading="lazy" decoding="async" style="display:block;width:703px;height:auto;filter:drop-shadow(0 24px 32px rgba(78,52,28,.22));">
+    </div>
+
+    <!-- folder cards (mobile: real HTML/CSS) -->
+    <div class="bn-ku-cards-mobile">
+      <article class="bn-ku-card">
+        <div class="bn-ku-tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="#a9713a" stroke-width="1.6"/><path d="M3.5 19c0-3 2.5-5.4 5.5-5.4s5.5 2.4 5.5 5.4" stroke="#a9713a" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" stroke="#a9713a" stroke-width="1.5"/><path d="M14.8 13.6c2.4.3 4.2 2.3 4.2 4.7" stroke="#a9713a" stroke-width="1.5" stroke-linecap="round"/></svg><span>01</span></div>
+        <div class="bn-ku-body">
+          <img class="bn-ku-photo" src="assets/images/mobile/ku-persona-1.png" srcset="assets/images/mobile/ku-persona-1-256.webp 256w, assets/images/mobile/ku-persona-1-480.webp 480w" sizes="140px" alt="Tadbirkorlar uchun mentor" loading="lazy" width="140" height="199">
+          <h3 class="bn-ku-card-title">Tadbirkorlar</h3>
+          <p class="bn-ku-card-desc">Sotuvni tizimlashtirish,<br>jamoani kuchaytirish va<br>barqaror o'sish uchun<br>amaliy yechimlar.</p>
+          <div class="bn-ku-sticky">biznes<br>egasi</div>
+        </div>
+      </article>
+      <article class="bn-ku-card">
+        <div class="bn-ku-tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" stroke="#a9713a" stroke-width="1.6"/><path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#a9713a" stroke-width="1.6"/></svg><span>02</span></div>
+        <div class="bn-ku-body">
+          <img class="bn-ku-photo" src="assets/images/mobile/ku-persona-2.png" srcset="assets/images/mobile/ku-persona-2-256.webp 256w, assets/images/mobile/ku-persona-2-480.webp 480w" sizes="140px" alt="Top-menejerlar uchun mentor" loading="lazy" width="140" height="199">
+          <h3 class="bn-ku-card-title">Top-menejerlar</h3>
+          <p class="bn-ku-card-desc">Savdo strategiyasi, KPI va<br>jarayonlarni boshqarish<br>orqali natijani doimiy<br>oshirish.</p>
+          <div class="bn-ku-sticky">natijani<br>maks.</div>
+        </div>
+      </article>
     </div>
 
     <!-- folder cards (mobile: real HTML/CSS) -->
@@ -856,11 +899,10 @@
   <!-- ================= SECTION 2 — OLDIN → KEYIN ================= -->
   <div id="oldin-keyin" class="bn-ok" style="position:relative;width:1672px;height:941px;overflow:hidden;background:#0f0c0a;">
 
-    <img class="bn-ok-bg-desktop" src="assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;">
-    <img class="bn-ok-bg-mobile" src="assets/images/oldin-keyin-mobile-bg.png" srcset="assets/images/mobile/oldin-keyin-mobile-bg-480.webp 480w, assets/images/mobile/oldin-keyin-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+    <img class="bn-ok-bg-desktop" src="assets/images/oldin-keyin-desktop-bg.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;">
+    <img class="bn-ok-bg-mobile" src="assets/images/mobile/oldin-keyin-mobile-bg.png" srcset="assets/images/mobile/oldin-keyin-mobile-bg-480.webp 480w, assets/images/mobile/oldin-keyin-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
-    <!-- magnifier between cards (desktop) -->
-    <img class="bn-ok-desktop-overlay" src="assets/images/d8e65ec8-550e-457e-b54c-52308fe5f167.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:836px;top:552px;transform:translate(-50%,-50%) rotate(18deg);width:250px;height:auto;z-index:3;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));pointer-events:none;user-select:none;">
+    <!-- magnifier removed per client request -->
     <div class="bn-ok-desktop-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.16);"></div>
     <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,#0c0806,rgba(12,8,6,0));"></div>
     <div class="bn-ok-desktop-overlay" style="position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(0deg,#0c0806,rgba(12,8,6,0));"></div>
@@ -911,10 +953,7 @@
       </div>
     </div>
 
-    <!-- magnifier between cards (mobile) -->
-    <div class="bn-ok-magnifier-mobile">
-      <img src="assets/images/d8e65ec8-550e-457e-b54c-52308fe5f167.png" alt="" aria-hidden="true" loading="lazy" width="90" height="90">
-    </div>
+    <!-- magnifier removed per client request -->
 
     <!-- right card -->
     <div class="bn-ok-card" style="position:absolute;left:957px;top:250px;width:600px;height:604px;box-sizing:border-box;border-radius:24px;corner-shape:squircle;border:1px solid rgba(120,85,45,.5);
@@ -1309,7 +1348,7 @@
     --ink:#2b2418;
     --muted:#8b8072;
     position:relative;
-    background:#1b1613 url("assets/images/454b6427-fb0c-4ca3-b843-48cf1274942f.png") center/cover no-repeat;
+    background:#1b1613 url("assets/images/dastur-desktop-bg.png") center/cover no-repeat;
     font-family:'Manrope',sans-serif;
     overflow:hidden;
   }
@@ -1385,19 +1424,19 @@
   @media (max-width:980px){.no-cards{grid-template-columns:1fr !important;justify-items:center;gap:12px !important;}}
 </style>
 
-<section id="nimani-organasiz" class="bn-no" style="position:relative;background:#ede3d1 url(&quot;assets/images/nimani-bg.png&quot;) top center/cover no-repeat;overflow:hidden;font-family:’Manrope’,sans-serif;">
+<section id="nimani-organasiz" class="bn-no" style="position:relative;background:#ede3d1;overflow:hidden;font-family:’Manrope’,sans-serif;">
   <div class="bn-no-inner" style="position:relative;z-index:2;max-width:1442px;margin:0 auto;padding:120px 0 120px;box-sizing:border-box;">
 
     <header class="bn-no-header" style="text-align:center;margin-bottom:20px;">
       <h2 class="bn-no-title" style="margin:0;font-family:’Manrope’,sans-serif;font-weight:700;font-size:clamp(40px,5vw,64px);line-height:1.05;color:#2b2418;">Nimani o’rganasiz</h2>
-      <p class="bn-no-subtitle" style="margin:14px auto 0;max-width:640px;font-weight:500;font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:rgba(60,48,34,.72);">Dasturda o’qish orqali 3 ta ko’nikmaga ega bo’lasiz.</p>
+      <p class="bn-no-subtitle" style="margin:14px auto 0;max-width:640px;font-weight:500;font-size:clamp(16px,1.5vw,21px);line-height:1.5;color:rgba(60,48,34,.72);">Dasturda o’qish orqali 3 ta ko’nikmaga<br>ega bo’lasiz.</p>
     </header>
 
     <div class="no-cards bn-no-cards" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,52px);align-items:end;margin-top:48px;">
-      <img class="bn-no-bg-mobile" src="assets/images/nimani-mobile-bg.png" srcset="assets/images/mobile/nimani-mobile-bg-480.webp 480w, assets/images/mobile/nimani-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+      <img class="bn-no-bg-mobile" src="assets/images/mobile/nimani-mobile-bg.png" srcset="assets/images/mobile/nimani-mobile-bg-480.webp 480w, assets/images/mobile/nimani-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img class="bn-no-illustration" src="assets/images/9ecc8283-2915-4bc0-9c0f-5fd4b7965b7a.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/nimani-illustration-1.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
         <div class="bn-no-copy bn-no-copy-1" style="position:absolute;left:16%;right:12%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">01</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
@@ -1407,7 +1446,7 @@
       </article>
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img class="bn-no-illustration" src="assets/images/5eae8531-6250-4ea3-8e25-4a38eba82edd.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/nimani-illustration-2.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
         <div class="bn-no-copy bn-no-copy-2" style="position:absolute;left:13%;right:17%;top:18%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(36px,4vw,52px);line-height:1;color:#c89a54;">02</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:10px 0 0;"></div>
@@ -1417,7 +1456,7 @@
       </article>
 
       <article class="no-card" style="position:relative;width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 24px 38px rgba(60,40,18,.22));">
-        <img class="bn-no-illustration" src="assets/images/119e6daa-54b8-4508-ab50-44f066f3792f.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
+        <img class="bn-no-illustration" src="assets/images/nimani-illustration-3.png" alt="" aria-hidden="true" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;">
         <div class="bn-no-copy bn-no-copy-3" style="position:absolute;left:10%;right:20%;top:9%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;">
           <div style="font-family:’Manrope’,sans-serif;font-weight:600;font-size:clamp(34px,3.6vw,48px);line-height:1;color:#c89a54;">03</div>
           <div style="width:30px;height:2px;background:rgba(200,154,84,.6);margin:8px 0 0;"></div>
@@ -1425,11 +1464,6 @@
           <p style="margin:10px 0 0;font-weight:500;font-size:15px;line-height:1.5;color:rgba(40,32,24,.72);">Qayerda mijoz yo’qotayotganingizni (o’sish nuqtalarini) aniqlaysiz.</p>
         </div>
       </article>
-
-      <div class="bn-hero-chat-teaser bn-no-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-      </div>
     </div>
   </div>
 </section>
@@ -1440,53 +1474,53 @@
 
 
     <div class="dt-grid bn-dt-grid">
-      <img class="bn-dt-bg-mobile" src="assets/images/dastur-mobile-bg.png" srcset="assets/images/mobile/dastur-mobile-bg-480.webp 480w, assets/images/mobile/dastur-mobile-bg-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+      <img class="bn-dt-bg-mobile" src="assets/images/mobile/dastur-mobile-bg.png" alt="" aria-hidden="true" loading="lazy">
 
       <div class="bn-dt-cards-grid">
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-1" data-delay="0">
-        <img src="assets/images/f943a53d-1047-40be-acda-c637f7edd89e.png" alt="13 amaliy dars" loading="lazy">
+        <img src="assets/images/dastur-icon-amaliy-dars.png" alt="13 amaliy dars" loading="lazy">
         <h3>13 amaliy dars</h3>
         <p class="bn-dt-hide-mobile">Sotuvni tizimlashtirishning to’liq bosqichma-bosqich dasturi.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-2" data-delay="100">
-        <img src="assets/images/d95e7109-bc70-43c9-9ec8-37fa67acce00.png" alt="Tayyor shablonlar" loading="lazy">
+        <img src="assets/images/dastur-icon-shablonlar.png" alt="Tayyor shablonlar" loading="lazy">
         <h3>Tayyor shablonlar</h3>
         <p class="bn-dt-hide-mobile">Reglament, KPI va skript shablonlarini tayyor holda olasiz.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-3" data-delay="200">
-        <img src="assets/images/8c6f3721-3977-4cc6-97c3-a3929515a591.png" alt="AI vositalari" loading="lazy">
+        <img src="assets/images/dastur-icon-ai-vositalari.png" alt="AI vositalari" loading="lazy">
         <h3>AI vositalari</h3>
         <p class="bn-dt-hide-mobile">Sotuv va tahlil uchun sun’iy intellekt yordamchilari.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-4" data-delay="300">
-        <img src="assets/images/f487512a-df8a-4335-9cd6-464d81dbb4c7.png" alt="Shaxsiy mentorlik" loading="lazy">
+        <img src="assets/images/dastur-icon-mentorlik.png" alt="Shaxsiy mentorlik" loading="lazy">
         <h3>Shaxsiy mentorlik</h3>
         <p class="bn-dt-hide-mobile">Bosqichlar davomida individual qo’llab-quvvatlash.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-5" data-delay="0">
-        <img src="assets/images/61ac8159-2b70-4f1a-84c2-4122be3581d2.png" alt="Jonli sessiyalar" loading="lazy">
+        <img src="assets/images/dastur-icon-jonli-sessiya.png" alt="Jonli sessiyalar" loading="lazy">
         <h3>Jonli sessiyalar</h3>
         <p class="bn-dt-hide-mobile">Abdulboriy bilan jonli savol-javob va tahlil uchrashuvlari.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-6" data-delay="100">
-        <img src="assets/images/c69602e7-92f4-4525-8e5a-bcbf8a649b63.png" alt="Amaliy vazifalar" loading="lazy">
+        <img src="assets/images/dastur-icon-amaliy-vazifa.png" alt="Amaliy vazifalar" loading="lazy">
         <h3>Amaliy vazifalar</h3>
         <p class="bn-dt-hide-mobile">Har bir darsdan keyin bajariladigan real topshiriqlar.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-7" data-delay="200">
-        <img src="assets/images/de5e111c-7429-43af-a81e-7439bad611e6.png" alt="Video darslar" loading="lazy">
-        <h3 class="bn-dt-hide-mobile">Video darslar</h3>
-        <p class="bn-dt-longtext">Istalgan vaqtda qayta ko’rish mumkin bo’lgan yozib olingan darslar.</p>
+        <img src="assets/images/dastur-icon-video-darslar.png" alt="Video darslar" loading="lazy">
+        <h3>Video darslar</h3>
+        <p class="bn-dt-hide-mobile bn-dt-longtext">Istalgan vaqtda qayta ko’rish mumkin bo’lgan yozib olingan darslar.</p>
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-8" data-delay="300">
-        <img src="assets/images/ac8f338d-478b-40a4-8d08-0a7b9174fdb1.png" alt="Chuqur tahlil" loading="lazy">
+        <img src="assets/images/dastur-icon-chuqur-tahlil.png" alt="Chuqur tahlil" loading="lazy">
         <h3>Chuqur tahlil</h3>
         <p class="bn-dt-hide-mobile">Biznesingiz raqamlarini o’qish va tahlil qilishni o’rganasiz.</p>
       </article>
@@ -1502,10 +1536,6 @@
         <span class="bn-dt-dot"></span>
         <span>Doimiy qo’llab-quvvatlash</span>
         <svg width="22" height="26" viewBox="0 0 26 30" fill="none" style="flex:none;"><path d="M13 1L24 5.2V14c0 8-5.4 12.3-11 14.6C7.4 26.3 2 22 2 14V5.2L13 1z" stroke="#e4bd6c" stroke-width="1.6" fill="rgba(228,189,108,.08)"></path><path d="M8.6 15.2l3 3 6-6.4" stroke="#e4bd6c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </div>
-
-      <div class="bn-hero-chat-teaser bn-dt-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
       </div>
     </div>
 
@@ -1554,7 +1584,7 @@
 
   <section id="men-haqimda" class="ah-section">
    <div class="bn-ah-canvas">
-    <img class="bn-ah-bg-mobile" src="assets/images/about-mobile-bg.png" srcset="assets/images/mobile/about-mobile-bg-480.webp 480w, assets/images/mobile/about-mobile-bg-960.webp 960w" sizes="100vw" alt="Abdulboriy Abduqodirov" loading="lazy">
+    <img class="bn-ah-bg-mobile" src="assets/images/about-bg-haqida.png" alt="Abdulboriy Abduqodirov" loading="lazy">
     <div class="ah-overlay bn-ah-hide-mobile" aria-hidden="true"></div>
 
     <div class="ah-desk bn-ah-hide-mobile" aria-hidden="true"></div>
@@ -1588,16 +1618,25 @@
 
 
 
+<img class="bn-ah-nt-crossing bn-ah-nt-crossing-left" src="assets/images/crossing-lamp-right.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;left:-123px;top:5439px;width:455px;height:auto;transform:rotate(-6deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+<img class="bn-ah-nt-crossing bn-ah-nt-crossing-right" src="assets/images/crossing-notebook-left.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;right:0px;top:5414px;width:357px;height:auto;transform:rotate(8deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div class="bn-nt" style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+  <style>
+    :root{--sect-overlap-desktop:220px;--sect-overlap-tablet:165px;--sect-overlap-mobile:110px;--next-safe-space:64px;--footer-cream:#efe7d8;--ariza-ft-overlap-desktop:600px;--ariza-ft-overlap-tablet:440px;--ariza-ft-overlap-mobile:300px;}
+    .bn-nt{position:relative;z-index:2;overflow:visible;background:transparent !important;}
+    .natija-desktop{position:relative;z-index:3;display:block;width:100%;height:auto;}
+    .bn-nt::after{content:"";position:absolute;left:0;right:0;bottom:0;height:300px;z-index:-1;pointer-events:none;background:transparent;}
+  </style>
+  <div class="bn-nt" style="position:relative;width:1672px;background:transparent;overflow:visible;z-index:2;">
     <div class="bn-nt-header" style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
       <h2 class="bn-nt-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
       <p class="bn-nt-subtitle" style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
     </div>
-    <img class="natija-desktop" src="assets/images/natija-blok3.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;transform:scale(1.12);transform-origin:center center;">
+    <img class="natija-desktop" src="assets/images/natija-bg-v2.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;">
 
     <div class="bn-nt-mobile">
-      <img class="bn-nt-bg-mobile" src="assets/images/natija-mobile-bg-v2.png" srcset="assets/images/mobile/natija-mobile-bg-v2-480.webp 480w, assets/images/mobile/natija-mobile-bg-v2-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+      <img class="bn-nt-bg-mobile" src="assets/images/natija-casefile-mobile.png" alt="" aria-hidden="true" loading="lazy">
 
       <div class="bn-nt-result bn-nt-result-1">
         <span class="bn-nt-num">01</span>
@@ -1623,19 +1662,14 @@
           <p>Biznes jarayonlarini optimizatsiya qilish evaziga, minimal resurslar bilan sof foydani oshirasiz.</p>
         </div>
       </div>
-
-      <div class="bn-hero-chat-teaser bn-nt-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-      </div>
     </div>
 
-    <img class="natija-mobile" src="assets/images/natija-mobile.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:none;">
+    <img class="natija-mobile" src="assets/images/mobile/natija-mobile.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:none;">
   </div>
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
-.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:120px 0 120px;}
+.cc-sec{position:relative;width:1672px;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#f8f2e6,#f4eddf 40%,#e7dcc6 100%);padding:calc(var(--sect-overlap-desktop) + var(--next-safe-space)) 0 120px;margin-top:calc(var(--sect-overlap-desktop) * -1);z-index:1;}
 .cc-sec::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 40px 80px -60px rgba(60,44,20,.35),inset 0 -40px 80px -60px rgba(60,44,20,.25);}
 .cc-inner{position:relative;max-width:1442px;margin:0 auto;padding:0;z-index:2;}
 
@@ -1690,17 +1724,22 @@
 .cc-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(160deg,#c99645 0%,#8a5f28 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(90,60,20,0.28);flex:none;overflow:hidden;}
 .cc-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 .cc-avatar svg{width:30px;height:30px;color:#fbf0d5;}
-.face-asror{transform:scale(1.5);object-position:center 6% !important;}
-.face-husan{transform:scale(1.35);object-position:center 12% !important;}
-.face-alisher{transform:scale(1.2);object-position:center 8% !important;}
-.face-abdukarim{transform:scale(1.45);object-position:center 20% !important;}
-.face-sitorabonu{transform:scale(1.5);object-position:center 6% !important;}
-.face-barno{transform:scale(1.1);object-position:center 8% !important;}
-.face-rano{transform:scale(1.45);object-position:center 12% !important;}
-.face-osiyo{transform:scale(1.55);object-position:center 8% !important;}
-.face-abdulaziz{transform:scale(1.5);object-position:center 18% !important;}
+.face-asror{transform:scale(1.62) translateY(12%);object-position:center 0% !important;}
+.face-husan{transform:scale(1.5) translateY(14%);object-position:center 0% !important;}
+.face-alisher{transform:scale(1.32);object-position:center 28% !important;}
+.face-abdukarim{transform:scale(1.5) translateY(8%);object-position:center 0% !important;}
+.face-sitorabonu{transform:scale(1.78) translateY(20%);object-position:center 0% !important;}
+.face-barno{transform:scale(1.24);object-position:center 26% !important;}
+.face-rano{transform:scale(1.58);object-position:center 22% !important;}
+.face-osiyo{transform:scale(2.3) translate(-3%,27%);object-position:center 0% !important;}
+.face-abdulaziz{transform:scale(1.62) translateY(8%);object-position:center 0% !important;}
 .cc-person-name{font-size:13px;line-height:1.2;color:#2b241b;font-weight:600;padding:0 4px;}
-.cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;}
+.cc-tile-more{background:linear-gradient(160deg,#3a3122 0%,#241c12 100%);color:#e0b878;border:1px solid rgba(210,170,90,0.5);font-family:'Manrope',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;cursor:pointer;width:100%;}
+button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(90,60,20,0.15);}
+.cc-tile-less{display:none;}
+.cc-more-panel{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s ease,opacity .3s ease,margin-top .35s ease;margin-top:0;}
+.cc-more-panel.is-open{grid-template-rows:1fr;opacity:1;margin-top:14px;}
+.cc-more-panel > .cc-tiles{overflow:hidden;min-height:0;}
 
 /* Category tile */
 .cc-tile-cat{flex-direction:column;gap:10px;padding:22px 10px;min-height:114px;}
@@ -1746,28 +1785,31 @@
   .cc-cord-r1,.cc-cord-l2,.cc-cord-r3{display:none;}
 }
 @media (max-width:720px){
-  .cc-sec{padding:70px 0 80px;}
+  .cc-sec{padding:calc(var(--sect-overlap-mobile) + var(--next-safe-space)) 0 40px;}
   .cc-inner{padding:0 16px;}
-  .cc-header{padding:0 8px 46px;}
+  .cc-header{padding:0 8px 16px;}
   .cc-title{font-size:44px;letter-spacing:-1px;}
-  .cc-subtitle{font-size:16px;}
+  .cc-subtitle{font-size:15px;}
   .cc-eyebrow{font-size:11px;letter-spacing:3.5px;}
   .cc-panel{margin-top:22px;border-radius:16px;}
-  .cc-stat{padding:34px 24px;}
+  .cc-stat{padding:34px 32px;}
   .cc-stat-num{font-size:72px;}
   .cc-stat-num sup{font-size:32px;}
   .cc-stat-label{font-size:18px;}
-  .cc-board{padding:28px 20px;}
+  .cc-board{padding:28px 12px;}
   .cc-tiles{grid-template-columns:repeat(2,1fr);gap:8px;}
   .cc-tile{font-size:14px;padding:10px 12px;min-height:110px;}
   .cc-logo{max-height:78px;}
   .cc-tile-person{min-height:88px;}
-  .cc-tile-cat{min-height:100px;}
+  .cc-tiles:has(.cc-tile-cat){grid-template-columns:repeat(4,1fr) !important;gap:6px !important;}
+  .cc-tile-cat{min-height:80px;justify-content:flex-start !important;gap:6px !important;padding:12px 6px 10px !important;}
+  .cc-cat-ico{margin-top:0 !important;}
+  .cc-cat-name{font-size:11.7px !important;line-height:1.2 !important;min-height:2.4em;display:flex;align-items:flex-start;justify-content:center;text-align:center;}
   .cc-summary{padding:34px 24px;}
   .cc-summary-title{font-size:36px;}
   .cc-summary-body{font-size:15px;}
   .cc-footer{padding:56px 12px 0;}
-  .cc-footer-text{font-size:18px;}
+  .cc-footer-text{font-size:23px;}
   .cc-footer-line::before,.cc-footer-line::after{display:none;}
   .cc-signature{font-size:56px;}
 }
@@ -1779,7 +1821,7 @@
     <!-- ============ HEADER ============ -->
     <header class="cc-header">
       <h2 class="cc-title">Yopilgan <em>ishlar</em></h2>
-      <p class="cc-subtitle">Nazariya emas. Real bizneslar. Real odamlar. Real natijalar.</p>
+      <p class="cc-subtitle">Nazariya emas. Real bizneslar. Real odamlar.<br class="bn-mobile-br"> Real natijalar.</p>
     </header>
 
     <!-- ============ PANEL 1: BIZNESLAR ============ -->
@@ -1831,6 +1873,21 @@
             <div class="cc-tile">Rombik</div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-e-mark" src="assets/images/logos/ethno-logistics.png" alt="ETHNO logistics"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">ETHNO logistics</span></div>
             <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-r-app" src="assets/images/logos/robbit.png" alt="Robbit"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Robbit</span></div>
+            <button type="button" class="cc-tile cc-tile-more" data-cc-more-toggle="cc-more-bitiruvchilar" aria-expanded="false" aria-controls="cc-more-bitiruvchilar" aria-label="Yana 9 ta mijozni ko'rsatish">+9</button>
+          </div>
+          <div id="cc-more-bitiruvchilar" class="cc-more-panel">
+            <div class="cc-tiles">
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/ucan-consulting.png" alt="Ucan Consulting"></div>
+              <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo" src="assets/images/logos/turon-turizm.png" alt="Turon Turizm"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Turon Turizm</span></div>
+              <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo" src="assets/images/logos/top-brains.png" alt="Top Brains"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Top Brains</span></div>
+              <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo" src="assets/images/logos/haris-talim.png" alt="Haris ta'lim"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Haris ta'lim</span></div>
+              <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo" src="assets/images/logos/neus-mebel.png" alt="Neus mebel"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Neus mebel</span></div>
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/data365.png" alt="Data365"></div>
+              <div class="cc-tile" style="flex-direction:column;gap:8px;"><img class="cc-logo logo-buran" src="assets/images/logos/buran-consulting.png" alt="Buran Consulting"><span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;color:#6b5a3a;">Buran Consulting</span></div>
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/zin-nur-akademiyasi.png" alt="Zin-Nur akademiyasi"></div>
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/nebula-bogchasi.png" alt="Nebula bog'chasi"></div>
+              <div class="cc-tile"><img class="cc-logo" src="assets/images/logos/timepay.png" alt="Timepay"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1893,7 +1950,7 @@
     <!-- ============ FOOTER ============ -->
     <footer class="cc-footer">
       <div class="cc-footer-line">
-        <span class="cc-footer-text">Natijalar gapiradi. Biz esa dalillar bilan ishlaymiz.</span>
+        <span class="cc-footer-text">Natijalar gapiradi.<br class="bn-mobile-br"> Biz esa dalillar bilan ishlaymiz.</span>
       </div>
     </footer>
   </div>
@@ -1901,7 +1958,7 @@
 
 <!-- ================= SECTION 7 — SAVOL-JAVOB (FAQ) ================= -->
 <style>
-.faq-sec{position:relative;width:1672px;overflow:hidden;background:#0f0c0a url('assets/images/c88dfbcc-15d3-4f26-9845-651753a1eb6b.png') center top/100% auto no-repeat;}
+.faq-sec{position:relative;width:1672px;overflow:hidden;background:#0f0c0a url('assets/images/oldin-keyin-desktop-bg.png') center top/100% auto no-repeat;}
 .faq-sec::before{content:"";position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(14,10,7,0.25) 0%,rgba(14,10,7,0.08) 30%,rgba(14,10,7,0.08) 60%,rgba(14,10,7,0.50) 100%),
   radial-gradient(ellipse at 50% 40%,transparent 35%,rgba(10,7,4,0.35) 100%);
@@ -1929,7 +1986,7 @@
 }
 @media (max-width:720px){
   .faq-sec{min-height:auto;}
-  .faq-inner{padding:80px 18px 100px;}
+  .faq-inner{padding:80px 18px 50px;}
   .faq-title{font-size:32px;}
   .faq-item{border-radius:12px;}
   .faq-q{padding:18px 18px;gap:14px;}
@@ -2005,16 +2062,25 @@
   .ar-cta:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 16px 34px rgba(130,80,28,.42) !important;}
   .ar-cta:active{transform:translateY(0);}
   @media (max-width:1024px){
-    .ar-inner{grid-template-columns:1fr !important;gap:38px !important;padding:120px 24px !important;}
+    .ar-inner{grid-template-columns:1fr !important;gap:38px !important;padding:60px 24px !important;}
     .ar-copy h2{font-size:clamp(46px,12vw,58px) !important;}
     .ar-form{margin:0 auto;}
+    .ar-role{height:72px !important;gap:5px !important;}
+    .ar-role-body{font-size:11px !important;}
   }
 </style>
 
-<section id="ariza" style="position:relative;background:#1a130c url(&quot;assets/images/21558c59-7543-43ad-b32b-afa439466c30.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,12,7,.34),rgba(20,12,7,.02) 55%);pointer-events:none;"></div>
-
-  <div class="ar-inner" style="position:relative;z-index:2;max-width:1442px;margin:0 auto;padding:120px 0 120px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:56px;align-items:center;box-sizing:border-box;">
+<style>
+  @media(max-width:768px){
+    .ariza-bg-desktop{display:none !important;}
+    #ariza{background:#1a130c !important;overflow:hidden !important;}
+    .ar-inner{position:relative !important;}
+  }
+</style>
+<section id="ariza" style="position:relative;background:transparent;overflow:visible;z-index:2;font-family:'Manrope',sans-serif;">
+  <img class="ariza-bg-desktop" src="assets/images/ariza-desktop-bg-v4.png" alt="" aria-hidden="true" loading="lazy" style="width:100%;display:block;">
+  <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;bottom:100px;background:linear-gradient(90deg,rgba(20,12,7,.34),rgba(20,12,7,.02) 55%);pointer-events:none;z-index:1;mask-image:linear-gradient(to bottom,black 85%,transparent);-webkit-mask-image:linear-gradient(to bottom,black 85%,transparent);"></div>
+  <div class="ar-inner" style="position:absolute;top:0;left:0;right:0;z-index:2;max-width:1442px;margin:0 auto;padding:120px 120px 120px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:56px;align-items:center;box-sizing:border-box;">
 
     <div class="ar-copy">
       <h2 style="margin:0;font-family:'Manrope',sans-serif;font-weight:600;font-size:clamp(54px,5.8vw,88px);line-height:1.03;text-wrap:balance;color:#f4ebdd;">Ishingizni <span style="color:#d2a45a;">oching</span></h2>
@@ -2027,7 +2093,6 @@
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e8bd66" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"></circle><path d="M15 15l5 5"></path></svg>
       </div>
       <div aria-hidden="true" style="position:absolute;top:20px;right:20px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d089,#8a5a1c);box-shadow:0 1px 3px rgba(0,0,0,.4);"></div>
-      <div aria-hidden="true" style="position:absolute;top:26px;right:26px;width:170px;height:170px;border-top:2px solid #b8323a;border-radius:0 60px 0 0;transform:rotate(8deg);transform-origin:top right;opacity:.85;pointer-events:none;"></div>
 
       <div style="position:relative;">
         <label for="ar-ism" style="display:block;font-size:15px;font-weight:600;color:#2e2419;margin-bottom:8px;">Ism va Familiya</label>
@@ -2199,6 +2264,8 @@ highlightRoles();
 })();
 </script>
 
+<img class="bn-ar-ft-crossing bn-ar-ft-crossing-right" src="assets/images/ariza-plant-right.png" alt="" aria-hidden="true" loading="lazy" style="position:absolute;right:-383px;top:9358px;width:771px;height:auto;transform:rotate(0deg);z-index:9999;filter:drop-shadow(0 32px 38px rgba(20,12,5,.50)) drop-shadow(0 8px 14px rgba(20,12,5,.25));pointer-events:none;user-select:none;">
+
 <!-- ================= SECTION 9 — FOOTER ================= -->
 <style>
   html,body{margin:0;background:#efe7d8;}
@@ -2213,13 +2280,13 @@ highlightRoles();
   }
 </style>
 
-<footer id="aloqa" style="position:relative;background:#efe7d8 url(&quot;assets/images/ad892dd8-3b6b-44fe-b857-6b21a854ead8.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
+<footer id="aloqa" style="position:relative;z-index:1;margin-top:calc(var(--ariza-ft-overlap-desktop) * -1);padding-top:calc(var(--ariza-ft-overlap-desktop));background:#efe7d8 url(&quot;assets/images/footer-bg.png&quot;) center center/cover no-repeat;overflow:hidden;font-family:'Manrope',sans-serif;">
   <div class="ft-inner" style="position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:120px 40px 120px;box-sizing:border-box;">
 
     <div class="ft-cols" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:start;">
 
       <div>
-        <img src="assets/images/c29c734a-78b9-4f71-b775-c514aa2f825e.png" alt="acdmy by basyra" style="display:block;height:48px;width:auto;filter:brightness(0);opacity:.82;">
+        <img src="assets/images/logo-acdmy-basyra.png" alt="acdmy by basyra" style="display:block;height:48px;width:auto;filter:brightness(0);opacity:.82;">
         <div style="width:56px;height:1px;background:#c79a55;margin:20px 0 20px;"></div>
         <p style="margin:0;font-family:'Manrope',sans-serif;font-weight:500;font-size:24px;line-height:1.3;color:#403829;">Sotuvda tizim bo’lsa,<br>natija doim barqaror.</p>
       </div>
@@ -2280,9 +2347,9 @@ highlightRoles();
 /* === BATCH 1: scaler neutralization + global foundation === */
 @media (max-width: 768px) {
   html { -webkit-text-size-adjust: 100%; }
-  #bn-page { transform: none !important; width: auto !important; }
-  #bn-fit { height: auto !important; }
   #bn-page > div, #bn-page > section, #bn-page > footer { width: auto !important; max-width: 100% !important; }
+  .ft-link{font-size:18px !important;white-space:nowrap;}
+  .bn-ah-nt-crossing, .bn-ar-ft-crossing { display:none !important; }
 }
 
 /* === BATCH 2: HERO MOBILE REBUILD === */
@@ -2292,131 +2359,63 @@ highlightRoles();
 .bn-hero-burger.is-active span:nth-child(2){opacity:0;}
 .bn-hero-burger.is-active span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
 .bn-hero-bg-mobile{display:none;}
-.bn-hero-chat-teaser{display:none;}
 .bn-hero-stat-icon{display:none;}
 
 @media (max-width: 768px) {
   #bn-hero{
-    height:auto !important;
-    min-height:100svh;
-    z-index:0;
-    display:flex;
-    flex-direction:column;
-    padding-bottom:32px;
+    position:relative; height:812px; min-height:640px; max-height:940px;
+    display:flex; flex-direction:column; justify-content:flex-end; overflow:visible; padding:0;
+    margin-bottom:60px;
   }
-  #bn-hero::before{
-    content:"";
-    position:absolute; top:0; left:0; right:0; height:210px; z-index:0;
-    background:linear-gradient(180deg, rgba(10,7,5,.74) 0%, rgba(10,7,5,.38) 55%, rgba(10,7,5,0) 100%);
-    pointer-events:none;
-  }
-  #bn-hero::after{
-    content:"";
-    position:absolute; top:380px; left:0; right:0; height:260px; z-index:0;
-    background:linear-gradient(180deg, rgba(10,7,5,0) 0%, rgba(12,9,7,.7) 55%, #141110 100%);
-    pointer-events:none;
-  }
-
   .bn-hero-bg-desktop{ display:none !important; }
-  .bn-hero-gradient, .bn-hero-bottom-blur, #bn-atmo{ display:none !important; }
-  .bn-hero-bg-mobile{
-    display:block !important;
-    position:absolute !important; z-index:-1;
-    top:0 !important; left:0 !important; right:0 !important;
-    width:100% !important; height:640px !important;
-    object-fit:cover !important; object-position:center top !important;
-  }
-
-  .bn-hero-header{
-    position:relative !important; z-index:1; order:1;
-    display:flex !important; align-items:center; justify-content:space-between;
-    width:100%; box-sizing:border-box;
-    padding:22px 22px 18px;
-    border-bottom:1px solid rgba(201,168,110,.16);
-  }
-  .bn-hero-logo{ position:static !important; }
-  .bn-hero-logo img{ height:34px !important; max-width:145px; width:auto; }
+  .bn-hero-gradient, #bn-atmo, .bn-hero-bottom-blur{ display:none !important; }
+  .bn-hero-bg-mobile{ display:block !important; position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:90% 100%; z-index:0; transform:scale(1.18) translateY(-15%); }
+  #bn-hero::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,7,5,0) 40%, rgba(10,7,5,.55) 62%, rgba(10,7,5,.94) 100%); }
+  .bn-hero-header{ position:absolute; top:0; left:0; right:0; z-index:4;
+    display:flex !important; align-items:center; justify-content:space-between; padding:20px 22px; }
+  .bn-hero-logo{ position:static !important; } .bn-hero-logo img{ height:34px !important; }
   .bn-hero-burger{ display:flex !important; }
-
   .bn-hero-nav{ display:none !important; }
   .bn-hero-nav.is-open{
     display:flex !important;
-    position:relative !important; z-index:1; order:1;
-    right:auto !important; top:auto !important;
+    position:fixed !important; z-index:100; top:0; left:0; right:0; bottom:0;
     flex-direction:column; align-items:flex-start; gap:0;
-    width:100%; box-sizing:border-box;
-    padding:6px 22px 18px;
+    background:rgba(10,7,5,.95); padding:80px 22px 22px;
   }
   .bn-hero-nav.is-open a.bn-navlink{ display:block; width:100%; padding:13px 0; font-size:16px; border-bottom:1px solid rgba(255,255,255,.08); }
-
-  .bn-hero-headline{
-    position:relative !important; z-index:1; order:2;
-    left:auto !important; top:auto !important; margin:8px 22px 0 !important;
-    font-size:clamp(42px,11.5vw,56px) !important; line-height:1.02 !important; letter-spacing:-0.045em !important;
-  }
-  .bn-hero-subtitle{
-    position:relative !important; z-index:1; order:3;
-    left:auto !important; top:auto !important; margin:14px 22px 0 !important; font-size:16px !important;
-  }
-
-  .bn-hero-badge{
-    position:relative !important; z-index:1; order:4;
-    top:auto !important; right:auto !important; left:auto !important;
-    display:block; align-self:flex-start !important; width:124px !important;
-    padding:10px 11px !important; border-radius:12px !important;
-    margin:20px 0 0 22px !important;
-  }
-  .bn-hero-badge span{ font-size:15px !important; }
-  .bn-hero-badge > div > div:last-child{ font-size:11px !important; margin-top:4px !important; }
-
-  .bn-hero-chat-teaser{
-    display:flex !important;
-    position:relative !important; z-index:1; order:5;
-    align-items:flex-end; gap:6px;
-    margin:14px 22px 0 auto; max-width:80%;
-    align-self:flex-end; cursor:pointer;
-  }
-  .bn-hero-chat-bubble{
-    background:#fff; color:#1c1c1e; font-family:'Manrope',sans-serif; font-weight:600;
-    font-size:12px; line-height:1.28; border-radius:15px; padding:10px 12px; max-width:190px;
-    box-shadow:0 14px 30px rgba(0,0,0,.3);
-  }
-  .bn-hero-chat-mascot{ width:48px; height:auto; flex:none; filter:drop-shadow(0 8px 16px rgba(0,0,0,.4)); }
-
+  .bn-hero-headline{ position:absolute !important; z-index:2; top:86px !important; left:22px !important; right:22px !important;
+    margin:0 !important; font-size:34px !important; line-height:1.1 !important; letter-spacing:-.02em !important; }
+  .bn-hero-subtitle{ position:absolute !important; z-index:2; top:calc(86px + 34px * 3.3 + 8px) !important; left:22px !important; right:22px !important;
+    margin:0 !important; font-size:16px !important; }
+  .bn-hero-cta{ position:relative !important; z-index:2; left:auto !important; top:auto !important;
+    margin:18px 22px 0 !important; width:auto !important; max-width:none !important; height:60px !important; padding:0 26px !important; transform:translateY(0); }
+  .bn-hero-cta:hover{ transform:translateY(-2px) !important; }
+  .bn-hero-cta span{ font-size:20px !important; }
+  .bn-hero-statrow{ position:relative !important; z-index:2; margin:20px 14px 24px; padding:0; transform:translateY(20px);
+    display:grid !important; grid-template-columns:1fr 1px 1fr; grid-template-rows:auto 1px auto; gap:0;
+    background:rgba(30,21,15,.62); border:1px solid rgba(201,168,110,.28); border-radius:18px; backdrop-filter:blur(8px); overflow:hidden; }
   .bn-hero-stat-divider{ display:none !important; }
-  .bn-hero-statrow{
-    position:relative !important; z-index:1; order:6;
-    display:grid !important; grid-template-columns:1fr 1fr; gap:10px;
-    width:100%; box-sizing:border-box; padding:14px 14px 0; margin:0;
-  }
-  .bn-hero-stat{
-    position:static !important; transform:none !important; text-align:center;
-    background:rgba(28,17,10,.72); border:1px solid rgba(220,158,55,.42); border-radius:15px;
-    min-height:96px; padding:12px 8px; box-sizing:border-box;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-  }
-  .bn-hero-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 7px; }
-  .bn-hero-stat > div:first-of-type{ font-size:clamp(26px,7.5vw,34px) !important; }
-  .bn-hero-stat > div:last-child{ font-size:10.5px !important; margin-top:7px !important; }
-
-  .bn-hero-cta{
-    position:relative !important; z-index:1; order:7;
-    left:auto !important; top:auto !important; margin:20px 22px 0 !important;
-    max-width:360px !important; height:64px !important; padding:0 26px !important;
-  }
-  .bn-hero-cta span{ font-size:21px !important; }
-}
-
-@media (min-width: 390px) {
-  .bn-hero-chat-mascot{ width:54px; }
-  .bn-hero-chat-bubble{ max-width:210px; }
+  .bn-hero-statrow::before{ content:""; grid-column:2; grid-row:1/4; background:rgba(201,168,110,.32); }
+  .bn-hero-statrow::after{ content:""; grid-column:1/4; grid-row:2; background:rgba(201,168,110,.32); }
+  .bn-hero-stat{ position:static !important; transform:none !important; text-align:center; padding:18px 8px; min-height:90px;
+    display:flex !important; flex-direction:column; align-items:center; justify-content:center; }
+  .bn-hero-stat:nth-child(1){ grid-column:1; grid-row:1; }
+  .bn-hero-stat:nth-child(2){ grid-column:3; grid-row:1; }
+  .bn-hero-stat:nth-child(3){ grid-column:1; grid-row:3; }
+  .bn-hero-stat:nth-child(4){ grid-column:3; grid-row:3; }
+  .bn-hero-stat-icon{ display:none !important; }
+  .bn-hero-stat > div:first-of-type{ font-size:26px !important; font-weight:700 !important; }
+  .bn-hero-stat > div:last-child{ font-size:11px !important; line-height:1.3; margin-top:4px !important; }
+  .bn-hero-badge{ display:none !important; }
+  .bn-hero-ku-folder-left{width:180px !important;left:-50px !important;}
+  .bn-hero-ku-folder-right{width:195px !important;right:-49px !important;}
 }
 
 @media (max-width: 360px) {
-  .bn-hero-headline{ font-size:38px !important; }
-  .bn-hero-stat > div:first-of-type{ font-size:25px !important; }
-  .bn-hero-chat-mascot{ width:44px; }
-  .bn-hero-chat-bubble{ max-width:176px; font-size:11.5px; }
+  .bn-hero-headline{ font-size:32px !important; }
+  .bn-hero-stat > div:first-of-type{ font-size:20px !important; }
 }
 
 /* === BATCH 3: KIMLAR UCHUN MOBILE REBUILD === */
@@ -2425,59 +2424,79 @@ highlightRoles();
 
 @media (max-width: 768px) {
   .bn-ku{ min-height:0 !important; padding-bottom:40px; }
-  .bn-ku-bg-desktop, .bn-ku-cards-desktop{ display:none !important; }
+  .bn-ku-bg-desktop{ display:none !important; }
+  .bn-ku-cards-desktop{
+    display:flex !important; flex-direction:column; align-items:center; gap:6px;
+    position:relative !important; z-index:1; left:auto !important; top:auto !important;
+    transform:none !important; padding:24px 16px 0;
+  }
+  .bn-ku-cards-desktop img{ width:100% !important; max-width:none !important; height:auto !important; filter:drop-shadow(0 12px 20px rgba(78,52,28,.18)) !important; margin-top:-20px; transform:scale(1.2); }
+  .bn-ku-cards-desktop img:first-child{ margin-top:0; }
+  .bn-ku-cards-mobile{ display:none !important; }
   .bn-ku-bg-mobile{
-    display:block !important; position:absolute !important; top:0; left:0; right:0;
-    width:100%; height:auto; z-index:0; pointer-events:none; user-select:none;
+    display:block !important; position:absolute !important; inset:0;
+    width:100%; height:100%; object-fit:cover; object-position:top center; z-index:0; pointer-events:none; user-select:none;
   }
   .bn-ku-header{
     position:relative !important; z-index:1;
     top:auto !important; left:auto !important; right:auto !important;
     padding:44px 24px 0;
   }
-  .bn-ku-title{ font-size:clamp(32px,9vw,42px) !important; }
+  .bn-ku-title{ font-size:34px !important; }
   .bn-ku-subtitle{ font-size:16px !important; }
 
   .bn-ku-cards-mobile{
-    display:flex !important; flex-direction:column; gap:22px;
-    position:relative; z-index:1;
-    padding:32px 20px 0; box-sizing:border-box;
+    display:none !important;
   }
   .bn-ku-card{
     position:relative; z-index:0;
-    background:linear-gradient(180deg,#f7efe0,#efe2c8);
-    border-radius:16px;
-    box-shadow:0 22px 40px rgba(60,40,18,.22), 0 2px 0 rgba(255,255,255,.4) inset;
-    padding:16px 14px;
-    max-width:360px; margin-left:auto; margin-right:auto;
-    box-sizing:border-box;
+    width:calc(100% - 0px); max-width:400px; min-height:250px;
+    background:linear-gradient(180deg,rgba(255,248,235,.96),rgba(248,232,198,.96));
+    border-radius:18px;
+    box-shadow:0 16px 38px rgba(111,79,38,.18), inset 0 1px 0 rgba(255,255,255,.65);
+    border:1px solid rgba(224,184,120,.42);
+    padding:0;
+    margin:0 auto; box-sizing:border-box;
   }
   .bn-ku-card::before{
-    content:""; position:absolute; left:10px; right:10px; bottom:-8px; height:20px;
-    background:#d8c39c; border-radius:0 0 14px 14px; z-index:-1;
+    content:""; position:absolute; inset:18px 12px 18px 12px; border-radius:14px;
+    background:rgba(255,250,240,.55); box-shadow:inset 0 0 0 1px rgba(210,180,130,.25);
+    z-index:-1; pointer-events:none;
   }
-  .bn-ku-card:last-child{ margin-bottom:46px; }
+  .bn-ku-card:last-child{ margin-bottom:20px; }
   .bn-ku-tab{
-    position:absolute; left:16px; top:-16px;
-    display:flex; align-items:center; gap:6px;
+    position:absolute; left:20px; top:-16px; z-index:4;
+    display:flex; align-items:center; gap:8px;
     background:linear-gradient(180deg,#e8d3ad,#dcbf8c);
-    padding:6px 12px 7px; border-radius:9px 9px 0 0;
-    font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; color:#8a5a2b;
+    padding:7px 14px 8px; border-radius:10px 10px 0 0;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:15px; color:#8a5a2b;
   }
-  .bn-ku-body{ position:relative; padding-top:12px; }
-  .bn-ku-body::after{ content:""; display:table; clear:both; }
+  .bn-ku-body{
+    padding:34px 130px 22px 24px; box-sizing:border-box;
+  }
   .bn-ku-photo{
-    float:right; width:100px; height:auto; margin:-2px -2px 8px 12px;
-    border-radius:3px; box-shadow:0 14px 26px rgba(0,0,0,.28); transform:rotate(2deg);
+    position:absolute; z-index:3; right:16px; top:44px;
+    float:none; width:104px; height:132px; margin:0;
+    object-fit:cover; border:4px solid #f7efe2;
+    border-radius:3px; box-shadow:0 10px 22px rgba(0,0,0,.22); transform:rotate(3deg);
   }
-  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; color:#241d13; }
-  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13px; line-height:1.48; color:#6b5f49; }
+  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:23px; line-height:1.1; color:#241d13; }
+  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13.5px; line-height:1.48; color:#6b5f49; }
   .bn-ku-sticky{
-    clear:both; display:inline-block; margin-top:14px;
-    background:#f4e3a1; color:#7a4a1a; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
-    font-size:13px; line-height:1.28; padding:8px 12px; border-radius:2px;
-    box-shadow:0 8px 16px rgba(0,0,0,.18); transform:rotate(-3deg);
+    position:absolute; z-index:4; left:24px; bottom:16px; clear:none;
+    display:flex; align-items:center; justify-content:center;
+    min-width:76px; min-height:64px;
+    background:#ffe8a8; color:#8b5522; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
+    font-size:13px; line-height:1.22; padding:8px; text-align:center;
+    box-shadow:0 8px 16px rgba(0,0,0,.16); transform:rotate(-3deg);
   }
+}
+
+@media (max-width: 360px) {
+  .bn-ku-body{ padding:30px 112px 20px 20px; }
+  .bn-ku-photo{ width:92px; height:118px; right:12px; top:40px; }
+  .bn-ku-card-title{ font-size:20px; }
+  .bn-ku-card-desc{ font-size:12.5px; }
 }
 
 /* === BATCH 4: OLDIN → KEYIN MOBILE REBUILD === */
@@ -2499,7 +2518,7 @@ highlightRoles();
     top:auto !important; left:auto !important; right:auto !important;
     padding:38px 22px 0;
   }
-  .bn-ok-title{ font-size:clamp(34px,9vw,46px) !important; line-height:1.05 !important; }
+  .bn-ok-title{ font-size:34px !important; line-height:1.05 !important; }
   .bn-ok-title span{ margin:0 8px !important; }
 
   .bn-ok-card{
@@ -2507,7 +2526,7 @@ highlightRoles();
     left:auto !important; top:auto !important; height:auto !important;
     width:calc(100% - 32px) !important; max-width:356px !important;
     display:flex !important; flex-direction:column; align-items:center;
-    margin:22px auto 0 !important; padding:16px 14px !important; border-radius:16px !important;
+    margin:44px auto 0 !important; padding:16px 28px !important; border-radius:16px !important;
     box-sizing:border-box;
   }
   .bn-ok-badge{
@@ -2527,15 +2546,8 @@ highlightRoles();
   .bn-ok-list p{ font-size:13px !important; line-height:1.38 !important; }
 
   .bn-ok-magnifier-mobile{
-    display:flex !important; justify-content:center; align-items:center;
-    position:relative; z-index:1; margin:18px 0 0;
+    display:none !important;
   }
-  .bn-ok-magnifier-mobile img{
-    width:60px; height:auto; transform:rotate(18deg); opacity:.92;
-    filter:drop-shadow(0 14px 20px rgba(0,0,0,.5));
-  }
-
-  .bn-ok-chat-teaser{ margin-top:18px !important; }
 }
 
 /* === BATCH 5: NIMANI O'RGANASIZ MOBILE REBUILD === */
@@ -2544,136 +2556,151 @@ highlightRoles();
 @media (max-width: 768px) {
   .bn-no-inner{ padding:56px 0 40px !important; }
   .bn-no-header{ padding:0 22px; }
-  .bn-no-title{ font-size:clamp(30px,9vw,40px) !important; }
+  .bn-no-title{ font-size:34px !important; }
   .bn-no-subtitle{ font-size:15px !important; }
 
   .bn-no-cards{
-    display:block !important; position:relative !important; z-index:0;
-    margin-top:32px !important; padding:0 22px;
-    aspect-ratio:864/1821; width:100%; box-sizing:border-box;
+    display:flex !important; flex-direction:column; align-items:center; gap:0;
+    margin-top:32px !important; padding:0 12px;
   }
-  .bn-no-bg-mobile{
-    display:block !important; position:absolute !important;
-    top:0 !important; left:0 !important; right:0 !important;
-    width:100% !important; height:100% !important; object-fit:cover !important; z-index:-1;
-  }
+  .no-card + .no-card{ margin-top:-10px !important; }
+  .bn-no-bg-mobile{ display:none !important; }
   .no-card{
-    position:static !important; max-width:none !important; margin:0 !important; filter:none !important;
+    position:relative !important; max-width:400px !important; width:92% !important; margin:0 auto !important;
+    filter:drop-shadow(0 12px 24px rgba(60,40,18,.18)) !important;
   }
-  .bn-no-illustration{ display:none !important; }
+  .bn-no-illustration{ display:block !important; width:100% !important; height:auto !important; }
   .bn-no-copy{
-    position:absolute !important; align-items:flex-start !important; text-align:left !important;
-    right:auto !important; top:auto; width:auto;
+    position:absolute !important; align-items:center !important; text-align:center !important;
   }
-  .bn-no-copy-1{ top:23.5% !important; left:21% !important; width:34% !important; }
-  .bn-no-copy-2{ top:48.5% !important; left:21% !important; width:38% !important; }
-  .bn-no-copy-3{ top:73.2% !important; left:19% !important; width:43% !important; }
-  .bn-no-chat-teaser{
-    display:flex !important; position:absolute !important; z-index:2;
-    right:4%; bottom:2.5%; max-width:180px; margin:0 !important; align-self:auto !important;
-  }
-  .bn-no-copy h3{ font-size:19px !important; }
-  .bn-no-copy p{ font-size:13.5px !important; }
+  .bn-no-copy-1{ top:9% !important; left:18% !important; right:8% !important; width:auto !important; }
+  .bn-no-copy-2{ top:18% !important; left:12% !important; right:12% !important; width:auto !important; }
+  .bn-no-copy-3{ top:13% !important; left:8% !important; right:18% !important; width:auto !important; }
+  .bn-no-copy h3{ font-size:17px !important; }
+  .bn-no-copy p{ font-size:14px !important; }
 }
 
 /* === BATCH 6: DASTURDA NIMALAR BOR MOBILE REBUILD === */
 .bn-dt-bg-mobile{display:none;}
 .bn-dt-benefits{display:none;}
-.bn-dt-chat-teaser{display:none;}
 .bn-dt-cards-grid{display:contents;} /* desktop: transparent wrapper so the 8 <article>s stay direct children of .dt-grid's 4-col CSS grid */
 
 @media (max-width: 768px) {
-  .dt-section{ background:#1b1613 !important; }
-  .dt-container{ padding:56px 0 40px !important; }
-  .dt-container h2{ padding:0 22px; }
+  .dt-section{ background:#0d0b09 !important; }
+  .dt-container{ padding:0 !important; position:relative !important; }
+  .dt-container h2{
+    position:absolute !important; top:0 !important; left:0 !important; right:0 !important; z-index:3 !important;
+    padding:52px 22px 0 !important; text-align:center !important; pointer-events:none;
+    font-size:22px !important;
+  }
   .bn-dt-benefits-desktop{ display:none !important; }
 
   .bn-dt-grid{
     display:block !important; position:relative !important; z-index:0;
-    margin-top:28px !important; padding:0 20px;
-    aspect-ratio:864/1821; width:100%; box-sizing:border-box;
+    margin:0 !important; padding:0 !important;
+    aspect-ratio:724/1448; width:100%; box-sizing:border-box;
   }
   .bn-dt-bg-mobile{
     display:block !important; position:absolute !important;
     top:0 !important; left:0 !important; right:0 !important;
-    width:100% !important; height:100% !important; object-fit:cover !important; z-index:-1;
+    width:100% !important; height:100% !important; object-fit:cover !important; object-position:center bottom !important; z-index:-1;
   }
 
   .bn-dt-cards-grid{
     position:absolute !important; z-index:1;
-    top:9.8%; left:9.2%; right:9.2%; bottom:17.2%;
+    top:14%; left:9.2%; right:9.2%; bottom:17.2%;
     display:grid; grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,1fr); gap:4.2%;
   }
   .bn-dt-card{
     position:static !important; z-index:auto;
-    background:none !important; box-shadow:none !important; border-radius:0 !important;
+    background:rgba(245,238,225,.92) !important; box-shadow:0 4px 14px rgba(0,0,0,.18) !important;
+    border-radius:14px !important; border:1px solid rgba(201,168,110,.22) !important;
     padding:10px 10px 12px !important; box-sizing:border-box;
     display:flex !important; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    overflow:hidden !important;
   }
-  .bn-dt-card img{ width:30px !important; height:30px !important; margin:0 0 10px !important; }
-  .bn-dt-card h3{ font-size:14px !important; line-height:1.25 !important; }
-  .bn-dt-hide-mobile{ display:none !important; }
+  .bn-dt-card img{ width:68px !important; height:68px !important; margin:0 0 12px !important; }
+  .bn-dt-card h3{ font-size:15px !important; line-height:1.25 !important; }
   .bn-dt-longtext{ display:block !important; position:static !important; opacity:1 !important; transform:none !important; pointer-events:auto !important; margin:0 !important; padding:0 !important; background:none !important; font-size:11.5px !important; line-height:1.3 !important; color:#2b2418 !important; }
+  .bn-dt-hide-mobile{ display:none !important; }
 
   .bn-dt-benefits{
-    display:flex !important; position:absolute !important; z-index:1;
-    left:6.5%; right:17%; bottom:7.2%;
-    align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
-    font-family:'Manrope',sans-serif; font-weight:600; font-size:9.5px; line-height:1.15; color:#f0d18d;
+    display:grid !important; position:absolute !important; z-index:2;
+    left:5%; right:5%; bottom:4%;
+    grid-template-columns:1fr 1fr; gap:8px 14px; align-items:center;
+    background:rgba(245,238,225,.18); -webkit-backdrop-filter:blur(24px) saturate(1.6); backdrop-filter:blur(24px) saturate(1.6);
+    border:1px solid rgba(201,168,110,.3); border-radius:24px;
+    padding:16px 20px; box-shadow:0 4px 20px rgba(0,0,0,.15);
+    font-family:'Manrope',sans-serif; font-weight:600; font-size:12px; line-height:1.2; color:#f0d18d;
   }
-  .bn-dt-benefits svg{ width:14px; height:16px; flex:none; }
-  .bn-dt-dot{ width:auto; height:auto; border-radius:0; background:none; color:rgba(240,209,141,.85); font-size:12px; }
-  .bn-dt-dot::before{ content:"•"; }
-
-  .bn-dt-chat-teaser{
-    display:flex !important; position:absolute !important; z-index:4;
-    right:4.5%; bottom:2.6%; max-width:188px; margin:0 !important; align-self:auto !important;
-  }
-  .bn-dt-chat-teaser .bn-hero-chat-bubble{ font-size:11.5px !important; padding:10px 12px !important; }
+  .bn-dt-benefits::before{ display:none !important; }
+  .bn-dt-benefits > svg, .bn-dt-dot{ display:none !important; }
+  .bn-dt-benefits > span{ display:flex; align-items:center; gap:7px; }
+  .bn-dt-benefits > span::before{ content:""; flex:none; width:12px; height:12px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f0d089,#8a5a1c); }
 }
 
 /* === BATCH 7: ABDULBORIY HAQIDA MOBILE REBUILD === */
 .bn-ah-bg-mobile{display:none;}
-.bn-ah-chat-teaser{display:none;}
 .bn-ah-stat-icon{display:none;}
 
 @media (max-width: 768px) {
-  .ah-section{ background:#0d0906 !important; min-height:0 !important; overflow:visible !important; }
+  .ah-section{ background:#0d0906 !important; min-height:0 !important; overflow:hidden !important; }
   .bn-ah-hide-mobile{ display:none !important; }
 
   .bn-ah-canvas{
-    position:relative !important; z-index:0; width:100%; aspect-ratio:853/1844;
+    position:relative !important; z-index:0; width:100%; aspect-ratio:941/1672;
   }
   .bn-ah-bg-mobile{
-    display:block !important; position:absolute !important; z-index:-1;
+    display:block !important; position:absolute !important; z-index:0;
     top:0 !important; left:0 !important; right:0 !important; bottom:0 !important;
     width:100% !important; height:100% !important; object-fit:cover !important;
+    object-position:center center !important;
   }
-  .bn-ah-inner{
-    display:block !important; position:absolute !important; z-index:1;
-    top:51%; left:6%; right:6%; margin:0 !important; padding:0 !important;
-  }
-  .bn-ah-content{ max-width:100% !important; margin:0 !important; height:auto !important; }
-  .bn-ah-title{ font-size:clamp(30px,8.4vw,42px) !important; margin-top:0 !important; letter-spacing:-0.035em !important; }
-  .bn-ah-quote{ font-size:clamp(18px,5.2vw,25px) !important; line-height:1.28 !important; margin-top:18px !important; max-width:100% !important; }
-  .bn-ah-p{ font-size:clamp(13px,3.6vw,16px) !important; line-height:1.48 !important; margin-top:14px !important; max-width:100% !important; }
 
-  .bn-ah-stats-wrap{ margin-top:20px !important; padding-top:0 !important; }
-  .ah-stats-row{ flex-direction:row !important; flex-wrap:nowrap !important; gap:8px !important; }
+  .bn-ah-inner{
+    display:flex !important; flex-direction:column !important;
+    position:absolute !important; z-index:1;
+    top:0 !important; left:0 !important; right:0 !important; bottom:0 !important;
+    margin:0 !important; padding:3% 6% 8% !important;
+  }
+  .bn-ah-content{
+    display:flex !important; flex-direction:column !important;
+    max-width:100% !important; margin:0 !important; height:100% !important;
+  }
+  .bn-ah-title{ font-size:29px !important; margin-top:0 !important; letter-spacing:-0.035em !important; }
+  .bn-ah-title + div{ margin-top:8px !important; }
+  .bn-ah-quote{
+    font-size:17px !important; line-height:1.28 !important;
+    margin-top:10px !important; max-width:100% !important;
+    background:rgba(0,0,0,.72) !important; padding:12px 14px !important;
+    border-radius:10px !important;
+  }
+
+  p.bn-ah-p:first-of-type{ margin-top:auto !important; }
+  .bn-ah-p{
+    font-size:13px !important; line-height:1.44 !important;
+    margin-top:8px !important; max-width:100% !important;
+  }
+
+  .bn-ah-stats-wrap{ margin-top:28px !important; padding-top:0 !important; }
+  .ah-stats-row{ flex-direction:row !important; flex-wrap:nowrap !important; gap:6px !important; }
   .ah-stat-pill{
-    flex:1 1 0 !important; flex-direction:column !important; gap:4px !important;
-    min-height:88px; padding:12px 7px !important; text-align:center; box-sizing:border-box;
+    flex:1 1 0 !important; flex-direction:column !important; gap:3px !important;
+    min-height:70px; padding:8px 5px !important; text-align:center; box-sizing:border-box;
     justify-content:center;
   }
-  .ah-stat-pill span:first-child{ font-size:clamp(25px,7vw,34px) !important; }
-  .ah-stat-pill span:last-child{ font-size:10px !important; line-height:1.18 !important; }
-  .bn-ah-stat-icon{ display:block !important; width:17px !important; height:17px !important; margin:0 auto 2px; }
-
-  .bn-ah-chat-teaser{
-    display:flex !important; align-self:flex-end !important;
-    margin:16px 0 0 auto !important; max-width:190px;
+  .bn-ah-stat-icon{ display:none !important; }
+  .ah-stat-pill span:first-child{ font-size:28px !important; line-height:1 !important; }
+  .ah-stat-pill span:last-child{
+    font-size:11px !important; line-height:1.25 !important;
+    min-height:2.5em !important; display:flex !important;
+    align-items:flex-start !important; justify-content:center !important; text-align:center;
   }
 }
+
+.bn-mobile-br{display:none;}
+@media (max-width:768px){ .bn-mobile-br{display:inline !important;} }
 
 /* === BATCH 8: NATIJA MOBILE REBUILD === */
 .bn-nt-mobile{display:none;}
@@ -2681,38 +2708,31 @@ highlightRoles();
 @media (max-width: 768px) {
   .natija-desktop{ display:none !important; }
   .natija-mobile{ display:none !important; }
-  .bn-nt-header{ position:relative !important; padding:44px 22px 0 !important; }
-  .bn-nt-title{ font-size:clamp(34px,9vw,46px) !important; }
-  .bn-nt-subtitle{ font-size:16px !important; }
-
+  .bn-nt{ position:relative !important; z-index:2 !important; overflow:visible !important; background:transparent !important; }
+  .bn-nt-header{
+    position:absolute !important; top:0 !important; left:0 !important; right:0 !important; z-index:2 !important;
+    text-align:center; padding:30px 22px 0 !important; pointer-events:none;
+  }
+  .bn-nt-title{ font-size:34px !important; }
+  .bn-nt-subtitle{ font-size:16px !important; margin-top:12px !important; }
+  .bn-nt::after{ height:200px !important; background:transparent !important; }
   .bn-nt-mobile{
-    display:block !important; position:relative; z-index:0;
-    margin:24px 20px 40px; padding:0;
+    display:block !important; position:relative; z-index:1;
+    margin:0 !important; padding:0 !important; width:100% !important;
+    aspect-ratio:auto !important; overflow:visible !important;
   }
-  .bn-nt-bg-mobile{ display:block; width:100%; height:auto; position:relative; z-index:-1; }
+  .bn-nt-bg-mobile{ display:block !important; width:100% !important; height:auto !important; position:relative; z-index:1; object-fit:contain !important; object-position:center top !important; }
 
-  .bn-nt-result{
-    position:absolute; z-index:1; display:flex; align-items:flex-start; gap:10px;
-  }
-  .bn-nt-result-1{ top:24%; left:31%; width:62%; }
-  .bn-nt-result-2{ top:46.5%; left:31%; width:44%; }
-  .bn-nt-result-3{ top:64%; left:31%; width:62%; }
-
-  .bn-nt-num{
-    flex:none; width:26px; height:26px; border-radius:50%;
-    background:#1c1712; border:1.5px solid #8a6a34; color:#e7bd6e;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Manrope',sans-serif; font-weight:800; font-size:11.5px;
-  }
-  .bn-nt-body{ flex:1; min-width:0; }
-  .bn-nt-body h3{ margin:2px 0 0; font-family:'Manrope',sans-serif; font-weight:700; font-size:14.5px; line-height:1.2; color:#201b17; }
-  .bn-nt-body p{ margin:5px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:11.5px; line-height:1.4; color:#6b5f49; }
-  .bn-nt-mapicon{ flex:none; width:22px; height:22px; align-self:center; opacity:.85; }
-
-  .bn-nt-chat-teaser{
-    display:flex !important; position:absolute !important; z-index:2;
-    top:90%; right:1%; max-width:170px; margin:0 !important; align-self:auto !important;
-  }
+  .bn-nt-result{ display:none !important; }
+  .bn-nt-mapicon{ display:none !important; }
+}
+@media(max-width:1024px){
+  .cc-sec{margin-top:calc(var(--sect-overlap-tablet) * -1)!important;padding-top:calc(var(--sect-overlap-tablet) + var(--next-safe-space))!important;}
+  #aloqa{margin-top:calc(var(--ariza-ft-overlap-tablet) * -1)!important;padding-top:calc(var(--ariza-ft-overlap-tablet))!important;}
+}
+@media(max-width:768px){
+  .cc-sec{margin-top:calc(var(--sect-overlap-mobile) * -1)!important;padding-top:calc(var(--sect-overlap-mobile) + var(--next-safe-space))!important;}
+  #aloqa{margin-top:calc(var(--ariza-ft-overlap-mobile) * -1)!important;padding-top:calc(var(--ariza-ft-overlap-mobile))!important;}
 }
 </style>
 
@@ -2722,7 +2742,7 @@ highlightRoles();
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1672,&quot;height&quot;:1882},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Amber Noir&quot;,&quot;options&quot;:[&quot;Amber Noir&quot;,&quot;Teal &amp; Ember&quot;,&quot;Summer Glow&quot;,&quot;Emerald Study&quot;,&quot;Royal Indigo&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero mood&quot;}}">class Component extends DCLogic {
   componentDidUpdate() { this.applyAccent(); }
-  componentDidMount() { this.setupMagnifier(); this.applyAccent(); }
+  componentDidMount() { if (window.__bnFxOn && window.__bnFxOn()) this.setupMagnifier(); this.applyAccent(); }
   _themes = {
     'Amber Noir': { l: null, blend: 'normal',
       atmo: 'radial-gradient(56% 50% at 42% 30%, rgba(255,198,130,.16), rgba(255,198,130,0) 60%), linear-gradient(180deg, rgba(8,5,3,.30) 0%, rgba(8,5,3,0) 24%, rgba(8,5,3,0) 70%, rgba(8,5,3,.36) 100%)' },
@@ -2888,20 +2908,26 @@ highlightRoles();
       if (openBurger) { openBurger.classList.remove('is-active'); openBurger.setAttribute('aria-expanded', 'false'); }
       return;
     }
-    // mobile hero: chat teaser opens the real Basyra AI popup
-    if (e.target.closest('[data-hero-chat-teaser]')) {
-      if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
+    var moreToggle = e.target.closest('[data-cc-more-toggle]');
+    if (moreToggle) {
+      var panelId = moreToggle.getAttribute('data-cc-more-toggle');
+      var panel = document.getElementById(panelId);
+      if (!panel) return;
+      var open = panel.classList.toggle('is-open');
+      var toggles = document.querySelectorAll('[data-cc-more-toggle="' + panelId + '"]');
+      toggles.forEach(function (btn) {
+        if (!btn.dataset.ccMoreLabel) btn.dataset.ccMoreLabel = btn.textContent;
+        btn.textContent = open ? '−' : btn.dataset.ccMoreLabel;
+        btn.setAttribute('aria-label', open ? "Ro'yxatni yig'ish" : "Yana 9 ta mijozni ko'rsatish");
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      return;
     }
   });
-  document.addEventListener('keydown', function(e){
-    if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('[data-hero-chat-teaser]')) {
-      e.preventDefault();
-      if (window.BasyraAI && typeof window.BasyraAI.open === 'function') window.BasyraAI.open();
-    }
-  });
+  (function(){var DESKTOP_TOP={left:705,right:581}
+;function positionHeroKuFolders(){var ku=document.getElementById('kimlar-uchun');var left=document.querySelector('.bn-hero-ku-folder-left');var right=document.querySelector('.bn-hero-ku-folder-right');if(!ku||!left||!right)return;if(window.matchMedia('(max-width:768px)').matches){var boundary=ku.offsetTop;left.style.top=Math.round(boundary-left.offsetHeight*0.56)+'px';right.style.top=Math.round(boundary-right.offsetHeight*0.65)+'px';}else{left.style.top=DESKTOP_TOP.left+'px';right.style.top=DESKTOP_TOP.right+'px';}}window.addEventListener('load',positionHeroKuFolders);window.addEventListener('resize',positionHeroKuFolders);})();
 })();
 </script>
 
-<script src="js/popup.js?v=3"></script>
-
+<script src="js/popup.js?v=4"></script>
 </body></html>
