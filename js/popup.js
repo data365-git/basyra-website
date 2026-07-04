@@ -608,17 +608,27 @@
     });
   }
 
-  // ---------- hide fab while the hero is in view (avoid overlapping hero stats) ----------
+  // ---------- hide fab while a section with its own in-page assistant teaser is in view
+  // (avoid showing the global FAB mascot/bubble at the same time as a section's own) ----------
   function setupHeroVisibility() {
-    var hero = document.getElementById("bn-hero");
-    if (!hero || !("IntersectionObserver" in window)) return;
+    var selectors = ["#bn-hero", "#oldin-keyin", "#dastur", "#men-haqimda", ".bn-nt"];
+    var targets = selectors
+      .map(function (s) { return document.querySelector(s); })
+      .filter(Boolean);
+    if (!targets.length || !("IntersectionObserver" in window)) return;
+    var visible = {};
     var io = new IntersectionObserver(function (entries) {
-      var hide = entries[0].isIntersecting && !state.open;
+      entries.forEach(function (entry) {
+        var key = Array.prototype.indexOf.call(targets, entry.target);
+        visible[key] = entry.isIntersecting;
+      });
+      var anyVisible = Object.keys(visible).some(function (k) { return visible[k]; });
+      var hide = anyVisible && !state.open;
       els.fab.style.display = hide ? "none" : "";
       els.aura.style.display = hide ? "none" : "";
       if (idleBubbleEl) idleBubbleEl.style.display = hide ? "none" : "";
     }, { threshold: 0 });
-    io.observe(hero);
+    targets.forEach(function (t) { io.observe(t); });
   }
 
   // ---------- init ----------

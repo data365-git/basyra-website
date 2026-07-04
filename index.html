@@ -847,10 +847,6 @@
           <p class="bn-ku-card-desc">Savdo strategiyasi, KPI va<br>jarayonlarni boshqarish<br>orqali natijani doimiy<br>oshirish.</p>
           <div class="bn-ku-sticky">natijani<br>maks.</div>
         </div>
-        <div class="bn-hero-chat-teaser bn-ku-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-          <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-          <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-        </div>
       </article>
     </div>
 
@@ -1429,11 +1425,6 @@
           <p style="margin:10px 0 0;font-weight:500;font-size:15px;line-height:1.5;color:rgba(40,32,24,.72);">Qayerda mijoz yo’qotayotganingizni (o’sish nuqtalarini) aniqlaysiz.</p>
         </div>
       </article>
-
-      <div class="bn-hero-chat-teaser bn-no-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-      </div>
     </div>
   </div>
 </section>
@@ -2368,38 +2359,54 @@ highlightRoles();
   .bn-hero-badge{
     position:relative !important; z-index:1; order:5;
     top:auto !important; right:auto !important; left:auto !important;
-    display:block; align-self:flex-start !important; width:150px !important;
-    margin:14px 0 0 22px !important;
+    display:block; align-self:flex-start !important; width:124px !important;
+    padding:10px 11px !important; border-radius:12px !important;
+    margin:10px 0 0 22px !important;
   }
+  .bn-hero-badge span{ font-size:15px !important; }
+  .bn-hero-badge > div > div:last-child{ font-size:11px !important; margin-top:4px !important; }
 
   .bn-hero-chat-teaser{
     display:flex !important;
     position:relative !important; z-index:1; order:6;
-    align-items:flex-end; gap:10px;
+    align-items:flex-end; gap:6px;
     margin:14px 22px 0 auto; max-width:80%;
     align-self:flex-end; cursor:pointer;
   }
   .bn-hero-chat-bubble{
     background:#fff; color:#1c1c1e; font-family:'Manrope',sans-serif; font-weight:600;
-    font-size:14px; line-height:1.42; border-radius:18px 18px 4px 18px; padding:12px 16px;
+    font-size:12px; line-height:1.28; border-radius:15px; padding:10px 12px; max-width:190px;
     box-shadow:0 14px 30px rgba(0,0,0,.3);
   }
-  .bn-hero-chat-mascot{ width:70px; height:auto; flex:none; filter:drop-shadow(0 8px 16px rgba(0,0,0,.4)); }
+  .bn-hero-chat-mascot{ width:48px; height:auto; flex:none; filter:drop-shadow(0 8px 16px rgba(0,0,0,.4)); }
 
   .bn-hero-stat-divider{ display:none !important; }
   .bn-hero-statrow{
     position:relative !important; z-index:1; order:7;
-    display:grid !important; grid-template-columns:1fr 1fr; gap:12px;
-    width:100%; box-sizing:border-box; padding:24px 22px 0; margin:0;
+    display:grid !important; grid-template-columns:1fr 1fr; gap:10px;
+    width:100%; box-sizing:border-box; padding:14px 14px 22px; margin:0;
   }
   .bn-hero-stat{
     position:static !important; transform:none !important; text-align:center;
-    background:rgba(28,17,10,.72); border:1px solid rgba(220,158,55,.42); border-radius:18px;
-    min-height:130px; padding:18px 12px; box-sizing:border-box;
+    background:rgba(28,17,10,.72); border:1px solid rgba(220,158,55,.42); border-radius:15px;
+    min-height:96px; padding:12px 8px; box-sizing:border-box;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
   }
-  .bn-hero-stat-icon{ display:block !important; margin:0 auto 10px; }
-  .bn-hero-stat > div:first-of-type{ font-size:42px !important; }
+  .bn-hero-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 7px; }
+  .bn-hero-stat > div:first-of-type{ font-size:clamp(26px,7.5vw,34px) !important; }
+  .bn-hero-stat > div:last-child{ font-size:10.5px !important; margin-top:7px !important; }
+}
+
+@media (min-width: 390px) {
+  .bn-hero-chat-mascot{ width:54px; }
+  .bn-hero-chat-bubble{ max-width:210px; }
+}
+
+@media (max-width: 360px) {
+  .bn-hero-headline{ font-size:38px !important; }
+  .bn-hero-stat > div:first-of-type{ font-size:25px !important; }
+  .bn-hero-chat-mascot{ width:44px; }
+  .bn-hero-chat-bubble{ max-width:176px; font-size:11.5px; }
 }
 
 /* === BATCH 3: KIMLAR UCHUN MOBILE REBUILD === */
@@ -2422,47 +2429,44 @@ highlightRoles();
   .bn-ku-subtitle{ font-size:16px !important; }
 
   .bn-ku-cards-mobile{
-    display:flex !important; flex-direction:column; gap:28px;
+    display:flex !important; flex-direction:column; gap:22px;
     position:relative; z-index:1;
-    padding:36px 22px 0; box-sizing:border-box;
+    padding:32px 20px 0; box-sizing:border-box;
   }
   .bn-ku-card{
     position:relative; z-index:0;
     background:linear-gradient(180deg,#f7efe0,#efe2c8);
-    border-radius:18px;
+    border-radius:16px;
     box-shadow:0 22px 40px rgba(60,40,18,.22), 0 2px 0 rgba(255,255,255,.4) inset;
-    padding:30px 20px 24px;
+    padding:16px 14px;
+    max-width:360px; margin-left:auto; margin-right:auto;
     box-sizing:border-box;
   }
   .bn-ku-card::before{
     content:""; position:absolute; left:10px; right:10px; bottom:-8px; height:20px;
     background:#d8c39c; border-radius:0 0 14px 14px; z-index:-1;
   }
-  .bn-ku-card:last-child{ margin-bottom:56px; }
+  .bn-ku-card:last-child{ margin-bottom:46px; }
   .bn-ku-tab{
-    position:absolute; left:20px; top:-18px;
-    display:flex; align-items:center; gap:8px;
+    position:absolute; left:16px; top:-16px;
+    display:flex; align-items:center; gap:6px;
     background:linear-gradient(180deg,#e8d3ad,#dcbf8c);
-    padding:8px 16px 10px; border-radius:10px 10px 0 0;
-    font-family:'Manrope',sans-serif; font-weight:700; font-size:18px; color:#8a5a2b;
+    padding:6px 12px 7px; border-radius:9px 9px 0 0;
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; color:#8a5a2b;
   }
-  .bn-ku-body{ position:relative; padding-top:14px; }
+  .bn-ku-body{ position:relative; padding-top:12px; }
   .bn-ku-body::after{ content:""; display:table; clear:both; }
   .bn-ku-photo{
-    float:right; width:120px; height:auto; margin:-4px -2px 10px 14px;
+    float:right; width:100px; height:auto; margin:-2px -2px 8px 12px;
     border-radius:3px; box-shadow:0 14px 26px rgba(0,0,0,.28); transform:rotate(2deg);
   }
-  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:23px; color:#241d13; }
-  .bn-ku-card-desc{ margin:10px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:14.5px; line-height:1.55; color:#6b5f49; }
+  .bn-ku-card-title{ margin:0; font-family:'Manrope',sans-serif; font-weight:800; font-size:18px; color:#241d13; }
+  .bn-ku-card-desc{ margin:8px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:13px; line-height:1.48; color:#6b5f49; }
   .bn-ku-sticky{
-    clear:both; display:inline-block; margin-top:18px;
+    clear:both; display:inline-block; margin-top:14px;
     background:#f4e3a1; color:#7a4a1a; font-family:'Manrope',sans-serif; font-weight:600; font-style:italic;
-    font-size:14px; line-height:1.3; padding:10px 14px; border-radius:2px;
+    font-size:13px; line-height:1.28; padding:8px 12px; border-radius:2px;
     box-shadow:0 8px 16px rgba(0,0,0,.18); transform:rotate(-3deg);
-  }
-  .bn-ku-chat-teaser{
-    position:absolute !important; right:8px; bottom:-52px;
-    margin:0 !important; align-self:auto !important; max-width:190px; z-index:2;
   }
 }
 
@@ -2491,26 +2495,26 @@ highlightRoles();
   .bn-ok-card{
     position:relative !important; z-index:1;
     left:auto !important; top:auto !important; height:auto !important;
-    width:calc(100% - 32px) !important; max-width:360px !important;
+    width:calc(100% - 32px) !important; max-width:356px !important;
     display:flex !important; flex-direction:column; align-items:center;
-    margin:26px auto 0 !important; padding:18px 16px !important; border-radius:16px !important;
+    margin:22px auto 0 !important; padding:16px 14px !important; border-radius:16px !important;
     box-sizing:border-box;
   }
   .bn-ok-badge{
     position:relative !important; left:auto !important; top:auto !important; transform:none !important;
-    height:44px !important; padding:0 22px !important; border-radius:7px !important;
+    height:40px !important; padding:0 18px !important; border-radius:7px !important;
     display:flex !important; align-items:center !important; justify-content:center !important;
-    margin:0 0 18px !important;
+    margin:0 0 14px !important;
   }
-  .bn-ok-badge span{ font-size:20px !important; font-weight:700 !important; }
+  .bn-ok-badge span{ font-size:18px !important; font-weight:700 !important; }
   .bn-ok-list{
     position:relative !important; left:auto !important; right:auto !important; top:auto !important; bottom:auto !important;
     display:flex !important; flex-direction:column; justify-content:flex-start !important; gap:0;
     align-self:stretch; width:100%;
   }
-  .bn-ok-list > div:nth-child(odd){ gap:10px !important; padding:12px 0 !important; }
-  .bn-ok-list svg{ width:22px !important; height:22px !important; }
-  .bn-ok-list p{ font-size:14px !important; line-height:1.42 !important; }
+  .bn-ok-list > div:nth-child(odd){ gap:9px !important; padding:10px 0 !important; }
+  .bn-ok-list svg{ width:20px !important; height:20px !important; }
+  .bn-ok-list p{ font-size:13px !important; line-height:1.38 !important; }
 
   .bn-ok-magnifier-mobile{
     display:flex !important; justify-content:center; align-items:center;
@@ -2556,11 +2560,6 @@ highlightRoles();
   .bn-no-copy-3{ top:70.5% !important; }
   .bn-no-copy h3{ font-size:19px !important; }
   .bn-no-copy p{ font-size:13.5px !important; }
-
-  .bn-no-chat-teaser{
-    position:relative !important; z-index:1;
-    margin:26px 22px 0 auto !important; max-width:200px;
-  }
 }
 
 /* === BATCH 6: DASTURDA NIMALAR BOR MOBILE REBUILD === */
@@ -2591,8 +2590,8 @@ highlightRoles();
     padding:3% !important; box-sizing:border-box;
     display:flex !important; flex-direction:column; align-items:center; justify-content:center; text-align:center;
   }
-  .bn-dt-card img{ width:clamp(40px,11vw,56px) !important; height:clamp(40px,11vw,56px) !important; margin:0 0 8px !important; }
-  .bn-dt-card h3{ font-size:14.5px !important; line-height:1.25 !important; }
+  .bn-dt-card img{ width:clamp(30px,8vw,36px) !important; height:clamp(30px,8vw,36px) !important; margin:0 0 6px !important; }
+  .bn-dt-card h3{ font-size:14px !important; line-height:1.22 !important; }
   .bn-dt-hide-mobile{ display:none !important; }
   .bn-dt-longtext{ display:block !important; position:static !important; opacity:1 !important; transform:none !important; pointer-events:auto !important; margin:0 !important; padding:0 !important; background:none !important; font-size:12.5px !important; line-height:1.4 !important; color:#2b2418 !important; }
 
@@ -2616,7 +2615,7 @@ highlightRoles();
 
   .bn-dt-chat-teaser{
     display:flex !important; position:absolute !important; z-index:2;
-    right:4%; top:76.5%; max-width:150px; margin:0 !important; align-self:auto !important;
+    right:3%; top:89%; max-width:150px; margin:0 !important; align-self:auto !important;
   }
   .bn-dt-chat-teaser .bn-hero-chat-bubble{ font-size:11.5px !important; padding:9px 12px !important; }
 }
@@ -2640,15 +2639,15 @@ highlightRoles();
   .bn-ah-quote{ font-size:22px !important; line-height:1.42 !important; margin-top:26px !important; max-width:100% !important; }
   .bn-ah-p{ font-size:15.5px !important; line-height:1.6 !important; margin-top:20px !important; max-width:100% !important; }
 
-  .bn-ah-stats-wrap{ margin-top:28px !important; padding-top:0 !important; }
+  .bn-ah-stats-wrap{ margin-top:22px !important; padding-top:0 !important; }
   .ah-stats-row{ flex-direction:row !important; flex-wrap:nowrap !important; gap:8px !important; }
   .ah-stat-pill{
     flex:1 1 0 !important; flex-direction:column !important; gap:4px !important;
-    padding:16px 8px !important; text-align:center;
+    padding:12px 8px !important; text-align:center;
   }
-  .ah-stat-pill span:first-child{ font-size:26px !important; }
-  .ah-stat-pill span:last-child{ font-size:11.5px !important; line-height:1.25 !important; }
-  .bn-ah-stat-icon{ display:block !important; margin:0 auto 2px; }
+  .ah-stat-pill span:first-child{ font-size:clamp(24px,7vw,28px) !important; }
+  .ah-stat-pill span:last-child{ font-size:11px !important; line-height:1.22 !important; }
+  .bn-ah-stat-icon{ display:block !important; width:18px !important; height:18px !important; margin:0 auto 2px; }
 
   .bn-ah-chat-teaser{
     display:flex !important; margin:22px 0 0 auto !important; max-width:220px;
@@ -2662,7 +2661,7 @@ highlightRoles();
   .natija-desktop{ display:none !important; }
   .natija-mobile{ display:none !important; }
   .bn-nt-header{ position:relative !important; padding:44px 22px 0 !important; }
-  .bn-nt-title{ font-size:clamp(40px,12vw,60px) !important; }
+  .bn-nt-title{ font-size:clamp(34px,9vw,46px) !important; }
   .bn-nt-subtitle{ font-size:16px !important; }
 
   .bn-nt-mobile{
