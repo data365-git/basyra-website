@@ -1589,20 +1589,49 @@
 
 
   <!-- ================= SECTION 5 — YAKUNIY HISOBOT ================= -->
-  <div style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
-    <div style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
-      <h2 style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
-      <p style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
+  <div class="bn-nt" style="position:relative;width:1672px;background:#0d0b09;overflow:hidden;">
+    <div class="bn-nt-header" style="position:absolute;top:0;left:0;right:0;z-index:2;text-align:center;padding:48px 20px 0;pointer-events:none;">
+      <h2 class="bn-nt-title" style="margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:104px;line-height:1;letter-spacing:-1px;background:linear-gradient(180deg,#f0c880 0%,#c9a05a 60%,#8a5f28 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 4px 20px rgba(200,150,70,0.18);">Natija</h2>
+      <p class="bn-nt-subtitle" style="margin:18px 0 0;font-family:'Manrope',sans-serif;font-weight:500;font-size:26px;line-height:1.4;color:rgba(240,225,200,0.75);">Dasturdan so'ng siz quyidagilarga erishasiz:</p>
     </div>
     <img class="natija-desktop" src="assets/images/natija-blok3.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:block;transform:scale(1.12);transform-origin:center center;">
+
+    <div class="bn-nt-mobile">
+      <img class="bn-nt-bg-mobile" src="assets/images/natija-mobile-bg-v2.png" srcset="assets/images/mobile/natija-mobile-bg-v2-480.webp 480w, assets/images/mobile/natija-mobile-bg-v2-960.webp 960w" sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+
+      <div class="bn-nt-result bn-nt-result-1">
+        <span class="bn-nt-num">01</span>
+        <div class="bn-nt-body">
+          <h3>Aniq xarita</h3>
+          <p>Sotuvlarni oshirish uchun aniq xarita va ketma-ketlik hosil bo'ladi.</p>
+        </div>
+        <svg class="bn-nt-mapicon" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3 4 5v16l5-2 6 2 5-2V3l-5 2-6-2Z" stroke="#8a6a34" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 3v16M15 5v16" stroke="#8a6a34" stroke-width="1.2"/><path d="M6.5 15c2-2 3-3.5 5-3.5s2.5 2 4.5 1" stroke="#7a211c" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="2 2"/></svg>
+      </div>
+
+      <div class="bn-nt-result bn-nt-result-2">
+        <span class="bn-nt-num">02</span>
+        <div class="bn-nt-body">
+          <h3>Tizimli jamoa va KPI</h3>
+          <p>Tizimli va samarali ishlaydigan jamoani noldan shakllantirasiz va to'g'ri KPI qo'yasiz.</p>
+        </div>
+      </div>
+
+      <div class="bn-nt-result bn-nt-result-3">
+        <span class="bn-nt-num">03</span>
+        <div class="bn-nt-body">
+          <h3>Minimal resurs bilan sof foyda</h3>
+          <p>Biznes jarayonlarini optimizatsiya qilish evaziga, minimal resurslar bilan sof foydani oshirasiz.</p>
+        </div>
+      </div>
+
+      <div class="bn-hero-chat-teaser bn-nt-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
+        <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
+        <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
+      </div>
+    </div>
+
     <img class="natija-mobile" src="assets/images/natija-mobile.png" alt="Yakuniy Hisobot — Uch bosqichli tizim: Aniq xarita, Tizimli jamoa va KPI, Minimal resurs bilan sof foyda" loading="lazy" style="width:100%;display:none;">
   </div>
-  <style>
-    @media (max-width:768px){
-      .natija-desktop{display:none !important;}
-      .natija-mobile{display:block !important;}
-    }
-  </style>
 
   <!-- ================= SECTION 6 — YOPILGAN ISHLAR ================= -->
 <style>
@@ -2614,6 +2643,46 @@ highlightRoles();
 
   .bn-ah-chat-teaser{
     display:flex !important; margin:22px 0 0 auto !important; max-width:220px;
+  }
+}
+
+/* === BATCH 8: NATIJA MOBILE REBUILD === */
+.bn-nt-mobile{display:none;}
+
+@media (max-width: 768px) {
+  .natija-desktop{ display:none !important; }
+  .natija-mobile{ display:none !important; }
+  .bn-nt-header{ position:relative !important; padding:44px 22px 0 !important; }
+  .bn-nt-title{ font-size:clamp(40px,12vw,60px) !important; }
+  .bn-nt-subtitle{ font-size:16px !important; }
+
+  .bn-nt-mobile{
+    display:block !important; position:relative; z-index:0;
+    margin:24px 20px 40px; padding:0;
+  }
+  .bn-nt-bg-mobile{ display:block; width:100%; height:auto; position:relative; z-index:-1; }
+
+  .bn-nt-result{
+    position:absolute; z-index:1; display:flex; align-items:flex-start; gap:10px;
+  }
+  .bn-nt-result-1{ top:24%; left:31%; width:62%; }
+  .bn-nt-result-2{ top:46.5%; left:31%; width:44%; }
+  .bn-nt-result-3{ top:64%; left:31%; width:62%; }
+
+  .bn-nt-num{
+    flex:none; width:26px; height:26px; border-radius:50%;
+    background:#1c1712; border:1.5px solid #8a6a34; color:#e7bd6e;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:11.5px;
+  }
+  .bn-nt-body{ flex:1; min-width:0; }
+  .bn-nt-body h3{ margin:2px 0 0; font-family:'Manrope',sans-serif; font-weight:700; font-size:14.5px; line-height:1.2; color:#201b17; }
+  .bn-nt-body p{ margin:5px 0 0; font-family:'Manrope',sans-serif; font-weight:500; font-size:11.5px; line-height:1.4; color:#6b5f49; }
+  .bn-nt-mapicon{ flex:none; width:22px; height:22px; align-self:center; opacity:.85; }
+
+  .bn-nt-chat-teaser{
+    display:flex !important; position:absolute !important; z-index:2;
+    top:90%; right:1%; max-width:170px; margin:0 !important; align-self:auto !important;
   }
 }
 </style>
