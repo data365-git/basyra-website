@@ -1004,10 +1004,6 @@
       </div>
     </div>
 
-    <div class="bn-hero-chat-teaser bn-ok-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-      <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-      <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
-    </div>
 
   </div>
 
@@ -1606,10 +1602,6 @@
             <div class="ah-stat-pill"><svg class="bn-ah-stat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="#E7BD6E" stroke-width="1.6"/><path d="M4.5 20c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke="#E7BD6E" stroke-width="1.6" stroke-linecap="round"/></svg><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">80+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">tadbirkor / ROP va top-menejer</span></div>
             <div class="ah-stat-pill"><svg class="bn-ah-stat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#E7BD6E" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="#E7BD6E" stroke-width="1.4"/><circle cx="12" cy="12" r="1.2" fill="#E7BD6E"/></svg><span style="font-weight:800;font-size:38px;line-height:1;color:#E7BD6E;">40+</span><span style="font-weight:600;font-size:16px;line-height:1.2;color:rgba(242,232,216,.82);">sotuv bo'limi</span></div>
           </div>
-        </div>
-        <div class="bn-hero-chat-teaser bn-ah-chat-teaser" data-hero-chat-teaser role="button" tabindex="0" aria-label="Basyra AI-detektiv bilan suhbat boshlash">
-          <div class="bn-hero-chat-bubble">Assalomu Alaykum 👋<br>Men Basyra AI-detektiviman</div>
-          <img class="bn-hero-chat-mascot" src="assets/images/882867af-1e28-4aa5-b593-c5d7b5850331.png" srcset="assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-256.webp 256w, assets/images/mobile/882867af-1e28-4aa5-b593-c5d7b5850331-480.webp 480w" sizes="80px" alt="" loading="lazy" width="90" height="112">
         </div>
       </div>
     </div>
@@ -2925,7 +2917,10 @@ highlightRoles();
     }
   });
   (function(){var DESKTOP_TOP={left:705,right:581}
-;function positionHeroKuFolders(){var ku=document.getElementById('kimlar-uchun');var left=document.querySelector('.bn-hero-ku-folder-left');var right=document.querySelector('.bn-hero-ku-folder-right');if(!ku||!left||!right)return;if(window.matchMedia('(max-width:768px)').matches){var boundary=ku.offsetTop;left.style.top=Math.round(boundary-left.offsetHeight*0.56)+'px';right.style.top=Math.round(boundary-right.offsetHeight*0.65)+'px';}else{left.style.top=DESKTOP_TOP.left+'px';right.style.top=DESKTOP_TOP.right+'px';}}window.addEventListener('load',positionHeroKuFolders);window.addEventListener('resize',positionHeroKuFolders);})();
+;function positionHeroKuFolders(){var ku=document.getElementById('kimlar-uchun');var left=document.querySelector('.bn-hero-ku-folder-left');var right=document.querySelector('.bn-hero-ku-folder-right');if(!ku||!left||!right)return;if(window.matchMedia('(max-width:768px)').matches){var boundary=ku.offsetTop;left.style.top=Math.round(boundary-left.offsetHeight*0.56)+'px';right.style.top=Math.round(boundary-right.offsetHeight*0.65)+'px';}else{left.style.top=DESKTOP_TOP.left+'px';right.style.top=DESKTOP_TOP.right+'px';}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',positionHeroKuFolders);else positionHeroKuFolders();
+if('ResizeObserver' in window){var ro=new ResizeObserver(positionHeroKuFolders);var page=document.getElementById('bn-page');if(page)ro.observe(page);var ku=document.getElementById('kimlar-uchun');if(ku)ro.observe(ku);}
+window.addEventListener('load',positionHeroKuFolders);window.addEventListener('resize',positionHeroKuFolders);document.fonts&&document.fonts.ready.then(positionHeroKuFolders);})();
 })();
 </script>
 
