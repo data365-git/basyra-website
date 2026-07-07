@@ -2914,7 +2914,7 @@ highlightRoles();
   }
   setupMagnifier() {
     if (window.__magCleanup) window.__magCleanup();
-    const SIZE = 300, Z = 2.25, HOLD = 1100; /* ms the cursor must rest still before the loupe appears (was 7000 — too long to discover) */
+    const SIZE = 300, Z = 2.25, HOLD = 7000;
     const build = () => {
       const page = document.getElementById('bn-page');
       if (!page) { setTimeout(build, 250); return; }
@@ -2924,19 +2924,10 @@ highlightRoles();
       lens.style.cssText = 'position:fixed;left:0;top:0;width:' + SIZE + 'px;height:' + SIZE + 'px;border-radius:50%;overflow:hidden;pointer-events:none;z-index:2147483010;display:none;opacity:0;transition:opacity .16s ease;box-shadow:0 0 0 8px #6b4f22,0 0 0 12px #cba653,0 0 0 13px rgba(55,38,10,.75),0 22px 46px rgba(0,0,0,.6),inset 0 0 34px rgba(0,0,0,.4);';
       const inner = document.createElement('div');
       inner.style.cssText = 'position:absolute;left:0;top:0;transform-origin:top left;';
-      // Re-snapshot the CURRENT page each time the lens is shown so the magnified region
-      // matches the live layout under the cursor. The old code cloned once at mount —
-      // before lazy images loaded and sections settled — so the zoom drifted to the wrong spot.
-      const refreshClone = () => {
-        const src = document.getElementById('bn-page'); if (!src) return;
-        const c = src.cloneNode(true);
-        c.removeAttribute('id'); c.style.transform = 'none'; c.style.margin = '0'; c.style.marginLeft = '0';
-        c.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
-        c.querySelectorAll('img').forEach(im => { im.loading = 'eager'; });
-        inner.innerHTML = '';
-        inner.appendChild(c);
-      };
-      refreshClone();
+      const clone = page.cloneNode(true);
+      clone.removeAttribute('id'); clone.style.transform = 'none'; clone.style.margin = '0';
+      clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+      inner.appendChild(clone);
       const sheen = document.createElement('div');
       sheen.style.cssText = 'position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(150px 110px at 32% 22%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 63%,rgba(0,0,0,.30) 100%);';
       lens.appendChild(inner); lens.appendChild(sheen);
@@ -2958,7 +2949,6 @@ highlightRoles();
       };
       const reveal = () => {
         shown = true;
-        refreshClone(); /* fresh snapshot of the now-settled layout so the zoom shows the correct spot */
         if(!document.getElementById('__mag-nocursor')){var s=document.createElement('style');s.id='__mag-nocursor';s.textContent='*{cursor:none!important}';document.head.appendChild(s);}
         place();
         lens.style.display = 'block';
