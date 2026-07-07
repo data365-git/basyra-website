@@ -2914,7 +2914,7 @@ highlightRoles();
   }
   setupMagnifier() {
     if (window.__magCleanup) window.__magCleanup();
-    const SIZE = 300, Z = 2.25, HOLD = 7000;
+    const SIZE = 300, Z = 2.25, HOLD = 1100; /* ms the cursor must rest still before the loupe appears (was 7000 — too long to discover) */
     const build = () => {
       const page = document.getElementById('bn-page');
       if (!page) { setTimeout(build, 250); return; }
