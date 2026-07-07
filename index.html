@@ -2735,6 +2735,18 @@ highlightRoles();
     width:100% !important; height:100% !important; object-fit:cover !important;
     object-position:center center !important;
   }
+  /* readability scrim: photo is bright, so darken the lower area (where the
+     paragraphs + stat pills sit) for white text; keep the face area clear */
+  .bn-ah-canvas::after{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(8,5,3,.30) 0%,
+      rgba(8,5,3,0) 18%,
+      rgba(8,5,3,0) 38%,
+      rgba(8,5,3,.6) 52%,
+      rgba(8,5,3,.86) 68%,
+      rgba(8,5,3,.92) 100%);
+  }
 
   .bn-ah-inner{
     display:flex !important; flex-direction:column !important;
