@@ -748,7 +748,7 @@
     else s=Math.min(s,1); /* wide desktop only: never scale ABOVE 100% (native size). Narrow desktop keeps s<1 so this is a no-op there. */
     page.style.width=base+'px';
     page.style.transform='scale('+s+')';
-    page.style.transformOrigin=mobile?'top center':'top left';
+    page.style.transformOrigin='top left'; /* always top-left: the marginLeft formula centers correctly only with a left origin. 'top center' scaled the 375px canvas around its own center (187.5px) not the viewport, shifting the page left and leaving a right-side gap. */
     var gap=vw-base*s; /* center only when a REAL gap exists (>1px) — equivalent to the old mobile-only rule for phones/narrow, and now also centers the capped page on wide desktop */
     page.style.marginLeft=(gap>1?Math.round(gap/2):0)+'px';
     wrap.style.height=(page.offsetHeight*s)+'px';
@@ -767,7 +767,7 @@
 
 <div id="bn-fit">
 <div id="bn-page" role="main" style="position:relative;width:1672px;background:#141110;font-family:'Manrope',sans-serif;">
-<script>/* apply the fit() scale synchronously, before first paint, so the page never flashes at full size then zooms to fit on load. Existing head fit()/resize logic still runs and owns all later updates + height. */(function(){try{var p=document.getElementById('bn-page');if(!p)return;var vw=document.documentElement.clientWidth;var m=vw<=768;var base=m?375:1672;var s=vw/base;if(m)s=Math.min(s,1.25);else s=Math.min(s,1);p.style.width=base+'px';p.style.transform='scale('+s+')';p.style.transformOrigin=m?'top center':'top left';var gap=vw-base*s;p.style.marginLeft=(gap>1?Math.round(gap/2):0)+'px';}catch(e){}})();</script>
+<script>/* apply the fit() scale synchronously, before first paint, so the page never flashes at full size then zooms to fit on load. Existing head fit()/resize logic still runs and owns all later updates + height. */(function(){try{var p=document.getElementById('bn-page');if(!p)return;var vw=document.documentElement.clientWidth;var m=vw<=768;var base=m?375:1672;var s=vw/base;if(m)s=Math.min(s,1.25);else s=Math.min(s,1);p.style.width=base+'px';p.style.transform='scale('+s+')';p.style.transformOrigin='top left';var gap=vw-base*s;p.style.marginLeft=(gap>1?Math.round(gap/2):0)+'px';}catch(e){}})();</script>
 
   <!-- ================= SECTION 1 — HERO ================= -->
   <div id="bn-hero" style="position:relative;width:1672px;height:890px;overflow:hidden;color:#f2ece1;background:#141110;">
