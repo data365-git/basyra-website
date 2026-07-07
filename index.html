@@ -55,6 +55,41 @@
 </head>
 <body>
 
+<!-- ===== BRAND LOADER: covers the initial fit()/scale settle so the page never flashes zoomed-in on load. Min ~0.7s, hard cap 2.5s. ===== -->
+<style>
+#bn-loader{position:fixed;inset:0;z-index:2147483640;display:flex;align-items:center;justify-content:center;background:#141110;transition:opacity .5s ease;}
+#bn-loader.bn-loader-out{opacity:0;pointer-events:none;}
+.bn-loader-box{display:flex;flex-direction:column;align-items:center;gap:24px;}
+.bn-loader-mark{width:74px;height:74px;filter:drop-shadow(0 0 20px rgba(201,169,110,.5));animation:bnMarkPulse 1.35s ease-in-out infinite;}
+.bn-loader-mark svg{width:100%;height:100%;display:block;}
+@keyframes bnMarkPulse{0%,100%{transform:scale(1);opacity:.86;}50%{transform:scale(1.09);opacity:1;}}
+.bn-loader-word{font-family:'Manrope',sans-serif;font-weight:700;font-size:19px;letter-spacing:2.5px;color:#e6d1a4;text-align:center;line-height:1;}
+.bn-loader-word small{display:block;font-weight:500;font-size:10px;letter-spacing:3.5px;color:rgba(201,169,110,.68);margin-top:5px;}
+.bn-loader-bar{position:relative;width:150px;height:3px;border-radius:99px;background:rgba(201,169,110,.15);overflow:hidden;}
+.bn-loader-bar span{position:absolute;top:0;left:-42%;height:100%;width:42%;border-radius:99px;background:linear-gradient(90deg,transparent,#c9a96e 55%,transparent);animation:bnLoaderBar 1s ease-in-out infinite;}
+@keyframes bnLoaderBar{0%{left:-42%;}100%{left:100%;}}
+</style>
+<div id="bn-loader" style="background:#141110;" role="status" aria-label="Yuklanmoqda">
+  <div class="bn-loader-box">
+    <div class="bn-loader-mark">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="13" cy="13" r="9" stroke="#C9A96E" stroke-width="2.6"/><line x1="20" y1="20" x2="28.5" y2="28.5" stroke="#C9A96E" stroke-width="2.6" stroke-linecap="round"/></svg>
+    </div>
+    <div class="bn-loader-word">acdmy<small>BY BASYRA</small></div>
+    <div class="bn-loader-bar"><span></span></div>
+  </div>
+</div>
+<noscript><style>#bn-loader{display:none !important;}</style></noscript>
+<script>
+(function(){
+  var el=document.getElementById('bn-loader'); if(!el) return;
+  var start=Date.now(), MIN=700, MAX=2500, done=false;
+  function hide(){ if(done) return; done=true; el.classList.add('bn-loader-out'); setTimeout(function(){ if(el) el.style.display='none'; }, 520); }
+  function ready(){ setTimeout(hide, Math.max(0, MIN-(Date.now()-start))); }
+  if(document.readyState==='complete') ready(); else window.addEventListener('load', ready);
+  setTimeout(hide, MAX); // hard cap — never longer than 2.5s even on slow connections
+})();
+</script>
+
 <script>
 (function(){
   var params = new URLSearchParams(window.location.search);
