@@ -1949,6 +1949,88 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
   </div>
 </div>
 
+<!-- ================= SECTION — HAMJAMIYAT (COMMUNITY) ================= -->
+<style>
+.hj-sec{position:relative;width:1672px;height:941px;overflow:hidden;background:#0d0a08;font-family:'Manrope',sans-serif;}
+.hj-bg-d{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;user-select:none;}
+.hj-sec::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(10,7,5,.86) 0%,rgba(10,7,5,.55) 32%,rgba(10,7,5,.08) 52%,rgba(10,7,5,0) 62%);}
+.hj-logo{position:absolute;left:110px;top:64px;z-index:3;}
+.hj-logo img{display:block;height:46px;width:auto;}
+.hj-inner{position:absolute;left:110px;top:0;height:100%;width:680px;display:flex;flex-direction:column;justify-content:center;z-index:3;box-sizing:border-box;}
+.hj-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.hj-eyebrow span{font-weight:700;font-size:15px;letter-spacing:4px;color:#d3a24f;text-transform:uppercase;}
+.hj-eyeline{position:relative;flex:0 0 130px;height:1px;background:linear-gradient(90deg,rgba(211,162,79,.75),rgba(211,162,79,0));}
+.hj-eyeline::after{content:"";position:absolute;left:34px;top:-2px;width:5px;height:5px;border-radius:50%;background:#e9c98a;box-shadow:0 0 8px 2px rgba(233,201,138,.6);}
+.hj-title{margin:0;font-weight:700;font-size:60px;line-height:1.12;letter-spacing:-1px;color:#f4ecdd;}
+.hj-desc{margin:26px 0 0;max-width:540px;font-weight:400;font-size:20px;line-height:1.6;color:rgba(228,216,198,.76);}
+.hj-cards{display:flex;gap:16px;margin-top:42px;}
+.hj-card{flex:1;background:linear-gradient(180deg,rgba(38,28,18,.74),rgba(20,14,9,.72));border:1px solid rgba(201,168,110,.26);border-radius:16px;padding:22px 20px;box-shadow:inset 0 1px 0 rgba(255,236,196,.05);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);}
+.hj-ic{display:flex;width:34px;height:34px;color:#e2b878;margin-bottom:14px;}
+.hj-ic svg{width:100%;height:100%;}
+.hj-card h3{margin:0;font-family:'Manrope',sans-serif;font-weight:700;font-size:17px;line-height:1.2;color:#f2e8d6;}
+.hj-card p{margin:7px 0 0;font-family:'Manrope',sans-serif;font-weight:400;font-size:13.5px;line-height:1.4;color:rgba(205,192,170,.72);}
+.hj-cta{margin-top:42px;align-self:flex-start;display:inline-flex;align-items:center;gap:16px;box-sizing:border-box;height:64px;padding:0 34px;border-radius:15px;text-decoration:none;background:linear-gradient(180deg,rgba(226,173,88,.13),rgba(120,88,44,.05));border:1.6px solid rgba(216,166,86,.7);box-shadow:0 12px 30px rgba(150,110,50,.18),inset 0 1px 0 rgba(255,232,186,.14);transition:transform .16s ease,box-shadow .16s ease,background .2s ease;}
+.hj-cta:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(226,173,88,.2),rgba(120,88,44,.09));box-shadow:0 18px 40px rgba(160,120,55,.26),inset 0 1px 0 rgba(255,232,186,.16);}
+.hj-cta span{font-family:'Manrope',sans-serif;font-weight:600;font-size:22px;letter-spacing:.2px;color:#efce90;}
+.hj-cta svg{flex:none;}
+.hj-photo-m{display:none;}
+
+@media (max-width:768px){
+  .hj-sec{width:375px;height:auto;background:#0e0b08;}
+  .hj-sec::before{display:none;}
+  .hj-bg-d{display:none !important;}
+  .hj-logo{position:absolute;left:24px;top:28px;}
+  .hj-logo img{height:32px;}
+  .hj-inner{position:relative;left:auto;top:auto;height:auto;width:auto;justify-content:flex-start;padding:88px 24px 0;}
+  .hj-eyebrow{margin-bottom:18px;}
+  .hj-eyebrow span{font-size:13px;letter-spacing:3.5px;}
+  .hj-eyeline{flex-basis:90px;}
+  .hj-title{font-size:33px;line-height:1.14;}
+  .hj-desc{font-size:15px;max-width:none;margin-top:16px;line-height:1.55;}
+  .hj-cards{flex-direction:column;gap:10px;margin-top:24px;}
+  .hj-card{padding:15px 18px;border-radius:13px;}
+  .hj-ic{width:28px;height:28px;margin-bottom:10px;}
+  .hj-card h3{font-size:15px;}
+  .hj-card p{font-size:12.5px;margin-top:5px;}
+  .hj-cta{margin-top:24px;height:56px;padding:0 28px;border-radius:13px;}
+  .hj-cta span{font-size:18px;}
+  .hj-photo-m{display:block;width:calc(100% - 48px);height:auto;margin:30px auto 0;border-radius:16px;}
+  .hj-sec{padding-bottom:34px;}
+}
+</style>
+
+<section id="hamjamiyat" class="hj-sec">
+  <img class="hj-bg-d" src="assets/images/hamjamiyat-desktop-bg.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="hj-logo"><img src="assets/images/logo-acdmy-basyra.png" alt="acdmy by basyra"></div>
+  <div class="hj-inner">
+    <div class="hj-eyebrow"><span>HAMJAMIYAT</span><i class="hj-eyeline"></i></div>
+    <h2 class="hj-title">Bir muhitda o'rganing,<br>birga o'sing</h2>
+    <p class="hj-desc">Basyra Academy'da siz faqat dars emas, amaliy tajriba, fikr almashish va kuchli hamjamiyatga ega bo'lasiz.</p>
+    <div class="hj-cards">
+      <div class="hj-card">
+        <span class="hj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M15.5 7.2a2.8 2.8 0 0 1 0 5.6"/><path d="M3.5 20c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M17 15c2.4.4 4 2.3 4 5"/></svg></span>
+        <h3>Yopiq hamjamiyat</h3>
+        <p>Kuchli muhit va networking</p>
+      </div>
+      <div class="hj-card">
+        <span class="hj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h8A2.5 2.5 0 0 1 16 6.5v4A2.5 2.5 0 0 1 13.5 13H9l-4 3v-3H5.5A2.5 2.5 0 0 1 3 10.5v-4Z"/><path d="M18 9h.5A2.5 2.5 0 0 1 21 11.5v4A2.5 2.5 0 0 1 18.5 18H18v2.5L15 18"/><path d="M6.5 8h6M6.5 10.3h3.5"/></svg></span>
+        <h3>Tajriba almashish</h3>
+        <p>Real keys va fikrlar</p>
+      </div>
+      <div class="hj-card">
+        <span class="hj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><rect x="7.5" y="13" width="2.6" height="4"/><rect x="12.5" y="10" width="2.6" height="7"/><path d="M8.8 9.5l4-3.2 2.6 1.8L20 4.5"/><path d="M20 8V4.5h-3.5"/></svg></span>
+        <h3>Birga o'sish</h3>
+        <p>Qo'llab-quvvatlash va motivatsiya</p>
+      </div>
+    </div>
+    <a class="hj-cta" href="#ariza">
+      <span>Dasturga yoziling</span>
+      <svg width="34" height="16" viewBox="0 0 34 16" fill="none"><path d="M1 8H31" stroke="#efce90" stroke-width="2.2" stroke-linecap="round"/><path d="M24 2L31 8L24 14" stroke="#efce90" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <img class="hj-photo-m" src="assets/images/hamjamiyat-mobile-photo.png" alt="Basyra Academy hamjamiyati" loading="lazy">
+  </div>
+</section>
+
 <!-- ================= SECTION 7 — SAVOL-JAVOB (FAQ) ================= -->
 <style>
 .faq-sec{position:relative;width:1672px;overflow:hidden;background:#0f0c0a url('assets/images/oldin-keyin-desktop-bg.png') center top/100% auto no-repeat;}
