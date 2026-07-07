@@ -2927,6 +2927,10 @@ highlightRoles();
       const clone = page.cloneNode(true);
       clone.removeAttribute('id'); clone.style.transform = 'none'; clone.style.margin = '0';
       clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+      // Drop the JS-positioned decorative crossing images (plant/folders/lamp). Their vertical
+      // position is set by scripts that query live ids; the clone strips ids so they never run,
+      // freezing a stale top (measured at 0px) that made the loupe show the bottom plant over the hero.
+      clone.querySelectorAll('.bn-ar-ft-crossing, .bn-ah-nt-crossing, .bn-hero-ku-folder').forEach(n => n.remove());
       inner.appendChild(clone);
       const sheen = document.createElement('div');
       sheen.style.cssText = 'position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(150px 110px at 32% 22%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 63%,rgba(0,0,0,.30) 100%);';
