@@ -2873,7 +2873,7 @@ highlightRoles();
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1672,&quot;height&quot;:1882},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Amber Noir&quot;,&quot;options&quot;:[&quot;Amber Noir&quot;,&quot;Teal &amp; Ember&quot;,&quot;Summer Glow&quot;,&quot;Emerald Study&quot;,&quot;Royal Indigo&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero mood&quot;}}">class Component extends DCLogic {
   componentDidUpdate() { this.applyAccent(); }
-  componentDidMount() { /* cursor-follow magnifier loupe disabled per client request (setupMagnifier stays defined but is never called): if (window.__bnFxOn && window.__bnFxOn()) this.setupMagnifier(); */ this.applyAccent(); }
+  componentDidMount() { if (window.__bnFxOn && window.__bnFxOn()) this.setupMagnifier(); this.applyAccent(); }
   _themes = {
     'Amber Noir': { l: null, blend: 'normal',
       atmo: 'radial-gradient(56% 50% at 42% 30%, rgba(255,198,130,.16), rgba(255,198,130,0) 60%), linear-gradient(180deg, rgba(8,5,3,.30) 0%, rgba(8,5,3,0) 24%, rgba(8,5,3,0) 70%, rgba(8,5,3,.36) 100%)' },
@@ -2925,10 +2925,19 @@ highlightRoles();
       lens.style.cssText = 'position:fixed;left:0;top:0;width:' + SIZE + 'px;height:' + SIZE + 'px;border-radius:50%;overflow:hidden;pointer-events:none;z-index:2147483010;display:none;opacity:0;transition:opacity .16s ease;box-shadow:0 0 0 8px #6b4f22,0 0 0 12px #cba653,0 0 0 13px rgba(55,38,10,.75),0 22px 46px rgba(0,0,0,.6),inset 0 0 34px rgba(0,0,0,.4);';
       const inner = document.createElement('div');
       inner.style.cssText = 'position:absolute;left:0;top:0;transform-origin:top left;';
-      const clone = page.cloneNode(true);
-      clone.removeAttribute('id'); clone.style.transform = 'none'; clone.style.margin = '0';
-      clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
-      inner.appendChild(clone);
+      // Re-snapshot the CURRENT page each time the lens is shown so the magnified region
+      // matches the live layout under the cursor. The old code cloned once at mount —
+      // before lazy images loaded and sections settled — so the zoom drifted to the wrong spot.
+      const refreshClone = () => {
+        const src = document.getElementById('bn-page'); if (!src) return;
+        const c = src.cloneNode(true);
+        c.removeAttribute('id'); c.style.transform = 'none'; c.style.margin = '0'; c.style.marginLeft = '0';
+        c.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+        c.querySelectorAll('img').forEach(im => { im.loading = 'eager'; });
+        inner.innerHTML = '';
+        inner.appendChild(c);
+      };
+      refreshClone();
       const sheen = document.createElement('div');
       sheen.style.cssText = 'position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(150px 110px at 32% 22%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 63%,rgba(0,0,0,.30) 100%);';
       lens.appendChild(inner); lens.appendChild(sheen);
@@ -2950,6 +2959,7 @@ highlightRoles();
       };
       const reveal = () => {
         shown = true;
+        refreshClone(); /* fresh snapshot of the now-settled layout so the zoom shows the correct spot */
         if(!document.getElementById('__mag-nocursor')){var s=document.createElement('style');s.id='__mag-nocursor';s.textContent='*{cursor:none!important}';document.head.appendChild(s);}
         place();
         lens.style.display = 'block';
