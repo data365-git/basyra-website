@@ -2980,6 +2980,12 @@ highlightRoles();
       };
       const onMove = (e) => {
         lx = e.clientX; ly = e.clientY;
+        // Loupe is disabled over the "Ishingizni oching" application section (#ariza) per client request.
+        if (e.target && e.target.closest && e.target.closest('#ariza')) {
+          if (timer) clearTimeout(timer);
+          if (shown) conceal();
+          return;
+        }
         if (shown) { place(); return; }
         if (timer) clearTimeout(timer);
         timer = setTimeout(reveal, HOLD);
