@@ -815,7 +815,7 @@
     <a class="bn-cta bn-hero-cta" href="#ariza" style="position:absolute;left:115px;top:595px;box-sizing:border-box;width:380px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-radius:26px;corner-shape:squircle;text-decoration:none;z-index:5;
          background:linear-gradient(180deg,#e2ad58 0%,#d29a4d 55%,#cf944a 100%);
          box-shadow:0 14px 30px rgba(180,140,70,.30);">
-      <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:24px;letter-spacing:.2px;color:#241a0f;">Dasturga yoziling</span>
+      <span style="font-family:'Manrope',sans-serif;font-weight:600;font-size:24px;letter-spacing:.2px;color:#241a0f;">Diagnostikaga yoziling</span>
       <svg width="36" height="16" viewBox="0 0 36 16" fill="none">
         <path d="M1 8H33" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round"></path>
         <path d="M26 2L33 8L26 14" stroke="#241a0f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -1518,8 +1518,8 @@
       </article>
 
       <article class="dt-card dt-reveal bn-dt-card bn-dt-card-2" data-delay="100">
-        <img src="assets/images/dastur-icon-shablonlar.png" alt="Tayyor shablonlar" loading="lazy">
-        <h3>Tayyor shablonlar</h3>
+        <img src="assets/images/dastur-icon-shablonlar.png" alt="Tayyor vositalar" loading="lazy">
+        <h3>Tayyor vositalar</h3>
         <p class="bn-dt-hide-mobile">Reglament, KPI va skriptlarni tayyor holda olasiz.</p>
       </article>
 
@@ -2062,7 +2062,7 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
       </div>
     </div>
     <a class="hj-cta" href="#ariza">
-      <span>Dasturga yoziling</span>
+      <span>Diagnostikaga yoziling</span>
       <svg width="34" height="16" viewBox="0 0 34 16" fill="none"><path d="M1 8H31" stroke="#efce90" stroke-width="2.2" stroke-linecap="round"/><path d="M24 2L31 8L24 14" stroke="#efce90" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
     <img class="hj-photo-m" src="assets/images/hamjamiyat-mobile-photo.png" alt="Basyra Academy hamjamiyati" loading="lazy">
@@ -2258,7 +2258,7 @@ button.cc-tile-more:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(
       </div>
 
       <button type="submit" class="ar-cta" style="width:100%;height:66px;margin-top:24px;border-radius:12px;border:1px solid rgba(96,60,20,.45);background:linear-gradient(180deg,#e8bd66,#c98d32);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 14px 30px rgba(140,90,25,.4),0 6px 12px rgba(0,0,0,.15);font-family:'Manrope',sans-serif;font-size:20px;font-weight:600;color:#2a1b0d;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:14px;">
-        <span>Dasturga yoziling</span>
+        <span>Diagnostikaga yoziling</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a1b0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
       </button>
 
@@ -2326,6 +2326,14 @@ highlightRoles();
     var urlParams = new URLSearchParams(window.location.search);
     var utm = window.__bnUtm || {};
 
+    var utmSource = utm.utm_source || urlParams.get('utm_source') || '';
+    var sourceMap = {
+      youtube:   'UC_2Q7WZH',  // Bitrix source: YouTube
+      instagram: '10',         // Bitrix source: Instagram
+      telegram:  'UC_R25B1G'   // Bitrix source: Telegram
+    };
+    var sourceId = sourceMap[utmSource.toLowerCase()] || 'UC_NXB1DZ'; // default: Веб-сайт | Abdulboriy aka
+
     var body = {
       fields: {
         TITLE: ism + ' — Basyra Academy ariza',
@@ -2333,9 +2341,9 @@ highlightRoles();
         PHONE: [{ VALUE: telefon, VALUE_TYPE: 'WORK' }],
         COMMENTS: 'Lavozim: ' + lavozim + '\nBiznes turi: ' + biznes + '\nMuammolar: ' + muammolar,
         UF_CRM_1751985930: '1741',
-        SOURCE_ID: 'UC_NXB1DZ',
+        SOURCE_ID: sourceId,
         STATUS_ID: 'IN_PROCESS',
-        UTM_SOURCE: utm.utm_source || urlParams.get('utm_source') || '',
+        UTM_SOURCE: utmSource,
         UTM_MEDIUM: utm.utm_medium || urlParams.get('utm_medium') || '',
         UTM_CAMPAIGN: utm.utm_campaign || urlParams.get('utm_campaign') || '',
         UTM_CONTENT: utm.utm_content || urlParams.get('utm_content') || '',
