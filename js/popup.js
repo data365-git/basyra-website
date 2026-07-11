@@ -5,6 +5,10 @@
   // Backend endpoint for AI answers. null = placeholder mode.
   var BASYRA_CHAT_URL = "https://basyralmss-production.up.railway.app/api/public/ask";
 
+  // Anti-abuse: cap questions per session. Server enforces a hard per-IP cap too.
+  var MAX_MESSAGES = 3;
+  var messagesSent = 0;
+
   var IDLE_BUBBLE_INTERVAL = 25000;
   var IDLE_BUBBLE_DURATION = 4000;
   var STREAM_CHAR_DELAY = 30;
@@ -530,6 +534,38 @@
     els.textarea.style.height = Math.min(els.textarea.scrollHeight, maxHeight) + "px";
   }
 
+  // "Dasturga yoziling →" call-to-action appended under a bot bubble
+  function appendApplyCta(bubbleEl) {
+    var cta = document.createElement("a");
+    cta.href = "#ariza";
+    cta.className = "ai-form-cta";
+    cta.textContent = "Dasturga yoziling →";
+    cta.addEventListener("click", function (e) {
+      e.preventDefault();
+      closePopup();
+      var sec = document.getElementById("ariza");
+      if (sec) sec.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(function () {
+        var f = document.getElementById("ar-ism");
+        if (f) f.focus();
+      }, 700);
+    });
+    bubbleEl.appendChild(cta);
+  }
+
+  // Session question cap reached — lock input and invite to apply
+  function lockForLimit() {
+    var msg = addMessage(
+      "assistant",
+      "Ushbu suhbatda savollar chegarasiga yetdingiz 🙏\n\nBatafsil ma'lumot va shaxsiy maslahat uchun dasturga yozilib qoldiring — jamoamiz siz bilan bog'lanadi 😊"
+    );
+    appendApplyCta(msg.bubbleEl);
+    els.textarea.disabled = true;
+    els.textarea.placeholder = "Savollar chegarasiga yetdingiz";
+    els.sendBtn.disabled = true;
+    scrollToBottom();
+  }
+
   // ---------- mock streaming ----------
   var PLACEHOLDER_MSG = "Hozircha sun'iy intellektimiz laboratoriya ishlarida 🔬🧪\n\nUngacha tabiiy intellekt bilan gaplashib turish uchun bemalol jamoadagi konsultantlarimizga aloqaga chiqsangiz bo'ladi 😊🤝";
 
@@ -545,22 +581,7 @@
     setTimeout(function () {
       hideTyping();
       var msgRefs = addMessage("assistant", pickMockResponse());
-
-      var cta = document.createElement("a");
-      cta.href = "#ariza";
-      cta.className = "ai-form-cta";
-      cta.textContent = "Dasturga yoziling →";
-      cta.addEventListener("click", function (e) {
-        e.preventDefault();
-        closePopup();
-        var sec = document.getElementById("ariza");
-        if (sec) sec.scrollIntoView({ behavior: "smooth", block: "center" });
-        setTimeout(function () {
-          var f = document.getElementById("ar-ism");
-          if (f) f.focus();
-        }, 700);
-      });
-      msgRefs.bubbleEl.appendChild(cta);
+      appendApplyCta(msgRefs.bubbleEl);
       scrollToBottom();
 
       setStreaming(false);
@@ -597,7 +618,9 @@
         addMessage("assistant", answer);
         setStreaming(false);
         streamAbort = null;
-        updateSendState();
+        messagesSent++;
+        if (messagesSent >= MAX_MESSAGES) lockForLimit();
+        else updateSendState();
         scrollToBottom();
       })
       .catch(function (err) {
@@ -612,7 +635,7 @@
 
   function handleSend() {
     var text = els.textarea.value.trim();
-    if (!text || state.streaming) return;
+    if (!text || state.streaming || messagesSent >= MAX_MESSAGES) return;
 
     removeWelcomeIfNeeded();
     hideError();
