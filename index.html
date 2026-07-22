@@ -2794,46 +2794,34 @@ highlightRoles();
     var urlParams = new URLSearchParams(window.location.search);
     var utm = window.__bnUtm || {};
 
-    var utmSource = utm.utm_source || urlParams.get('utm_source') || '';
-    var sourceMap = {
-      youtube:   'UC_2Q7WZH',  // Bitrix source: YouTube
-      instagram: '10',         // Bitrix source: Instagram
-      telegram:  'UC_R25B1G'   // Bitrix source: Telegram
-    };
-    var sourceId = sourceMap[utmSource.toLowerCase()] || 'UC_NXB1DZ'; // default: Веб-сайт | Abdulboriy aka
-
     var body = {
-      fields: {
-        TITLE: ism + ' — Basyra Academy ariza',
-        NAME: ism,
-        PHONE: [{ VALUE: telefon, VALUE_TYPE: 'WORK' }],
-        COMMENTS: 'Lavozim: ' + lavozim + '\nBiznes turi: ' + biznes + '\nMuammolar: ' + muammolar,
-        UF_CRM_1751985930: '1741',
-        SOURCE_ID: sourceId,
-        STATUS_ID: 'IN_PROCESS',
-        UTM_SOURCE: utmSource,
-        UTM_MEDIUM: utm.utm_medium || urlParams.get('utm_medium') || '',
-        UTM_CAMPAIGN: utm.utm_campaign || urlParams.get('utm_campaign') || '',
-        UTM_CONTENT: utm.utm_content || urlParams.get('utm_content') || '',
-        UTM_TERM: utm.utm_term || urlParams.get('utm_term') || ''
-      }
+      ism: ism,
+      telefon: telefon,
+      lavozim: lavozim,
+      biznes: biznes,
+      muammolar: muammolar,
+      utm_source: utm.utm_source || urlParams.get('utm_source') || '',
+      utm_medium: utm.utm_medium || urlParams.get('utm_medium') || '',
+      utm_campaign: utm.utm_campaign || urlParams.get('utm_campaign') || '',
+      utm_content: utm.utm_content || urlParams.get('utm_content') || '',
+      utm_term: utm.utm_term || urlParams.get('utm_term') || ''
     };
 
-    fetch('https://b24-l2y8pg.bitrix24.kz/rest/37/jkoj3q655rxr47tg/crm.lead.add.json', {
+    fetch('/api/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
-      if (data.result) {
+      if (data.ok) {
         form.reset();
         btnText.textContent = 'Ariza yuborildi! ✔';
         btn.style.background = 'linear-gradient(180deg,#5cb85c,#449d44)';
         btn.style.color = '#fff';
         btn.style.opacity = '1';
       } else {
-        throw new Error(data.error_description || 'Xatolik');
+        throw new Error(data.error || 'Xatolik');
       }
     })
     .catch(function(){
