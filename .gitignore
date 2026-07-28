@@ -20,6 +20,9 @@ _archive/
 # Vercel deploy copy — generated from the main standalone HTML
 04-build/dist/
 
+# Vercel CLI link metadata (local only — contains org/project ids)
+.vercel/
+
 # Node
 node_modules/
 
