@@ -21,6 +21,16 @@
 //     no network call at all, so the redirect stays instant.
 
 const LINKS = {
+  // Campaign links. Convention: bare code = Telegram, -yt suffix = YouTube.
+  // utm_campaign carries the product name so Bitrix can tell 7 Qadam leads
+  // from Cambridge ones; medium keeps the organik/video split.
+  '7qdm':        { utm_source: 'telegram', utm_medium: 'organik', utm_campaign: '7qadam' },
+  '7qdmyt':      { utm_source: 'youtube',  utm_medium: 'video',   utm_campaign: '7qadam' },
+  '7qmdyt':      { utm_source: 'youtube',  utm_medium: 'video',   utm_campaign: '7qadam' }, // alias: published spelling has m/d swapped
+  'cambridge':   { utm_source: 'telegram', utm_medium: 'organik', utm_campaign: 'cambridge' },
+  'cambridgeyt': { utm_source: 'youtube',  utm_medium: 'video',   utm_campaign: 'cambridge' },
+
+  // Generic per-channel links.
   ig:   { utm_source: 'instagram', utm_medium: 'social', utm_campaign: 'bio' },
   igad: { utm_source: 'instagram', utm_medium: 'cpc',    utm_campaign: 'trafik' },
   fb:   { utm_source: 'facebook',  utm_medium: 'social', utm_campaign: 'bio' },
