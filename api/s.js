@@ -29,6 +29,7 @@ const LINKS = {
   '7qmdyt':      { utm_source: 'youtube',  utm_medium: 'video',   utm_campaign: '7qadam' }, // alias: published spelling has m/d swapped
   'cambridge':   { utm_source: 'telegram', utm_medium: 'organik', utm_campaign: 'cambridge' },
   'cambridgeyt': { utm_source: 'youtube',  utm_medium: 'video',   utm_campaign: 'cambridge' },
+  bz:            { utm_source: 'youtube',  utm_medium: 'organic', utm_campaign: 'b.z' }, // source typo-corrected (youtoube -> youtube) so Bitrix attributes it correctly
 
   // Generic per-channel links.
   ig:   { utm_source: 'instagram', utm_medium: 'social', utm_campaign: 'bio' },
